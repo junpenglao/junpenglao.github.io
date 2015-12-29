@@ -1,2 +1,2 @@
 # junpenglao.github.io
-Mental roadtrip
+Recording of my mental roadtrip
