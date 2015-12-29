@@ -4,8 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+I am Junpeng Lao, currently a postdoc in the Department of Psychology at the University of Fribourg.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+My PhD thesis is about the modulation of high-level social inferences (i.e., Culture) on low-level perception. The technique I applied including eye tracking, EEG, and fMRI.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+I am currently interested in Bayesian Reasoning and machine learning, especially the application of these methods in naturalistic paradigm.
+
+[Google Scholar Profile](https://scholar.google.com/citations?user=J-KhWL8AAAAJ&hl=en)
