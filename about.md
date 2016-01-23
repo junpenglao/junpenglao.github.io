@@ -12,4 +12,4 @@ I am currently interested in Bayesian reasoning and machine learning, especially
 
 [Google Scholar Profile](https://scholar.google.com/citations?user=J-KhWL8AAAAJ&hl=en)
 
-[Curriculum Vitae]({{ site.url }}cv/Junpeng Lao-CV.pdf)
+[Curriculum Vitae]({{ site.url }}/cv/Junpeng Lao-CV.pdf)
