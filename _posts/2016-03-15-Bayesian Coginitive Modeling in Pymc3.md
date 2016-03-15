@@ -3,6 +3,7 @@ layout: page
 title: Bayesian Coginitive Modeling in Pymc3
 permalink: /Bayesian-Coginitive-Modeling-in-Pymc3/
 ---
+
 <img src="https://raw.githubusercontent.com/junpenglao/junpenglao.github.io/master/_posts/2016-03-15-Bayesian%20Coginitive%20Modeling%20in%20Pymc3/im1.png" />   
 
 
@@ -13,7 +14,7 @@ Needless to say, I am excited to hear your feedback. If you have any suggestion 
 As someone used Matlab heavily, Jupiter notebook and python amazed me greatly. The figure outputs are fresh looking and easy to code. Speaking of easy to code, one thing I can never quite understand is that why there is still no _alpha_ feature for scatter plot in Matlab - the workaround by creating the patch is incredibly slow if the underly dataset is large.
 
 
-Seriously, the figures are beatiful ;-)
+Seriously, the figures are beautiful ;-)
 <img src="https://raw.githubusercontent.com/junpenglao/junpenglao.github.io/master/_posts/2016-03-15-Bayesian%20Coginitive%20Modeling%20in%20Pymc3/im2.png"/>   
 <img src="https://raw.githubusercontent.com/junpenglao/junpenglao.github.io/master/_posts/2016-03-15-Bayesian%20Coginitive%20Modeling%20in%20Pymc3/im3.png"/>   
 <img src="https://raw.githubusercontent.com/junpenglao/junpenglao.github.io/master/_posts/2016-03-15-Bayesian%20Coginitive%20Modeling%20in%20Pymc3/im4.png"/>   
