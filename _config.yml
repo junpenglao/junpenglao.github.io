@@ -10,3 +10,4 @@ owner: Junpeng Lao, PhD
 
 # Build settings
 markdown: kramdown
+encoding: UTF-8
