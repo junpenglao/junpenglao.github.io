@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Bayesian Coginitive Modeling in Pymc3
-permalink: /Bayesian-Coginitive-Modeling-in-Pymc3/
+title: Bayesian Coginitive Modeling in PyMC3
+permalink: /Bayesian-Coginitive-Modeling-in-PyMC3/
 ---
 
 <img src="/image/150316im1.png" />   
