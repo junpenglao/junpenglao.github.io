@@ -1,103 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Personal Website of Junpeng Lao, PhD">
-  <title> Motif of the Mind | Junpeng Lao, PhD</title>
+---
+layout: default
+---
 
-  <!--link favicon -->
-  <link rel="icon" type="image/x-icon" href="img/ico/16x16.ico">
-  
-  <!--link the stylesheets, including normalize.css, master.css, ie.css etc-->
-  <!--<link rel="stylesheet" type="text/css" href="css/normalize.css" /> -->
-  <link rel="stylesheet" type="text/css" href="css/main.css" />
+<div class="home">
 
-  <!--link fonts, google fonts or font-awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet" type="text/css">
+  <h1 class="page-heading">Posts</h1>
 
-  <!--link sniffing javascript, modernizr.js-->
-  <!--<script src="https://cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js"></script>-->
-</head>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-<body>
-<div class="all-wrapper">
-  <!-- the start of the navigation section-->
-  <nav class="menu">
-    <div class="logo"> <a href="index.html"> Motif <br/> of the Mind </a> </div>
-    <div class="group">
-      <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
-      <ul>
-        <li class="menu-tab active"> <a href="index.html">About Me</a></li>
-        <li class="menu-tab"> <a href="../Projects/projects.html">my Projects</a> </li>
-        <li class="menu-tab"> <a href="../Blogs/index.html">Blogs</a></li>
-      </ul>
-      <label for="css-toggle-menu"></label>
-    </div>
-    <div class="ghost-space"></div>
-  </nav>
-  <!-- the end of the navigation section-->
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
-  <section class="home-container">
-    <div class="slider-wrapper">
-        <div class="slider">
-            <ul class="rslides">
-              <li><img src="img/slider3/imap4.png" alt="iMap4"></li>
-              <li><img src="img/slider3/150316im4.png" alt="Bayesian Cognitive modeling in pymc3"></li>
-              <!--<li><img src="img/slider3/20160322museumbuilding2560px_111.jpg" alt=""></li> -->
-            </ul> 
-            <div class="sl-text">
-              <h1>Current Projects</h1>
-            </div>
-        </div> <!--the end of the slider -->
-    </div> <!--the end of the slider-wrapper -->
-    <div class="intro-wrapper">
-      <div class="intro-text">
-        <h1>Junpeng Lao, PhD</h1>
-        <p>I am Junpeng Lao, currently a postdoc in the Department of Psychology at the University of Fribourg.</p>
-        <p>My PhD thesis is about the modulation of high-level social inferences (i.e., Culture) on low-level perception. The technique I applied including eye tracking, EEG, and fMRI.</p>
-        <p>I am currently interested in Bayesian reasoning and machine learning, especially the application of these methods in naturalistic paradigm.</p>
-        <p>You can find more information about me on my <a href="https://scholar.google.com/citations?user=J-KhWL8AAAAJ&amp;hl=en">Google Scholar</a> Profile and <a href="https://github.com/junpenglao">Github</a> page. My Curriculum Vitae could be downloaded from <a href="../cv/Junpeng Lao-CV.pdf"> here</a>. </p>
-      </div>
-    </div> <!--the end of the intro-wrapper -->
-  </section>
-
-
- <!-- the start of footer -->
- <footer>
-  <div class="ft-container">
-    <div class="ft-left">
-      <span class="copyright">Copyright © 2016 <br /> Junpeng.Lao@unifr.ch</span>
-    </div>
-    <div class="ft-right">
-      <ul class="list-inline social-buttons">          
-        <li><a href="https://scholar.google.com/citations?user=J-KhWL8AAAAJ&hl=en" target="_blank"><i class="fa fa-google"></i></a>
-        </li>
-        <li><a href="https://github.com/junpenglao" target="_blank"><i class="fa fa-github"></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</footer>
-<!-- the end of footer -->
 </div>
-  <!--link external javascript, jQuery etc -->
-  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="js/responsiveslides.min.js"></script>
-  <script>
-    $(function() {
-      $(".rslides").responsiveSlides({
-        speed: 1500,
-        timeout: 4000,
-        pause: true,
-      });
-    });
-  </script>
-
-</body>
-</html>
