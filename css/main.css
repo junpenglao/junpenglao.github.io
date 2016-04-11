@@ -520,14 +520,6 @@ ul.social-buttons li a {
 
 /* ---- for screen wider than 1280 ----*/
 @media only screen and (min-width: 1281px) {
- .pano-bg-container {
-  height: 1440px;
- }
-
- .gallery-img {
-  height: 1440px;
- }
-
  .sl-text h1 {
   font-size: 50px; 
   }
