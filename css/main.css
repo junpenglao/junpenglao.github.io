@@ -1,7 +1,7 @@
 /* @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Cinzel");
 @import url("https://fonts.googleapis.com/css?family=Source+Serif+Pro");
-@import url("https://fonts.googleapis.com/css?family=Questrial"); */
+@import url(https://fonts.googleapis.com/css?family=Catamaran&subset=latin,tamil,latin-ext); */
 
 * {
   box-sizing: content-box;
@@ -268,7 +268,7 @@ nav label:before {
 
 .intro-text p{
   padding: 16px 0;
-  font-family: "Questrial";
+  font-family: 'Catamaran', sans-serif;
   font-size: 12.5pt; 
   line-height: 1.3em;
   text-align: justify;
@@ -276,7 +276,7 @@ nav label:before {
 
 .intro-text p2{
   padding: 16px 0;
-  font-family: "Questrial";
+  font-family: 'Catamaran', sans-serif;
   font-size: 20pt; 
   line-height: 1.3em;
   text-align: justify;
@@ -285,7 +285,7 @@ nav label:before {
 .intro-text ptitle{
   padding: 5px;
   font-size: 35pt; 
-  font-family: "Questrial";
+  font-family: 'Catamaran', sans-serif;
   text-align: center;
   margin: 25px 0 5px 0; 
 }
