@@ -274,6 +274,14 @@ nav label:before {
   text-align: justify;
 }
 
+.intro-text pm{
+  padding: 4px 0;
+  font-family: "Roboto";
+  font-size: 10pt; 
+  line-height: 1.2em;
+  text-align: justify;
+}
+
 .intro-text p2{
   padding: 16px 0;
   font-family: "Roboto";
