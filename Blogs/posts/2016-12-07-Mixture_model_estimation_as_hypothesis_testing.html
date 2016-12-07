@@ -63,29 +63,9 @@ MathJax.Hub.Config({
         <div class="intro-text">
             <p>2016-12-07</p>
             <ptitle>Mixture model estimation as hypothesis testing</ptitle>
-            <p>Although I am on the more progressive side of the Statistic philosophy spectrum (avoid <a href="http://andrewgelman.com/2016/02/04/the-notorious-n-h-s-t-presents-mo-p-values-mo-problems/">NHST</a> and <a href="http://andrewgelman.com/2016/03/07/29212/"><em>p</em>-value</a> at all cost), sometimes hypothesis testing and its related concepts are <a href="http://andrewgelman.com/2016/11/28/30645/">still useful</a>. Recently I came across <a href="https://xianblog.wordpress.com/2016/12/05/bayesian-parameter-estimation-versus-model-comparison/">Christian Robert's Blog post</a> and <a href="https://xianblog.wordpress.com/2016/12/05/bayesian-parameter-estimation-versus-model-comparison/">his response to a X validated question</a>, which introduces a novel methods of Bayesian hypothesis testing <a href="https://arxiv.org/pdf/1412.2044v2.pdf">by estimating a mixture model</a>.</p>
-            <p>The data and code is based on the BEST example of PyMC3</p>
-          
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3">
-<pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="p">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="p">color_codes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1"># np.random.seed(20090425)</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>  
-            <p>First, generate some normally distributed data.</p>
+            <p>Although I am on the more progressive side of the Statistic philosophy spectrum (avoid <a href="http://andrewgelman.com/2016/02/04/the-notorious-n-h-s-t-presents-mo-p-values-mo-problems/">NHST</a> and <a href="http://andrewgelman.com/2016/03/07/29212/"><em>p</em>-value</a> at all cost), sometimes hypothesis testing and its related concepts are <a href="http://andrewgelman.com/2016/11/28/30645/">still useful</a>. Recently I came across <a href="https://xianblog.wordpress.com/2016/12/05/bayesian-parameter-estimation-versus-model-comparison/">Christian Robert's Blog post</a> and <a href="https://xianblog.wordpress.com/2016/12/05/bayesian-parameter-estimation-versus-model-comparison/">his response to a X validated question</a>, which introduces me to a novel methods of Bayesian hypothesis testing <a href="https://arxiv.org/pdf/1412.2044v2.pdf">by estimating a mixture model</a>.</p>
+            <p>The following code is based on the <a href="http://pymc-devs.github.io/pymc3/notebooks/BEST.html">BEST example of PyMC3</a>. </p>
+            <p>First, generate some normally distributed random data.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
     
@@ -378,7 +358,7 @@ YQUAAIDRKKwAAAAwGoUVAAAARvt/EO3TBYHM17IAAAAASUVORK5CYII=
 </div>
 
 </div>
-            <p>The "Bayesian estimation supersedes the t-test" example in <a href="http://pymc-devs.github.io/pymc3/notebooks/BEST.html">PyMC3</a></p>
+            <p>The "Bayesian estimation supersedes the t-test" model in PyMC3</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -1477,7 +1457,7 @@ iIiIiIiISDacfCIiIiIiIiIiItlw8omIiIiIiIiIiGTDySciIiIiIiIiIpINJ5+IiIiIiIiIiEg2
 </div>
 
 </div>
-            <p>As shown above, the model returns pretty accurate estimations using Bayesian Statistics. We can then applied null hypothesis testings with a Bayesian approach using the posterior of the corresponding parameters: </p>
+            <p>As shown above, the model returns pretty accurate paramter estimations using Bayesian Statistics. We can then applied null hypothesis testings with a Bayesian approach using the posterior of the corresponding parameters: </p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
