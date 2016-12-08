@@ -84,7 +84,9 @@ MathJax.Hub.Config({
 
 <span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">drug</span><span class="p">)</span>
 <span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">placebo</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">],</span> <span class="n">group</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="s1">&#39;drug&#39;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">drug</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;placebo&#39;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">placebo</span><span class="p">)]))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">],</span> 
+                      <span class="n">group</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="s1">&#39;drug&#39;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">drug</span><span class="p">),</span> 
+                                  <span class="p">[</span><span class="s1">&#39;placebo&#39;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">placebo</span><span class="p">)]))</span>
 
 <span class="n">y</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">);</span>
 </pre></div>
@@ -97,7 +99,7 @@ MathJax.Hub.Config({
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 
 
 <div class="output_png output_subarea ">
@@ -379,10 +381,10 @@ YQUAAIDRKKwAAAAwGoUVAAAARvt/EO3TBYHM17IAAAAASUVORK5CYII=
     <span class="n">group1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;drug&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">group1_mean</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">group1_std</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
     <span class="n">group2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;placebo&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">group2_mean</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">group2_std</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y2</span><span class="p">)</span>
     
-    <span class="n">diff_of_means</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;difference of means&#39;</span><span class="p">,</span> <span class="n">group1_mean</span> <span class="o">-</span> <span class="n">group2_mean</span><span class="p">)</span>
-    <span class="n">diff_of_stds</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;difference of stds&#39;</span><span class="p">,</span> <span class="n">group1_std</span> <span class="o">-</span> <span class="n">group2_std</span><span class="p">)</span>
+    <span class="n">diff_of_means</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;difference of means&#39;</span><span class="p">,</span> <span class="n">group1_mean</span><span class="o">-</span><span class="n">group2_mean</span><span class="p">)</span>
+    <span class="n">diff_of_stds</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;difference of stds&#39;</span><span class="p">,</span> <span class="n">group1_std</span><span class="o">-</span><span class="n">group2_std</span><span class="p">)</span>
     <span class="n">effect_size</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;effect size&#39;</span><span class="p">,</span> 
-                                   <span class="n">diff_of_means</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">group1_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">group2_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+                                   <span class="n">diff_of_means</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">group1_std</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">group2_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
     
     <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">njobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     
@@ -399,7 +401,7 @@ YQUAAIDRKKwAAAAwGoUVAAAARvt/EO3TBYHM17IAAAAASUVORK5CYII=
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Assigned NUTS to group1_mean
 Assigned NUTS to group2_mean
@@ -410,7 +412,7 @@ Assigned NUTS to group2_std_interval_
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 
 
 <div class="output_png output_subarea ">
@@ -1476,7 +1478,7 @@ iIiIiIiISDacfCIiIiIiIiIiItlw8omIiIiIiIiIiGTDySciIiIiIiIiIpINJ5+IiIiIiIiIiEg2
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 
 
 <div class="output_png output_subarea ">
@@ -2471,7 +2473,7 @@ REREOsPmExERERERERER6QybT0REREREREREpDP/Dx1/y+yEbnScAAAAAElFTkSuQmCC
 </div>
             <p>This is the approach suggested in  <a href="http://www.indiana.edu/~kruschke/articles/Kruschke2011PoPScorrected.pdf">Kruschke (2011)</a>.</p>
             <p>In <a href="https://arxiv.org/pdf/1412.2044v2.pdf">Kamary et al (2014)</a> they introduced a novel paradigm for Bayesian testing of hypotheses and Bayesian model comparison. The proposed alternative to the traditional construction of Bayes factors or posterior probabilities of a model given the data is to consider the hypotheses or models under comparison as components of a mixture model. Therefore, the original testing problem is replaced with an estimation one that focuses on the probability or weight of a given hypothesis within the mixture model.</p> 
-            <p>A reference $\text{Beta}(a_0,a_0)$ prior on the mixture weights can be used for the common problem of testing two contrasting hypotheses or models. In this case the sensitivity of the posterior estimates of the weights to the choice of $a_0$ vanishes as the sample size increases. Kamary et al advocate a default choice of $a_0 = 0.5$, derived from Rousseau and Mengersen (2011)</p>
+            <p>A reference $\text{Beta}(a_0,a_0)$ prior on the mixture weights can be used for the common problem of testing two contrasting hypotheses or models. As explained in <a href="https://arxiv.org/pdf/1412.2044v2.pdf">Kamary et al (2014)</a> "the sensitivity of the posterior estimates of the weights to the choice of $a_0$ vanishes as the sample size increases." Kamary et al advocate a default choice of $a_0 = 0.5$, derived from Rousseau and Mengersen (2011)</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -2500,8 +2502,12 @@ REREOsPmExERERERERER6QybT0REREREREREpDP/Dx1/y+yEbnScAAAAAElFTkSuQmCC
     <span class="n">group2_h1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;placebo_h1&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">group2_mean</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">group2_std</span><span class="p">)</span>
     
     <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dirichlet</span><span class="p">(</span><span class="s1">&#39;mixing&#39;</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">))</span><span class="o">*.</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">group1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Mixture</span><span class="p">(</span><span class="s1">&#39;drug&#39;</span><span class="p">,</span>    <span class="n">w</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">comp_dists</span><span class="o">=</span><span class="p">[</span><span class="n">group1_h0</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span><span class="n">group1_h1</span><span class="o">.</span><span class="n">distribution</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
-    <span class="n">group2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Mixture</span><span class="p">(</span><span class="s1">&#39;placebo&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">comp_dists</span><span class="o">=</span><span class="p">[</span><span class="n">group2_h0</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span><span class="n">group2_h1</span><span class="o">.</span><span class="n">distribution</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">group1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Mixture</span><span class="p">(</span><span class="s1">&#39;drug&#39;</span><span class="p">,</span>    <span class="n">w</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> 
+                        <span class="n">comp_dists</span><span class="o">=</span><span class="p">[</span><span class="n">group1_h0</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span>
+                                    <span class="n">group1_h1</span><span class="o">.</span><span class="n">distribution</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">group2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Mixture</span><span class="p">(</span><span class="s1">&#39;placebo&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> 
+                        <span class="n">comp_dists</span><span class="o">=</span><span class="p">[</span><span class="n">group2_h0</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span>
+                                    <span class="n">group2_h1</span><span class="o">.</span><span class="n">distribution</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="n">y2</span><span class="p">)</span>
 <span class="c1">#     a = pm.Beta(&#39;mixing&#39;,alpha=.5,beta=.5)</span>
 <span class="c1">#     def mixturelogp(w,dist1,dist2):</span>
 <span class="c1">#         logp1 = dist1.distribution.logp</span>
@@ -2510,8 +2516,10 @@ REREOsPmExERERERERER6QybT0REREREREREpDP/Dx1/y+yEbnScAAAAAElFTkSuQmCC
 <span class="c1">#             logps = tt.log(w) + logp1(value) + tt.log(1-w) + logp2(value)</span>
 <span class="c1">#             return tt.sum(logsumexp(logps))</span>
 <span class="c1">#         return logp_</span>
-<span class="c1">#     group1 = pm.DensityDist(&#39;drug&#39;,    mixturelogp(a,group1_h0,group1_h1), observed=y1)</span>
-<span class="c1">#     group2 = pm.DensityDist(&#39;placebo&#39;, mixturelogp(a,group2_h0,group2_h1), observed=y2)</span>
+<span class="c1">#     group1 = pm.DensityDist(&#39;drug&#39;,    mixturelogp(a,group1_h0,group1_h1), </span>
+<span class="c1">#                             observed=y1)</span>
+<span class="c1">#     group2 = pm.DensityDist(&#39;placebo&#39;, mixturelogp(a,group2_h0,group2_h1), </span>
+<span class="c1">#                             observed=y2)</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">find_MAP</span><span class="p">()</span>
     <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
 </pre></div>
@@ -2524,7 +2532,7 @@ REREOsPmExERERERERER6QybT0REREREREREpDP/Dx1/y+yEbnScAAAAAElFTkSuQmCC
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Optimization terminated successfully.
          Current function value: 128.025138
@@ -2535,7 +2543,7 @@ REREOsPmExERERERERER6QybT0REREREREREpDP/Dx1/y+yEbnScAAAAAElFTkSuQmCC
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Auto-assigning NUTS sampler...
 Initializing NUTS using advi...
@@ -2550,7 +2558,8 @@ Finished [100%]: Average ELBO = -133.25
 </div>
 
 </div>
-            <p>Here, I am using the <pyclass>pymc3.Mixture</pyclass> to construct the mixture likelihood function. As shown below, the mixture weights heavily favor the alternative hypothesis (mixing_1).</p>
+            <p>Here, I am using the <pyclass>pymc3.Mixture</pyclass> to construct the mixture likelihood function. You could also write your own mixture likelihood function (see the commented part above). </p>
+            <p>As shown below, the mixture weights heavily favor the alternative hypothesis (mixing_1).</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -2571,7 +2580,7 @@ Finished [100%]: Average ELBO = -133.25
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 
 
 <div class="output_png output_subarea ">
@@ -4611,7 +4620,7 @@ rQGaAAAAAElFTkSuQmCC
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
 
 
 <div class="output_png output_subarea ">
