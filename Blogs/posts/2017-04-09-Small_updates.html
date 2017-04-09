@@ -8,11 +8,11 @@
   <title> Motif of the Mind | Junpeng Lao, PhD</title>
 
   <!--link favicon -->
-  <link rel="icon" type="image/x-icon" href="../img/ico/16x16.ico">
+  <link rel="icon" type="image/x-icon" href="../../img/ico/16x16.ico">
   
   <!--link the stylesheets, including normalize.css, master.css, ie.css etc-->
   <!--<link rel="stylesheet" type="text/css" href="css/normalize.css" /> -->
-  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/main.css" />
 
   <!--link fonts, google fonts or font-awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
   <!--link sniffing javascript, modernizr.js-->
   <!--<script src="https://cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js"></script>-->
-    <script>
+  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -38,49 +38,34 @@
 
   <!-- the start of the navigation section-->
   <nav class="menu">
-    <div class="logo"> <a href="../index.html">Motif of<br/>the Mind</a> </div>
+    <div class="logo"> <a href="../../index.html">Motif of<br/>the Mind</a> </div>
     <div class="group">
       <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
       <ul>
-        <li class="menu-tab"> <a href="../index.html">About Me</a></li>
-	    <li class="menu-tab"> <a href="../cv/index.html">CV</a></li>
-        <li class="menu-tab"> <a href="../Projects/index.html">Projects</a> </li>
-        <li class="menu-tab active"> <a href="../Blogs/index.html">Blogs</a></li>
+        <li class="menu-tab"> <a href="../../index.html">About Me</a></li>
+	    <li class="menu-tab"> <a href="../../cv/index.html">CV</a></li>
+        <li class="menu-tab"> <a href="../../Projects/index.html">Projects</a> </li>
+        <li class="menu-tab active"> <a href="../index.html">Blogs</a></li>
       </ul>
       <label for="css-toggle-menu"></label>
     </div>
     <div class="ghost-space"></div>
   </nav>
   <!-- the end of the navigation section-->
-  <section class="home-container">
-    <div class="intro-wrapper">
-      <div class="intro-text">
-        <p>   </p>
-        <p>Apr 9, 2017</p>
-        <p2><a href="../Blogs/posts/2017-04-09-Small_updates.html">Small updates</a></p2>
-        <p>   </p>
-        <p>   </p>
-        <p>Dec 7, 2016</p>
-        <p2><a href="../Blogs/posts/2016-12-07-Mixture_model_estimation_as_hypothesis_testing.html">Mixture model estimation as hypothesis testing</a></p2>
-        <p>   </p>
-        <p>   </p>
-        <p>Aug 17, 2016</p>
-        <p2><a href="../Blogs/posts/2016-08-17-Arcsine_Laws_numerical.html">The Arcsine Laws</a></p2>
-        <p>   </p>
-        <p>   </p>
-        <p>Apr 8, 2016</p>
-        <p2><a href="../Blogs/posts/2016-04-08-iMap4.html"><em>i</em>Map4 is finally accepted!</a></p2>
-        <p>   </p>
-        <p>   </p>
-        <p>Mar 15, 2016</p>
-        <p2><a href="../Blogs/posts/2016-03-15-BCMinPyMC3.html">Bayesian Cognitive Modeling in PyMC3</a></p2>
-        <p>   </p>
-        <p>   </p>
+  <section>
+      <div class="intro-wrapper">
+        <div class="intro-text">
+            <p>2017-04-09</p>
+            <ptitle>Small updates</ptitle>
+            <p>1. I am attending <a href="http://www.maths.lu.se/bayeslund2017/#c348239">Bayes@Lund on 20 April 2017</a> and will be giving a talk on eye movement analysis using Gaussian Process. I am mostly experimenting in GPflow and PyMC3 (<a href="https://gist.github.com/junpenglao/9c850bc9fc11085f844e8c19b500c173">Gist</a>).</p>
+            <p>2. I will be attending <a href="http://www.visionsciences.org/">VSS in May</a> and give a talk on <a href="http://www.visionsciences1.org/vss_public/mobile/show_session.php?id=64">face processing in Deaf populations</a>.</p>
+            <p>3. I updated my <a href="https://github.com/junpenglao/Bayesian-Cognitive-Modeling-in-Pymc3">PyMC3 port of Lee and Wagenmakers' Bayesian Cognitive Modeling</a> following the recent <a href="https://github.com/pymc-devs/pymc3/releases/tag/v3.1.rc3">updates in PyMC3</a>. I am quite pleased with the current version, as all models are running properly now after vectorization (putting my Matlab skill into used). There are so many exciting new features in PyMC3, and the development community is just fantastic.</p>
+            <p>4. I updated my <a href="https://gist.github.com/junpenglao/f17671b44c9c39e5a9d11e3ed95a162d">Gist</a> on Testing hypotheses via a mixture estimation model. In the previous experiments with this approach, I often discover that the trace is not mixing very well. The main reason is the multimodality of the mixture model. Inspired by <a href="http://mc-stan.org/documentation/case-studies/identifying_mixture_models.html">Michael Betancourt's case study in Stan</a>, I also sorted the mixture weight to break the multimodality. However, one must be careful of placing the order of the mixture component, as the less possible component should be placed in the front. As a heuristic, we can place the component coding for the null hypothesis before the alternative hypothesis, as our strawman null hypothesis is usually false.</p>
+          </div>
       </div>
-    </div> <!--the end of the intro-wrapper -->
   </section>
 
- <!-- the start of footer -->
+  <!-- the start of footer -->
  <footer>
   <div class="ft-container">
     <div class="ft-left">
@@ -102,5 +87,5 @@
 </footer>
 <!-- the end of footer -->
 
-</body>
+  </body>
 </html>
