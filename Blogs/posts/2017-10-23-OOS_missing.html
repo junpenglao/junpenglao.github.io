@@ -11348,7 +11348,6 @@ height=712
 
 </div>
 </div>
-
 </div>
             <p>As shown above, the parameters we are usually interested in (e.g., coefficients of the linear model $\beta$) could be recovered from the model nicely. Moreover, it gives an estimation of the missing values in $X$ (also quite close to the real value).</p>
             <p>There are some warning of acceptance probability higher than target, but this is nothing to be too alarm of: sampling the missing values usually has a higher acceptance probability.</p>
@@ -15997,9 +15996,11 @@ height=352
 </div>
 </div>
 
+
 </div>
             <p>The figure on the left shows each observation in $y$ (red line plot) and the prediction from the model (grey line). Moreover, the dot indicates missing values in $X$. The figure on the right shows the smoothed histogram of $y$ and the histogram of the posterior predictions.</p>
             <p>Now we can use the posterior samples to make out-of-samples predictions. Conceptually, I am substituting the model parameters with posterior samples, and do forward pass to generate random data. Here I am adding new RVs to the original model. Noting that there is an easier way to do OOS prediction when there is no missing data in $X$ using <code>theano.shared</code>.</p>
+            <p>When there is no missing information, we can see that the predictions (grey lines) are close to the real value, with small uncertainty:</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -21041,8 +21042,9 @@ height=352
 </div>
 </div>
 
+
 </div>
-            <p>When there is no missing information, we can see that the predictions (grey lines) are close to the real value, with small uncertainty.</p>
+            <p>And if there is no information of the new predictors, we are basically generating from a Gaussian with fix mean and sigma:</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -29721,9 +29723,7 @@ height=352
 
 </div>
 </div>
-
 </div>
-            <p>And if there is no information of the predictors, we are basically generating from a Gaussian with fix mean and sigma.</p>
             <p>Now we masked some value in the predictor matrix (still using the same data as above), and generate predictions:</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
