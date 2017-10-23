@@ -90,8 +90,8 @@
                 \textrm{y} \sim \textrm{Normal}(\textrm{X}*\beta, \sigma)
             \end{align*}
             $$</p>
-            <p>A subtle point here to note here is that values in $X$ are usually considered as given, something trivial to measure, or has little noise (even noiseless). It could be true in some context: for example, $X$ is a dummy-code parameterization of different experimental groups. In general, if $X$ contains continuous measures, it is silly to assume this measurement is noiseless. In psychology the continous predictor is referred to as covariates, which usually is analysed with ANCOVA etc. Measurement error as such is in general difficult to deal with in frequentistic statistics - the uncertainty in covariates just propagate to $y$ 
-                (e.g., see <a href="https://en.wikipedia.org/wiki/Propagation_of_uncertainty">https://en.wikipedia.org/wiki/Propagation_of_uncertainty</a>). However, in Bayesian Statistics, this is quite natural to model the uncertainty in covariates by considering the observed covariates in $X$ as some noisy realization of some <em>true</em> latent variables:</p>
+            <p>A subtle point here to note here is that values in $X$ are usually considered as given, something trivial to measure, or has little noise (even noiseless). It could be true in some context: for example, $X$ is a dummy-code parameterization of different experimental groups. In general, if $X$ contains continuous measures, it is silly to assume this measurement is noiseless. In psychology, a continous predictor is usually referred to as covariates, which could be analysed with ANCOVA etc. Measurement error in $X$ is difficult to deal with using frequentistic statistics - the uncertainty in covariates just propagate to $y$ 
+                (e.g., see <a href="https://en.wikipedia.org/wiki/Propagation_of_uncertainty">propagation of uncertainty in wikipedia</a>). However, in Bayesian Statistics, this is quite natural to model the uncertainty in covariates by considering the observed covariates in $X$ as some noisy realization of some <em>true</em> latent variables/process:</p>
             <p>$$
             \begin{align*}
                 \sigma \sim \textrm{HalfCauchy}(0, 2.5) \\
@@ -101,7 +101,7 @@
                 \textrm{y} \sim \textrm{Normal}(\textrm{X_latent}*\beta, \sigma)
             \end{align*}
             $$</p>
-            <p>The latter was also shown to be a natural solution for missing data. Here I first generate the data ($X$, $y$), and mask the design matrix $X$.
+            <p>The latter was also shown to be a natural solution for missing data. Here I first generate the data ($X$, $y$), and mask some value in the design matrix $X$ to indicates missing information.
                 $X$ follows a Normal distribution with <code>Xmu=[0, 2]</code>, and the missing values are masked using a numpy <code>masked_array</code>.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -34836,7 +34836,6 @@ height=352
             <li><a href="http://docs.pymc.io/notebooks/posterior_predictive.html">Posterior Predictive Check in PyMC3</a>  </li>
             <li><a href="http://andrewgelman.com/2014/08/11/discussion-sander-greenland-posterior-predictive-checks/">Great discussion on PPC between Andrew Gelman and Sander Greenland</a>  </li>
             <li><a href="https://arxiv.org/pdf/1506.02273.pdf">A Unified Treatment of Predictive Model Comparison (by Michael Betancourt)</a>  </li>
-
           </div>
       </div>
   </section>
