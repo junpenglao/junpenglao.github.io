@@ -2,4 +2,4 @@ _site
 .sass-cache
 *.html~
 .gitignore~
-
+.ipynb_checkpoints

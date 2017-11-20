@@ -1,0 +1,196 @@
+rm(list = ls())
+
+### N.B.: For this illustration, we round some of the values to match the
+### calculations in the paper. However, in real applications, the
+### intermediate values should of course *not* be rounded.
+
+#-------------------------------------------------------------------------------
+# Observed Data
+#-------------------------------------------------------------------------------
+
+k <- 2
+n <- 10
+
+
+#-------------------------------------------------------------------------------
+# 0. Exact Calculation
+#-------------------------------------------------------------------------------
+
+1/(n + 1)
+# [1] 0.09090909
+
+
+#-------------------------------------------------------------------------------
+# 1. The Naive Monte Carlo Estimator
+#-------------------------------------------------------------------------------
+
+set.seed(4491)
+N <- 12
+prior_samples <- round(rbeta(N, 1, 1), 2)
+print(prior_samples)
+# [1] 0.58 0.76 0.03 0.93 0.27 0.97 0.45 0.46 0.18 0.64 0.06 0.15
+
+mean(dbinom(k, n, prob = prior_samples))
+# [1] 0.09452296
+
+
+#-------------------------------------------------------------------------------
+# 2. Importance Density Estimator
+#-------------------------------------------------------------------------------
+
+# we draw 12 samples from the posterior distribution
+set.seed(4491)
+post_samples <- round(rbeta(N, k + 1, n - k + 1), 2)
+print(post_samples)
+# [1] 0.22 0.16 0.09 0.35 0.06 0.27 0.26 0.41 0.20 0.43 0.21 0.12
+
+# we use properties from the posterior in order to create g
+mu_post <- round(mean(post_samples), 3)
+var_post <- round(var(post_samples), 3)
+print(cbind(mu_post, var_post))
+#       mu_post var_post
+# [1,]   0.232    0.014
+
+# use method of moments to obtain best fitting beta distribution
+a_g <- round(mu_post*(mu_post*(1 - mu_post)/var_post - 1), 3)
+b_g <- round((1 - mu_post)*(mu_post*(1 - mu_post)/var_post - 1), 3)
+print(cbind(a_g, b_g))
+#      a_g   b_g
+# [1,] 2.721 9.006
+
+# importance density function (mix of best fitting beta and uniform)
+dbetamix = function(x, alpha, beta, w = .3) {
+  # density for a mixture of Beta(1,1) and Beta(alpha, beta)
+  # Args:
+  #   w: weight of the uniform component (1-w: weight of the Beta component)
+  #   alpha, beta: Parameters of the Beta distribution
+  dbetamix <- w + (1-w)*dbeta(x,alpha,beta)
+  return(dbetamix)
+}
+
+rbetamix = function(N, alpha, beta, w = .3) {
+  # draws from density for a mixture of Beta(1,1) and Beta(alpha, beta)
+  # Args:
+  #   N: Number of draw from the Beta mixture
+  #   alpha, beta: Parameters of the Beta distribution
+  #   w: weight of the uniform component (1-w: weight of the Beta component)
+  # N.11: Number of draws from the uniform component
+  N.11 <- floor((w*N)+.5) # rounds down to the closest integer
+  rbetamix1 <- c(rbeta(N.11,1,1),rbeta(N-N.11,alpha,beta))
+  rbetamix2 <- sample(rbetamix1,N,replace=FALSE)
+  return(rbetamix2)
+}
+
+# sample from importance density and compute marginal likelihood estimate
+set.seed(4466)
+g_samples <- rbetamix(N, a_g, b_g)
+print(round(g_samples, 2))
+#  [1] 0.11 0.07 0.33 0.25 0.41 0.40 0.26 0.13 0.64 0.26 0.74 0.92
+
+mean(dbinom(k, n, g_samples)*dbeta(g_samples, 1, 1)/
+       dbetamix(g_samples, a_g, b_g, w = .3))
+# [1] 0.08273632
+
+
+#-------------------------------------------------------------------------------
+# 3. Generalized Harmonic Mean Estimator
+#-------------------------------------------------------------------------------
+
+# probit-transform posterior samples
+probit_post_samples <- round(qnorm(post_samples), 2)
+print(probit_post_samples)
+# [1] -0.77 -0.99 -1.34 -0.39 -1.55 -0.61 -0.64 -0.23 -0.84 -0.18 -0.81 -1.17
+
+mu_probit <- round(mean(probit_post_samples), 3)
+sd_probit <- round(sd(probit_post_samples), 3)
+print(cbind(mu_probit, sd_probit))
+#      mu_probit sd_probit
+# [1,]    -0.793     0.423
+sd_g_is <- sd_probit/1.5
+
+1/mean(dnorm(probit_post_samples, mu_probit, sd_g_is)/
+         (dbinom(k, n, post_samples)*
+            dnorm(probit_post_samples)))
+# [1] 0.09178814
+
+
+#-------------------------------------------------------------------------------
+# 4. Bridge Sampling Estimator
+#-------------------------------------------------------------------------------
+
+set.seed(4491)
+# 1. We draw 2*N1 samples from the Beta(3, 9) posterior for theta.
+N1 <- 12
+theta_star <- round(rbeta(2*N1, k + 1, n - k + 1), 2)
+print(theta_star)
+# [1] 0.22 0.16 0.09 0.35 0.06 0.27 0.26 0.41 0.20 0.43 0.21 0.12 0.15 0.21 0.24
+#     0.18 0.12 0.22 0.15 0.22 0.23 0.26 0.29 0.28
+
+# 2. We choose a proposal distribution.
+# -> normal distribution
+
+# 3. We transform the first batch of N1 posterior samples.
+theta_star_4_fit <- theta_star[seq_len(N1)]
+xi_star_4_fit <- round(qnorm(theta_star_4_fit), 2)
+print(xi_star_4_fit)
+
+# 4. We fit the proposal distribution to the first batch of N1
+#    probit-transformed posterior samples.
+mu_hat <- round(mean(xi_star_4_fit), 3)
+sigma_hat <- round(sd(xi_star_4_fit), 3)
+print(cbind(mu_hat, sigma_hat))
+#      mu_hat sigma_hat
+# [1,] -0.793     0.423
+
+set.seed(4481)
+# 5. We draw N2 samples from the proposal distribution.
+N2 <- N1
+xi_tilde <- round(rnorm(N2, mu_hat, sigma_hat), 2)
+print(xi_tilde)
+# [1] -1.11 -0.63 -1.48 -0.59 -0.48 -0.69 -0.74 -0.51 -0.82 -1.54 -0.76 -0.96
+
+# 6. We calculate l_{2,i} for all N2 samples from the proposal.
+unnormalized_posterior <- function(xi, k, n) {
+  # returns the unnormalized posterior density for xi
+  dbinom(k, n, pnorm(xi))*dnorm(xi)
+}
+
+l2 <- unnormalized_posterior(xi = xi_tilde, k = k, n = n)/
+  dnorm(xi_tilde, mu_hat, sigma_hat)
+
+# 7. We transform the second batch of N1 posterior samples.
+theta_star_4_iter <- theta_star[-seq_len(N1)]
+xi_star_4_iter <- round(qnorm(theta_star_4_iter), 2)
+print(xi_star_4_iter)
+# [1] -1.04 -0.81 -0.71 -0.92 -1.17 -0.77 -1.04 -0.77 -0.74 -0.64 -0.55 -0.58
+
+# 8. We calculate l_{1,j} for all N1 probit-transformed samples from
+#    the posterior distribution.
+l1 <- unnormalized_posterior(xi = xi_star_4_iter, k = k, n = n)/
+  dnorm(xi_star_4_iter, mu_hat, sigma_hat)
+
+# 9. We run the iterative scheme until our predefined tolerance criterion
+#    is reached.
+
+p4_y <- 0 # initial guess of marginal likelihood
+tol <- 1e-10 # tolerance criterion
+criterion_val <- tol + 1 # criterion value
+
+s1 <- N1/(N1 + N2)
+s2 <- N2/(N1 + N2)
+
+i <- 0 # iteration counter
+
+while (criterion_val > tol) {
+  p4_y_old <- p4_y
+  # Equation 15
+  numerator <- l2/(s1*l2 + s2*p4_y)
+  denominator <- 1/(s1*l1 + s2*p4_y)
+  p4_y <- N1/N2*sum(numerator)/sum(denominator)
+  i <- i + 1
+  criterion_val <- abs((p4_y - p4_y_old)/p4_y)
+  cat(paste0("Iteration: ", i, " -- Marginal likelihood estimate: ",
+             round(p4_y, 6), "\n"))
+}
+
+print(p4_y)
