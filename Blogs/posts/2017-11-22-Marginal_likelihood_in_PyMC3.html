@@ -96,7 +96,7 @@
             <p><strong>!Warning!: Marginal likelihood (and Bayes Factor) is extremely sensitive to your model parameterisation (particularly the priors). You should be aware of which part of the model the marginal likelihood is sensitive to, and have a clear justification of these parts. Otherwise, Bayes Factors are too easy to game and you will most likely fool yourself.</strong></p>
     <h2 id="The-Running-Example:-The-Beta-Binomial-Model">The Running Example: The Beta-Binomial Model<a class="anchor-link" href="#The-Running-Example:-The-Beta-Binomial-Model">&#182;</a></h2><p>$$ \theta \sim \text{Beta}(1,1) $$
             $$ k \sim \text{Binomial}(\theta,n)$$</p>
-            <p>With a Conjugate prior, this becomes a Beta-Binomial model where the analytical solution is aviable:<br>
+            <p>With a Conjugate prior, this becomes a Beta-Binomial model which the analytical solution is aviable:<br>
             Posterior
             $$ \theta \mid n, k \sim \text{Beta}(k+1, n-k+1) $$
             and the marginal
@@ -11713,10 +11713,114 @@ height=302
 <code>q12</code> - the Multivariate Normal log-liklihood of the posterior sample<br>
 <code>q21</code> - the Model log-liklihood of the generated sample<br>
 <code>q22</code> - the Multivariate Normal log-liklihood of the generated sample</p>
+<p>With these information, you can then compute the error measures for estimated marginal likelihood. In the R package a function <code>coda::spectrum0.ar</code> is called within the <code>bridgesampling::error_measures</code>, here I wrote a version using <code>AR</code> from <code>statsmodels</code> - result might differ a little bit.</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">lstsq</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.ar_model</span> <span class="k">import</span> <span class="n">AR</span>
+<span class="k">def</span> <span class="nf">spectrum0_ar</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Port of spectrum0.ar from coda::spectrum0.ar&quot;&quot;&quot;</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">rnk</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">lstsq</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">residuals</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ar_out</span> <span class="o">=</span> <span class="n">AR</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ic</span><span class="o">=</span><span class="s1">&#39;aic&#39;</span><span class="p">,</span> <span class="n">trend</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">ar_out</span><span class="o">.</span><span class="n">k_ar</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ar_out</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ar_out</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span><span class="o">**</span><span class="mi">2</span>
+        
+    <span class="k">return</span> <span class="n">spec</span><span class="p">,</span> <span class="n">order</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+            <p></p>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">error_measures</span><span class="p">(</span><span class="n">logml</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Port of the error_measures.R in bridgesampling </span>
+<span class="sd">    https://github.com/quentingronau/bridgesampling/blob/master/R/error_measures.R</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ml</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logml</span><span class="p">[</span><span class="s1">&#39;logml&#39;</span><span class="p">])</span>
+    <span class="n">g_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logml</span><span class="p">[</span><span class="s1">&#39;q12&#39;</span><span class="p">])</span>
+    <span class="n">g_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logml</span><span class="p">[</span><span class="s1">&#39;q22&#39;</span><span class="p">])</span>
+    <span class="n">priorTimesLik_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logml</span><span class="p">[</span><span class="s1">&#39;q11&#39;</span><span class="p">])</span>
+    <span class="n">priorTimesLik_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logml</span><span class="p">[</span><span class="s1">&#39;q21&#39;</span><span class="p">])</span>
+    <span class="n">p_p</span> <span class="o">=</span> <span class="n">priorTimesLik_p</span><span class="o">/</span><span class="n">ml</span>
+    <span class="n">p_g</span> <span class="o">=</span> <span class="n">priorTimesLik_g</span><span class="o">/</span><span class="n">ml</span>
+
+    <span class="n">N1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_p</span><span class="p">)</span>
+    <span class="n">N2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">g_g</span><span class="p">)</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">N1</span><span class="o">/</span><span class="p">(</span><span class="n">N1</span> <span class="o">+</span> <span class="n">N2</span><span class="p">)</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">N2</span><span class="o">/</span><span class="p">(</span><span class="n">N1</span> <span class="o">+</span> <span class="n">N2</span><span class="p">)</span>
+
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">p_g</span><span class="o">/</span><span class="p">(</span><span class="n">s1</span><span class="o">*</span><span class="n">p_g</span> <span class="o">+</span> <span class="n">s2</span><span class="o">*</span><span class="n">g_g</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">g_p</span><span class="o">/</span><span class="p">(</span><span class="n">s1</span><span class="o">*</span><span class="n">p_p</span> <span class="o">+</span> <span class="n">s2</span><span class="o">*</span><span class="n">g_p</span><span class="p">)</span>
+    <span class="n">rho_f2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spectrum0_ar</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
+
+    <span class="n">term1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">N2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span> <span class="n">f1</span> <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">f1</span> <span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">term2</span> <span class="o">=</span> <span class="n">rho_f2</span><span class="o">/</span><span class="n">N1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span> <span class="n">f2</span> <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">f2</span> <span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">re2</span> <span class="o">=</span> <span class="n">term1</span> <span class="o">+</span> <span class="n">term2</span>
+
+    <span class="c1"># convert to coefficient of variation (assumes that bridge estimate is unbiased)</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">re2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">re2</span> <span class="o">=</span> <span class="n">re2</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">cv</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+            <p></p>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The percentage errors of the estimation is: </span><span class="si">%.5f</span><span class="s1">&#39;</span>
+      <span class="o">%</span><span class="p">(</span><span class="n">error_measures</span><span class="p">(</span><span class="n">logml0</span><span class="p">)[</span><span class="s1">&#39;cv&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The percentage errors of the estimation is: 0.32839
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+            <p>(The error is larger than in the R example, because here I am using much less samples.)</p>
+            <p>And at last, the marginal likelihood for model <code>H1</code>, and also compute the Bayes Factor between the two models.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
@@ -11779,6 +11883,7 @@ height=302
 </div>
 
             <p>The result is pretty much the same as in the R example.</p>
+            <h2>Computing marginal likelihood using SMC</h2>
             <p>There is also another way to compute marginal likelihood in PyMC3, using Sequential Monte Carlo sampler. You can find more information about it in the <a href="http://docs.pymc.io/notebooks/Bayes_factor.html">Documentation</a>.<br>
                 <strong>!Warning!: This can also take a while to sample.</strong></p>
 
@@ -11895,7 +12000,7 @@ SMC estimate of log marginal likelihood for H1 is: -16.49513
             <p>The estimated marginal likelihood is not the same as the one estimated using the Bridge sampling, and the Bayes factor is quite different as well. I guess it is time to double check the marginal likelihood estimation in SMC.</p>
 
 
-            
+            <h2>Postscript</h2>
             
             
             <p> </p>
