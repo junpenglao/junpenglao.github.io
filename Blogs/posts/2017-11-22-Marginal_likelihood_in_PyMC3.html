@@ -4974,8 +4974,9 @@ The Bridge Sampling Estimatation is 0.07915
 </div>
 <h2 id="The-Bridge-Sampling-Estimator-in-PyMC3">The Bridge Sampling Estimator in PyMC3<a class="anchor-link" href="#The-Bridge-Sampling-Estimator-in-PyMC3">&#182;</a></h2>
             <p>There are a few features in <code>PyMC3</code> eases the implementation of the Bridge Sampling Estimator of the Marginal Likelihood:<br>
-1, the log-likelihood function is easily available, and unlike in <code>Stan</code> all the constants are retained so no need to change the way you write down the model;<br>
-2, all the parameters are already transformed to have the domain in $\mathbb{R}$, and we can just approximate it with a MvNormal</p>
+                
+                1, the log-likelihood function is easily available, and unlike in <code>Stan</code> all the constants are retained so no need to change the way you write down the model;<br>
+                2, all the parameters are already transformed to have the domain in $\mathbb{R}$, and we can just approximate it with a MvNormal</p>
 
 
 <div class="cell border-box-sizing code_cell rendered">
@@ -5148,7 +5149,8 @@ The Bridge Sampling Estimatation is 0.07915
 
 </div>
 
-<h2 id="A-more-complex-example:">A more complex example:<a class="anchor-link" href="#A-more-complex-example:">&#182;</a></h2><p>Based on the <a href="https://htmlpreview.github.io/?https://github.com/quentingronau/bridgesampling/blob/master/inst/doc/bridgesampling_example_stan.html">bridgesampling R package example</a>.</p>
+            <h2 id="A-more-complex-example:">A more complex example:<a class="anchor-link" href="#A-more-complex-example:">&#182;</a></h2>
+            <p>Based on the <a href="https://htmlpreview.github.io/?https://github.com/quentingronau/bridgesampling/blob/master/inst/doc/bridgesampling_example_stan.html">bridgesampling R package example</a>.</p>
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -11810,7 +11812,7 @@ height=302
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The percentage errors of the estimation is: 0.32839
+<pre>The percentage errors of the estimation is: 0.32839 %
 </pre>
 </div>
 </div>
@@ -11883,7 +11885,7 @@ height=302
 </div>
 
             <p>The result is pretty much the same as in the R example.</p>
-            <h2>Computing marginal likelihood using SMC</h2>
+            <h2 id="Computing-marginal-likelihood-using-SMC">Computing marginal likelihood using SMC<a class="anchor-link" href="#Computing-marginal-likelihood-using-SMC">&#182;</a></h2>
             <p>There is also another way to compute marginal likelihood in PyMC3, using Sequential Monte Carlo sampler. You can find more information about it in the <a href="http://docs.pymc.io/notebooks/Bayes_factor.html">Documentation</a>.<br>
                 <strong>!Warning!: This can also take a while to sample.</strong></p>
 
