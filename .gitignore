@@ -3,3 +3,4 @@ _site
 *.html~
 .gitignore~
 .ipynb_checkpoints
+.DS_Store
