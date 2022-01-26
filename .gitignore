@@ -4,3 +4,4 @@ _site
 .gitignore~
 .ipynb_checkpoints
 .DS_Store
+cv/papers/_temp/*
