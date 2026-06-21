@@ -1,0 +1,71 @@
+---
+/**
+ * Toc — optional table of contents for long posts.
+ *
+ * Built from the rendered markdown headings that Astro exposes via
+ * `post.render().headings`. Pass those headings in. Renders nothing when there
+ * are too few headings to be useful (so short posts stay clean).
+ *
+ * No JS: just anchor links to the heading slugs Astro generates.
+ */
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+  /** Only include headings at or above this depth (1 = h1). Default h2/h3. */
+  minDepth?: number;
+  maxDepth?: number;
+  /** Don't render unless there are at least this many entries. */
+  minCount?: number;
+}
+
+const { headings, minDepth = 2, maxDepth = 3, minCount = 3 } = Astro.props;
+
+const items = headings.filter((h) => h.depth >= minDepth && h.depth <= maxDepth);
+const show = items.length >= minCount;
+---
+
+{
+  show && (
+    <nav class="toc" aria-label="Table of contents">
+      <p class="toc__title eyebrow">On this page</p>
+      <ol class="toc__list">
+        {items.map((h) => (
+          <li class={`toc__item toc__item--d${h.depth}`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .toc {
+    margin: 0 0 var(--space-xl);
+    padding: var(--space-m) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .toc__title {
+    margin: 0 0 var(--space-s);
+  }
+  .toc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--step--1);
+  }
+  .toc__item {
+    margin: 0.25em 0;
+  }
+  .toc__item--d3 {
+    padding-left: var(--space-m);
+  }
+  .toc__item a {
+    color: var(--ink);
+  }
+  .toc__item a:hover {
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,361 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { CV } from "../../data/cv";
+import { SITE } from "../../config";
+import "../../styles/cv-print.css";
+
+const description = `Curriculum vitae of ${CV.name}, ${CV.postnominal}. ${CV.headline}`;
+
+// JSON-LD (Person). Pre-reveal safe: public identity only, no career move.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: CV.name,
+  url: SITE.url,
+  email: SITE.email,
+  jobTitle: "Data Scientist",
+  worksFor: { "@type": "Organization", name: "Google" },
+  knowsAbout: [
+    "Bayesian computation",
+    "Probabilistic programming",
+    "Statistical inference",
+    "Cognitive neuroscience",
+  ],
+  sameAs: [
+    "https://scholar.google.com/citations?user=J-KhWL8AAAAJ",
+    "https://github.com/junpenglao",
+    "https://bayes.club/@junpenglao",
+  ],
+};
+---
+
+<BaseLayout title="CV" description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <section class="container section cv">
+    <!-- ---- Header ---------------------------------------------------------- -->
+    <header class="cv-header cv-section">
+      <h1>{CV.name}<span class="cv-postnominal">, {CV.postnominal}</span></h1>
+      <p class="cv-headline">{CV.headline}</p>
+      <p class="cv-location muted">{CV.location}</p>
+      <ul class="cv-contacts">
+        {
+          CV.contacts.map((c) => (
+            <li>
+              <span class="cv-contacts__label muted">{c.label}:</span>{" "}
+              <a href={c.href}>{c.display ?? c.href}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="cv-downloads" data-print="hide">
+        {
+          CV.downloads.map((d, i) => (
+            <Fragment>
+              {i > 0 && <span class="cv-downloads__sep" aria-hidden="true">·</span>}
+              <a href={d.href}>{d.label}</a>
+            </Fragment>
+          ))
+        }
+      </p>
+    </header>
+
+    <!-- ---- Bio ------------------------------------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-bio">
+      <h2 id="cv-bio">Bio</h2>
+      <div class="prose cv-bio">
+        {CV.bio.map((para) => <p>{para}</p>)}
+      </div>
+    </section>
+
+    <!-- ---- Experience ------------------------------------------------------ -->
+    <section class="cv-section" aria-labelledby="cv-experience">
+      <h2 id="cv-experience">Experience</h2>
+      {
+        CV.positions.map((pos) => (
+          <div class="cv-entry">
+            <div class="cv-entry__head">
+              <h3 class="cv-entry__title">
+                {pos.role}, {pos.organization}
+              </h3>
+              <span class="cv-entry__period muted">{pos.period}</span>
+            </div>
+            {pos.location && <p class="cv-entry__meta muted">{pos.location}</p>}
+            {pos.note && <p class="cv-entry__note">{pos.note}</p>}
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- ---- Education ------------------------------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-education">
+      <h2 id="cv-education">Education</h2>
+      {
+        CV.education.map((ed) => (
+          <div class="cv-entry">
+            <div class="cv-entry__head">
+              <h3 class="cv-entry__title">
+                {ed.degree}
+                {ed.field ? `, ${ed.field}` : ""}
+              </h3>
+              <span class="cv-entry__period muted">{ed.period}</span>
+            </div>
+            <p class="cv-entry__meta muted">
+              {ed.institution}
+              {ed.location ? ` · ${ed.location}` : ""}
+            </p>
+            {ed.note && <p class="cv-entry__note">{ed.note}</p>}
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- ---- Books ----------------------------------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-books">
+      <h2 id="cv-books">Books</h2>
+      {
+        CV.books.map((b) => (
+          <p class="cv-pub">
+            {b.authors} ({b.year}).{" "}
+            {b.href ? (
+              <a href={b.href}>
+                <em>{b.title}</em>
+              </a>
+            ) : (
+              <em>{b.title}</em>
+            )}
+            . {b.publisher}.
+          </p>
+        ))
+      }
+    </section>
+
+    <!-- ---- Software -------------------------------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-software">
+      <h2 id="cv-software">Software</h2>
+      <ul class="cv-software">
+        {
+          CV.software.map((s) => (
+            <li class="cv-entry">
+              <span class="cv-software__name">
+                {s.href ? <a href={s.href}>{s.name}</a> : s.name}
+              </span>
+              <span class="cv-software__role muted"> — {s.role}.</span>{" "}
+              <span class="cv-software__blurb">{s.blurb}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- ---- Preprints (hidden on 1-pager) ----------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-preprints" data-slim="hide">
+      <h2 id="cv-preprints">Preprints &amp; Working Papers</h2>
+      {
+        CV.preprints.map((p) => (
+          <p class="cv-pub">
+            {p.authors} ({p.year}). {p.title}. <em>{p.venue}</em>.
+            {p.doi && (
+              <span class="cv-pub__doi" data-doi={`doi:${p.doi}`}>
+                {" "}
+                <a href={`https://doi.org/${p.doi}`}>doi:{p.doi}</a>.
+              </span>
+            )}
+            {p.link && (
+              <Fragment>
+                {" "}
+                <a href={p.link.href}>[{p.link.label}]</a>
+              </Fragment>
+            )}
+          </p>
+        ))
+      }
+    </section>
+
+    <!-- ---- Publications ---------------------------------------------------- -->
+    <section class="cv-section" aria-labelledby="cv-publications">
+      <h2 id="cv-publications">Publications</h2>
+      <p class="muted cv-pub-count" data-slim="hide">
+        {CV.publications.length} peer-reviewed journal articles.
+      </p>
+      <ol class="cv-pub-list">
+        {
+          CV.publications.map((p) => (
+            <li class="cv-pub">
+              {p.authors} ({p.year}). {p.title}. <em>{p.venue}</em>.
+              {p.doi && (
+                <span class="cv-pub__doi" data-doi={`doi:${p.doi}`}>
+                  {" "}
+                  <a href={`https://doi.org/${p.doi}`}>doi:{p.doi}</a>.
+                </span>
+              )}
+              {p.pdf && (
+                <Fragment>
+                  {" "}
+                  <a href={p.pdf} class="cv-pub__pdf">
+                    [PDF]
+                  </a>
+                </Fragment>
+              )}
+              {p.sup && (
+                <Fragment>
+                  {" "}
+                  <a href={p.sup} class="cv-pub__pdf">
+                    [Supplementary]
+                  </a>
+                </Fragment>
+              )}
+              {p.link && (
+                <Fragment>
+                  {" "}
+                  <a href={p.link.href}>[{p.link.label}]</a>
+                </Fragment>
+              )}
+              {p.contribution && (
+                <span class="cv-pub__note muted"> ({p.contribution})</span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // Slim 1-pager toggle: navigating to /cv#1page sets .slim on <html> so the
+  // offline PDF exporter collapses the CV to a single page (see cv-print.css).
+  if (location.hash === "#1page") document.documentElement.classList.add("slim");
+</script>
+
+<style>
+  .cv {
+    max-width: var(--measure);
+  }
+  .cv-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Header */
+  .cv-header {
+    margin-bottom: var(--space-l);
+  }
+  .cv-postnominal {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.5em;
+    letter-spacing: 0;
+  }
+  .cv-headline {
+    font-size: var(--step-1);
+    max-width: 60ch;
+    margin-bottom: var(--space-xs);
+  }
+  .cv-location {
+    font-size: var(--step--1);
+    margin-bottom: var(--space-m);
+  }
+  .cv-contacts {
+    list-style: none;
+    margin: 0 0 var(--space-m);
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-l);
+    font-size: var(--step--1);
+  }
+  .cv-contacts__label {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.85em;
+  }
+  .cv-downloads {
+    font-size: var(--step--1);
+    font-weight: 600;
+    margin: 0;
+  }
+  .cv-downloads__sep {
+    margin-inline: var(--space-xs);
+    color: var(--muted);
+  }
+
+  /* Section headings get a small burgundy rule (restrained accent). */
+  .cv h2 {
+    font-size: var(--step-1);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: var(--space-m);
+  }
+
+  /* Entries (experience, education) */
+  .cv-entry {
+    margin-bottom: var(--space-m);
+  }
+  .cv-entry__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-m);
+  }
+  .cv-entry__title {
+    font-size: var(--step-0);
+    font-weight: 700;
+    margin: 0;
+  }
+  .cv-entry__period {
+    font-size: var(--step--1);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .cv-entry__meta {
+    font-size: var(--step--1);
+    margin: 0 0 var(--space-xs);
+  }
+  .cv-entry__note {
+    margin: 0;
+  }
+
+  /* Software list */
+  .cv-software {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cv-software .cv-entry {
+    margin-bottom: var(--space-s);
+  }
+  .cv-software__name {
+    font-weight: 700;
+  }
+
+  /* Publications */
+  .cv-pub-count {
+    font-size: var(--step--1);
+    margin-bottom: var(--space-m);
+  }
+  .cv-pub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: pub;
+  }
+  .cv-pub {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    margin-bottom: var(--space-s);
+    padding-left: 1.4em;
+    text-indent: -1.4em;
+  }
+  .cv-pub-list .cv-pub {
+    counter-increment: pub;
+  }
+  .cv-pub__pdf {
+    font-weight: 600;
+  }
+  .cv-pub__note {
+    font-style: italic;
+  }
+</style>

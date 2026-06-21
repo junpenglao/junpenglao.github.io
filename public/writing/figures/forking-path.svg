@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img"
+  aria-label="A forking-path diagram: from a start node, path A leads to a failure at X; from that failure, path B leads to success. The failure at X is labelled 'the expertise'.">
+  <style>
+    .bg { fill: #faf8f4; }
+    .ink { fill: #241f1b; }
+    .muted { fill: #6b6259; }
+    .accent { fill: #9b524c; }
+    .rule { stroke: #e4ddd2; stroke-width: 2; }
+    .line { stroke: #241f1b; stroke-width: 2; fill: none; }
+    .line-accent { stroke: #9b524c; stroke-width: 2; fill: none; }
+    text { font-family: Arial, sans-serif; }
+    .label { font-size: 16px; }
+    .small { font-size: 13px; }
+    .eyebrow { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+  </style>
+  <rect class="bg" x="0" y="0" width="720" height="320"/>
+  <text class="muted eyebrow" x="24" y="34">Forking path</text>
+
+  <!-- start -->
+  <circle class="ink" cx="80" cy="160" r="8"/>
+  <text class="ink small" x="64" y="195">start</text>
+
+  <!-- path A to failure -->
+  <path class="line" d="M88 160 C 180 110, 240 100, 300 96"/>
+  <circle class="accent" cx="312" cy="94" r="9"/>
+  <text class="accent label" x="300" y="70">A → fails at X</text>
+
+  <!-- path B to success from failure node -->
+  <path class="line-accent" d="M320 100 C 420 140, 520 170, 600 196"/>
+  <circle class="ink" cx="612" cy="198" r="8"/>
+  <text class="ink label" x="556" y="232">B → works</text>
+
+  <!-- annotation: X is the expertise -->
+  <line class="rule" x1="312" y1="110" x2="312" y2="260"/>
+  <text class="muted small" x="300" y="282">X — the reason A failed —</text>
+  <text class="accent small" x="300" y="300">is the expertise.</text>
+</svg>

@@ -1,0 +1,516 @@
+---
+/**
+ * Journey Timeline — Home centerpiece. TWO PARALLEL SEGMENTED LINES (swimlane).
+ *
+ * Top lane ("career"): a segmented line of roles in sequence. Bottom lane ("oss"):
+ * a parallel segmented line for the open-source Bayesian work, positioned under
+ * its concurrent time span (2016–present). Desktop = a 2-row grid on a shared
+ * time axis; mobile = a vertical stack (the parallel lane is marked).
+ *
+ * Styles are `is:global` ON PURPOSE: the panel is re-rendered client-side via
+ * innerHTML, and Astro's scoped styles do NOT apply to injected markup. All
+ * selectors are uniquely `.timeline__*`-prefixed, so global is safe.
+ */
+import { JOURNEY } from "../data/journey";
+
+const cols = Math.max(...JOURNEY.map((e) => e.colEnd)) - 1;
+const first = JOURNEY[0];
+---
+
+<section class="timeline" aria-labelledby="journey-heading" data-timeline>
+  <h2 id="journey-heading">Journey</h2>
+  <p class="timeline__lede muted">
+    Two tracks in parallel: a sequence of <strong>roles</strong>, and an
+    <strong>open-source</strong> thread that has run alongside since 2016. Select
+    a segment to see the work it left behind.
+  </p>
+
+  <div
+    class="timeline__track"
+    role="tablist"
+    aria-label="Career eras"
+    data-track
+    style={`--cols:${cols}`}
+  >
+    {
+      JOURNEY.map((era, i) => (
+        <button
+          type="button"
+          class="timeline__seg"
+          id={`era-tab-${era.id}`}
+          role="tab"
+          aria-selected={i === 0 ? "true" : "false"}
+          aria-controls="era-panel"
+          tabindex={i === 0 ? "0" : "-1"}
+          data-node
+          data-era={era.id}
+          data-lane={era.lane}
+          data-index={i}
+          style={`--cs:${era.colStart}; --ce:${era.colEnd}; --row:${era.lane === "oss" ? 2 : 1}; --i:${i}`}
+        >
+          <span class="timeline__seg-bar" aria-hidden="true" />
+          <span class="timeline__seg-label">
+            <span class="timeline__period">{era.period}</span>
+            <span class="timeline__title">{era.title}</span>
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="timeline__panel" id="era-panel" role="tabpanel" tabindex="-1" data-panel>
+    <div class="timeline__panel-inner" data-panel-inner>
+      <header class="timeline__panel-head">
+        <p class="eyebrow">{first.period}{first.place ? ` · ${first.place}` : ""}</p>
+        <h3 class="timeline__panel-title">{first.title}</h3>
+        <p class="timeline__panel-summary muted">{first.summary}</p>
+      </header>
+      <ul class="timeline__cards">
+        {
+          first.artifacts.map((a) => (
+            <li class="timeline__card">
+              <span class="tag">{a.type}</span>
+              {a.link ? (
+                <a class="timeline__card-title" href={a.link} rel="noopener">
+                  {a.title}
+                </a>
+              ) : (
+                <span class="timeline__card-title">{a.title}</span>
+              )}
+              <p class="timeline__card-blurb muted">{a.blurb}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .timeline__lede {
+    max-width: 64ch;
+    margin-top: var(--space-xs);
+  }
+  .timeline__lede strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ---- Track (mobile-first: vertical stack of segments) ------------------ */
+  .timeline__track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    margin-top: var(--space-xl);
+  }
+
+  .timeline__seg {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    opacity: var(--seg-opacity, 1);
+    transform: translateY(var(--seg-shift, 0));
+  }
+  /* mobile: main-timeline text sits ABOVE its line; the parallel open-source
+     lane is marked with a burgundy rule and keeps its text BELOW the line. */
+  .timeline__seg[data-lane="career"] {
+    flex-direction: column-reverse;
+  }
+  .timeline__seg[data-lane="oss"] {
+    border-left: 2px solid var(--accent);
+    padding-left: var(--space-m);
+  }
+
+  .timeline__seg-label {
+    display: block;
+    line-height: 1.25;
+  }
+  .timeline__period {
+    display: block;
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+  .timeline__title {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+    transition: color 0.2s ease;
+    text-wrap: balance;
+  }
+
+  /* the segment "line" */
+  .timeline__seg-bar {
+    position: relative;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--rule);
+    transform: scaleX(var(--bar-progress, 1));
+    transform-origin: left center;
+    transition:
+      background-color 0.2s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* a dot at each segment start = a role-change tick */
+  .timeline__seg-bar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0.7rem;
+    height: 0.7rem;
+    transform: translate(-2px, -50%);
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--muted);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .timeline__seg:hover .timeline__title,
+  .timeline__seg:focus-visible .timeline__title {
+    color: var(--accent);
+  }
+  .timeline__seg:hover .timeline__seg-bar {
+    background: var(--muted);
+  }
+  .timeline__seg:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .timeline__seg[aria-selected="true"] .timeline__seg-bar {
+    background: var(--accent);
+  }
+  .timeline__seg[aria-selected="true"] .timeline__seg-bar::before {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .timeline__seg[aria-selected="true"] .timeline__title {
+    color: var(--accent);
+  }
+
+  /* teaser "?" segment — a dashed line to hint "soon" */
+  .timeline__seg[data-era="next"] .timeline__seg-bar {
+    background: transparent;
+    height: 0;
+    border-top: 2px dashed var(--accent);
+    border-radius: 0;
+  }
+  .timeline__seg[data-era="next"] .timeline__seg-bar::before {
+    border-style: dashed;
+    border-color: var(--accent);
+    background: var(--bg);
+  }
+
+  /* ---- Desktop: two tight parallel lines; main labels above, OSS below --- */
+  @media (min-width: 56rem) {
+    .timeline__track {
+      display: grid;
+      /* widths proportional to time:
+         –2009 · 2009–16 · 2016–18 · 2018–26 · 2026 · Sept-26 */
+      grid-template-columns: 3fr 6fr 2fr 7fr 2.5fr 1.5fr;
+      /* r1 career labels · r2 career line · r3 oss line · r4 oss label */
+      grid-template-rows: auto auto auto auto;
+      column-gap: var(--space-s);
+      row-gap: 0.15rem; /* the two lines almost touch */
+      align-items: stretch;
+      margin-top: var(--space-2xl);
+    }
+    .timeline__seg {
+      grid-column: var(--cs) / var(--ce);
+      display: grid;
+      grid-template-rows: subgrid;
+      gap: 0;
+      transform: translateY(0);
+    }
+    /* main timeline: label in r1 (above), line in r2 */
+    .timeline__seg[data-lane="career"] {
+      grid-row: 1 / 3;
+    }
+    .timeline__seg[data-lane="career"] .timeline__seg-label {
+      grid-row: 1 / 2;
+      align-self: end;
+      margin-bottom: var(--space-s);
+    }
+    .timeline__seg[data-lane="career"] .timeline__seg-bar {
+      grid-row: -2 / -1;
+      align-self: center;
+    }
+    /* parallel open-source: line in r3 (touching the main line), label in r4 */
+    .timeline__seg[data-lane="oss"] {
+      grid-row: 3 / 5;
+      border-left: 0;
+      padding-left: 0;
+    }
+    .timeline__seg[data-lane="oss"] .timeline__seg-bar {
+      grid-row: 1 / 2;
+      align-self: center;
+    }
+    .timeline__seg[data-lane="oss"] .timeline__seg-label {
+      grid-row: -2 / -1;
+      align-self: start;
+      margin-top: var(--space-s);
+    }
+    .timeline__title {
+      font-size: var(--step--1);
+    }
+  }
+
+  /* ---- Panel ------------------------------------------------------------- */
+  .timeline__panel {
+    margin-top: var(--space-xl);
+    border-top: 2px solid var(--accent);
+    padding-top: var(--space-l);
+    overflow: hidden;
+  }
+  .timeline__panel:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  .timeline__panel-inner {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .timeline__panel-inner[data-swapping="true"] {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .timeline__panel-title {
+    margin-top: var(--space-xs);
+  }
+  .timeline__panel-summary {
+    max-width: var(--measure);
+    margin-bottom: 0;
+  }
+
+  .timeline__cards {
+    list-style: none;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .timeline__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .timeline__card {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: var(--space-m);
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+    background: color-mix(in srgb, var(--bg) 60%, #fff);
+  }
+  /* tag → title breathing room (owner feedback) */
+  .timeline__card .tag {
+    margin-bottom: var(--space-xs);
+  }
+  .timeline__card-title {
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  a.timeline__card-title {
+    color: var(--accent);
+  }
+  .timeline__card-blurb {
+    font-size: var(--step--1);
+    margin: 0;
+  }
+
+  /* ---- Entrance animation ------------------------------------------------ */
+  [data-timeline][data-animate="pending"] .timeline__seg {
+    --seg-opacity: 0;
+    --seg-shift: 8px;
+  }
+  [data-timeline][data-animate="pending"] .timeline__seg-bar {
+    --bar-progress: 0;
+  }
+  [data-timeline][data-animate="run"] .timeline__seg {
+    --seg-opacity: 1;
+    --seg-shift: 0;
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i) * 0.08s);
+  }
+  [data-timeline][data-animate="run"] .timeline__seg-bar {
+    --bar-progress: 1;
+    transition-delay: calc(0.1s + var(--i) * 0.08s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-timeline][data-animate] .timeline__seg {
+      --seg-opacity: 1;
+      --seg-shift: 0;
+      transition: none;
+    }
+    [data-timeline][data-animate] .timeline__seg-bar {
+      --bar-progress: 1;
+      transition: none;
+    }
+    .timeline__panel-inner {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { JOURNEY } from "../data/journey";
+
+  type Artifact = (typeof JOURNEY)[number]["artifacts"][number];
+
+  const root = document.querySelector<HTMLElement>("[data-timeline]");
+  if (root) {
+    const track = root.querySelector<HTMLElement>("[data-track]")!;
+    const nodes = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-node]"),
+    );
+    const panel = root.querySelector<HTMLElement>("[data-panel]")!;
+    const inner = root.querySelector<HTMLElement>("[data-panel-inner]")!;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const esc = (s: string) =>
+      s.replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          })[c]!,
+      );
+
+    function cardHtml(a: Artifact): string {
+      const title = a.link
+        ? `<a class="timeline__card-title" href="${esc(a.link)}" rel="noopener">${esc(a.title)}</a>`
+        : `<span class="timeline__card-title">${esc(a.title)}</span>`;
+      return `<li class="timeline__card"><span class="tag">${esc(
+        a.type,
+      )}</span>${title}<p class="timeline__card-blurb muted">${esc(
+        a.blurb,
+      )}</p></li>`;
+    }
+
+    function panelHtml(index: number): string {
+      const era = JOURNEY[index];
+      const place = era.place ? ` &middot; ${esc(era.place)}` : "";
+      const head = `<header class="timeline__panel-head"><p class="eyebrow">${esc(
+        era.period,
+      )}${place}</p><h3 class="timeline__panel-title">${esc(
+        era.title,
+      )}</h3><p class="timeline__panel-summary muted">${esc(
+        era.summary,
+      )}</p></header>`;
+      const cards = `<ul class="timeline__cards">${era.artifacts
+        .map(cardHtml)
+        .join("")}</ul>`;
+      return head + cards;
+    }
+
+    let current = 0;
+
+    function select(index: number, focusNode = true) {
+      if (index === current) {
+        if (focusNode) nodes[index].focus();
+        return;
+      }
+      current = index;
+
+      nodes.forEach((btn, i) => {
+        const selected = i === index;
+        btn.setAttribute("aria-selected", selected ? "true" : "false");
+        btn.tabIndex = selected ? 0 : -1;
+      });
+
+      if (reduceMotion) {
+        inner.innerHTML = panelHtml(index);
+      } else {
+        inner.setAttribute("data-swapping", "true");
+        window.setTimeout(() => {
+          inner.innerHTML = panelHtml(index);
+          void inner.offsetWidth;
+          inner.removeAttribute("data-swapping");
+        }, 160);
+      }
+
+      if (focusNode) nodes[index].focus();
+    }
+
+    nodes.forEach((btn, i) => {
+      btn.addEventListener("click", () => select(i, false));
+    });
+
+    // Roving tabindex: arrows move prev/next through the era sequence (covers
+    // both lanes); Home/End jump to the ends.
+    track.addEventListener("keydown", (e: KeyboardEvent) => {
+      let next: number | null = null;
+      switch (e.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          next = (current + 1) % nodes.length;
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          next = (current - 1 + nodes.length) % nodes.length;
+          break;
+        case "Home":
+          next = 0;
+          break;
+        case "End":
+          next = nodes.length - 1;
+          break;
+        default:
+          return;
+      }
+      e.preventDefault();
+      select(next, true);
+    });
+
+    root.setAttribute("data-animate", "pending");
+    const run = () =>
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => root.setAttribute("data-animate", "run")),
+      );
+    if (reduceMotion) {
+      root.setAttribute("data-animate", "run");
+    } else if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              run();
+              obs.disconnect();
+            }
+          }
+        },
+        { threshold: 0.2 },
+      );
+      io.observe(track);
+    } else {
+      run();
+    }
+  }
+</script>

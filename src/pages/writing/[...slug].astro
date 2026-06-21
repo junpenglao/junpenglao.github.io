@@ -1,0 +1,153 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import DocMeta from "../../components/prose/DocMeta.astro";
+import Toc from "../../components/prose/Toc.astro";
+import Comments from "../../components/prose/Comments.astro";
+import Figure from "../../components/prose/Figure.astro";
+import Sidenote from "../../components/prose/Sidenote.astro";
+import { SITE } from "../../config";
+
+// Drafts render ONLY in dev (so the author can preview by direct URL); they are
+// excluded from production builds entirely, so no unfinished page ever ships to
+// the public site. (They're also kept off the list page and out of the sitemap.)
+export async function getStaticPaths() {
+  const posts = await getCollection("writing");
+  const visible = import.meta.env.PROD
+    ? posts.filter((p) => p.data.status !== "draft")
+    : posts;
+  return visible.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<"writing"> };
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+const isDraft = post.data.status === "draft";
+const updated = post.data.updated ?? post.data.date;
+
+// Article JSON-LD (public-safe: title/description/dates/author only).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  dateModified: updated.toISOString().slice(0, 10),
+  author: { "@type": "Person", name: SITE.name, url: SITE.url },
+  url: new URL(`/writing/${post.slug}/`, SITE.url).href,
+  inLanguage: SITE.locale,
+};
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} ogType="article">
+  <Fragment slot="head">
+    <meta property="article:published_time" content={post.data.date.toISOString()} />
+    <meta property="article:modified_time" content={updated.toISOString()} />
+    {post.data.tags.map((t) => <meta property="article:tag" content={t} />)}
+    {/* Drafts are noindex: reachable by direct URL, kept out of search. */}
+    {isDraft && <meta name="robots" content="noindex, nofollow" />}
+    {/* Only emit JSON-LD for non-draft (public) posts. */}
+    {!isDraft && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </Fragment>
+
+  <article class="container section post">
+    <header class="post__header">
+      {isDraft && (
+        <p class="post__draft-banner" role="status">
+          This is a <strong>draft</strong> — a work in progress, not yet listed publicly.
+          Expect rough edges and revisions.
+        </p>
+      )}
+      <h1 class="post__title">{post.data.title}</h1>
+      {post.data.description && (
+        <p class="post__lede muted">{post.data.description}</p>
+      )}
+      <DocMeta
+        status={post.data.status}
+        date={post.data.date}
+        updated={post.data.updated}
+      />
+      {post.data.tags.length > 0 && (
+        <ul class="post__tags" aria-label="Tags">
+          {post.data.tags.map((t) => (
+            <li class="tag">{t}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    <Toc headings={headings} />
+
+    <div class="post__body prose">
+      <Content components={{ Figure, Sidenote }} />
+    </div>
+
+    <Comments />
+  </article>
+
+  <style>
+    .post {
+      max-width: 52rem;
+    }
+    .post__header {
+      margin-bottom: var(--space-xl);
+    }
+    .post__draft-banner {
+      font-size: var(--step--1);
+      color: var(--muted);
+      border-left: 2px solid var(--accent);
+      padding: var(--space-s) var(--space-m);
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 0 4px 4px 0;
+      margin-bottom: var(--space-l);
+    }
+    .post__title {
+      margin-bottom: var(--space-s);
+    }
+    .post__lede {
+      font-size: var(--step-1);
+      line-height: 1.4;
+      max-width: var(--measure);
+      margin-bottom: var(--space-m);
+    }
+    .post__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .post__tags .tag {
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    /* Body prose is constrained but the right margin is left open so wide-screen
+       sidenotes (see Sidenote.astro) can float into it. */
+    .post__body {
+      max-width: var(--measure);
+    }
+
+    /* Figures authored in markdown (raw <figure class="fig">). Self-hosted
+       images + a caption that credits/links the original source — the site's
+       no-embed convention. Uses :global because markdown HTML is not scoped. */
+    .post__body :global(.fig) {
+      margin: var(--space-xl) 0;
+    }
+    .post__body :global(.fig img) {
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .post__body :global(.fig figcaption) {
+      margin-top: var(--space-s);
+      font-size: var(--step--1);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</BaseLayout>

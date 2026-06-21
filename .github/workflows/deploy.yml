@@ -1,0 +1,80 @@
+name: Deploy site to GitHub Pages
+
+# Deploy ONLY from master. The `redo-astro` working branch must never deploy,
+# so there is no `pull_request` trigger and no other branch filter here.
+# `workflow_dispatch` allows a manual run, but only against master via the UI.
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Allow the workflow to publish to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One in-flight deploy at a time; don't cancel a running production deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Astro static)
+        run: npm run build
+
+      # public/CNAME (junpenglao.xyz) and public/.nojekyll are copied into dist/
+      # by the Astro build. Re-assert them so a custom domain + raw asset serving
+      # survive even if the source ever drifts.
+      - name: Ensure CNAME and .nojekyll
+        run: |
+          printf 'junpenglao.xyz' > dist/CNAME
+          touch dist/.nojekyll
+
+      # P0 confidentiality gate: the rendered site must never contain any of the
+      # owner's unannounced career-move strings. The pattern is base64-encoded so
+      # the plaintext secrets do not live in this public workflow file; it is
+      # decoded at runtime into a grep -E alternation.
+      - name: Verify no confidential strings shipped
+        run: |
+          # NB: the open-source GitHub org link and the public tfp.mcmc co-author
+          # surname are intentionally allowed; the gate still blocks the
+          # unannounced company / role / transition strings, which live ONLY in
+          # the base64-encoded pattern below — never in plaintext in this file.
+          PATTERN="$(printf '%s' 'cmVrdXJzaXZcLmFpfGNoaWVmIGVwaXN0ZW1vbG9naXN0fGNoaWVmIHNjaWVudGlzdHxsZWF2aW5nIGdvb2dsZQ==' | base64 -d)"
+          if grep -rIinE "$PATTERN" dist; then
+            echo "::error::Confidential string found in build output — failing deploy."
+            exit 1
+          fi
+          echo "Confidentiality check passed."
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

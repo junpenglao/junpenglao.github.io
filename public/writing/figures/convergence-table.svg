@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" role="img"
+  aria-label="A two-column convergence table comparing Eugene Yan's practices with mine. Rows: worklog and INDEX; checklists as skills; parallel agents; mining transcripts. Both columns agree across all rows.">
+  <style>
+    .bg { fill: #faf8f4; }
+    .ink { fill: #241f1b; }
+    .muted { fill: #6b6259; }
+    .accent { fill: #9b524c; }
+    .rule { stroke: #e4ddd2; stroke-width: 1.5; }
+    text { font-family: Arial, sans-serif; }
+    .h { font-size: 15px; font-weight: bold; }
+    .c { font-size: 14px; }
+    .eyebrow { font-size: 11px; letter-spacing: 1.5px; }
+  </style>
+  <rect class="bg" x="0" y="0" width="720" height="360"/>
+  <text class="muted eyebrow" x="24" y="34">Convergence</text>
+
+  <!-- header -->
+  <text class="ink h" x="24" y="74">Practice</text>
+  <text class="ink h" x="300" y="74">Eugene</text>
+  <text class="accent h" x="500" y="74">Me</text>
+  <line class="rule" x1="24" y1="88" x2="696" y2="88"/>
+
+  <!-- rows -->
+  <text class="muted c" x="24" y="126">worklog + INDEX</text>
+  <text class="ink c" x="300" y="126">yes</text>
+  <text class="accent c" x="500" y="126">yes</text>
+  <line class="rule" x1="24" y1="146" x2="696" y2="146"/>
+
+  <text class="muted c" x="24" y="184">checklists as skills</text>
+  <text class="ink c" x="300" y="184">yes</text>
+  <text class="accent c" x="500" y="184">yes</text>
+  <line class="rule" x1="24" y1="204" x2="696" y2="204"/>
+
+  <text class="muted c" x="24" y="242">parallel agents</text>
+  <text class="ink c" x="300" y="242">yes</text>
+  <text class="accent c" x="500" y="242">yes</text>
+  <line class="rule" x1="24" y1="262" x2="696" y2="262"/>
+
+  <text class="muted c" x="24" y="300">mine the transcripts</text>
+  <text class="ink c" x="300" y="300">yes</text>
+  <text class="accent c" x="500" y="300">yes</text>
+  <line class="rule" x1="24" y1="320" x2="696" y2="320"/>
+
+  <text class="muted c" x="24" y="346" font-style="italic">Same machine, different bet about what it produces.</text>
+</svg>

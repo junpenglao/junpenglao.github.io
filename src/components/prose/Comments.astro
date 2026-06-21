@@ -1,0 +1,67 @@
+---
+/**
+ * Comments — giscus (GitHub Discussions) comments island.
+ *
+ * DISABLED BY DEFAULT. This renders NOTHING unless COMMENTS.enabled is true
+ * AND the required giscus ids have been filled in src/config.ts.
+ *
+ * To enable later:
+ *   1) Install the giscus app on the repo and enable Discussions.
+ *   2) Visit https://giscus.app to get the four ids below.
+ *   3) In src/config.ts set:
+ *        COMMENTS.enabled    = true
+ *        COMMENTS.repo       = "junpenglao/<repo>"   // TODO
+ *        COMMENTS.repoId     = "R_..."               // TODO
+ *        COMMENTS.category   = "Announcements"       // TODO (a discussion category)
+ *        COMMENTS.categoryId = "DIC_..."             // TODO
+ *
+ * The giscus <script> below is the only third-party script on the site and it
+ * is GATED: it is not emitted at all while COMMENTS.enabled is false, so the
+ * default static build ships zero comment JS.
+ */
+import { COMMENTS } from "../../config";
+
+const ready =
+  COMMENTS.enabled &&
+  COMMENTS.repo !== "" &&
+  COMMENTS.repoId !== "" &&
+  COMMENTS.category !== "" &&
+  COMMENTS.categoryId !== "";
+---
+
+{
+  ready && (
+    <section class="comments" aria-label="Comments">
+      <hr class="rule" />
+      <h2 class="comments__title">Comments</h2>
+      <script
+        is:inline
+        src="https://giscus.app/client.js"
+        data-repo={COMMENTS.repo}
+        data-repo-id={COMMENTS.repoId}
+        data-category={COMMENTS.category}
+        data-category-id={COMMENTS.categoryId}
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      />
+    </section>
+  )
+}
+
+<style>
+  .comments {
+    margin-top: var(--space-2xl);
+  }
+  .comments__title {
+    font-size: var(--step-1);
+    margin-bottom: var(--space-m);
+  }
+</style>

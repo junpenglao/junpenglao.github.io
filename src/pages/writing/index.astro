@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// Public list MUST exclude status === "draft". Working + stable are shown.
+const posts = (
+  await getCollection("writing", ({ data }) => data.status !== "draft")
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmtYear = (d: Date) => d.getFullYear().toString();
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric" });
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays and notes on Bayesian computation, open-source probabilistic programming, and the epistemology of working with AI — living documents with status and last-updated dates."
+>
+  <section class="container section">
+    <header class="writing-head">
+      <h1>Writing</h1>
+      <p class="muted writing-head__lede">
+        Living documents: each carries a status and a last-updated date. Drafts are
+        intentionally kept off this list until they are ready to be read.
+      </p>
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <p class="muted">Nothing published yet.</p>
+      ) : (
+        <ol class="post-list">
+          {posts.map((post) => (
+            <li class="post-list__item">
+              <a class="post-list__link" href={`/writing/${post.slug}/`}>
+                <span class="post-list__year">{fmtYear(post.data.date)}</span>
+                <span class="post-list__body">
+                  <span class="post-list__title">{post.data.title}</span>
+                  {post.data.description && (
+                    <span class="post-list__desc muted">{post.data.description}</span>
+                  )}
+                  <span class="post-list__meta">
+                    <span
+                      class={`post-list__status post-list__status--${post.data.status}`}
+                    >
+                      {post.data.status}
+                    </span>
+                    <span class="post-list__sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <time
+                      datetime={(post.data.updated ?? post.data.date)
+                        .toISOString()
+                        .slice(0, 10)}
+                    >
+                      {fmtDate(post.data.updated ?? post.data.date)}
+                    </time>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </section>
+
+  <style>
+    .writing-head {
+      max-width: var(--measure);
+      margin-bottom: var(--space-xl);
+    }
+    .writing-head__lede {
+      font-size: var(--step-0);
+      margin-top: var(--space-s);
+    }
+
+    .post-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-width: 60rem;
+    }
+    .post-list__item {
+      border-top: 1px solid var(--rule);
+    }
+    .post-list__item:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+    .post-list__link {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+      padding-block: var(--space-l);
+      color: var(--ink);
+    }
+    .post-list__link:hover {
+      text-decoration: none;
+    }
+    @media (min-width: 40rem) {
+      .post-list__link {
+        grid-template-columns: 5rem 1fr;
+        gap: var(--space-l);
+        align-items: baseline;
+      }
+    }
+    .post-list__year {
+      font-size: var(--step--1);
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .post-list__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .post-list__title {
+      font-size: var(--step-1);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .post-list__link:hover .post-list__title {
+      color: var(--accent);
+    }
+    .post-list__desc {
+      font-size: var(--step-0);
+      max-width: var(--measure);
+    }
+    .post-list__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: var(--step--1);
+      color: var(--muted);
+      margin-top: var(--space-xs);
+    }
+    .post-list__status {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.85em;
+      color: var(--accent);
+    }
+    .post-list__sep {
+      color: var(--rule);
+    }
+  </style>
+</BaseLayout>

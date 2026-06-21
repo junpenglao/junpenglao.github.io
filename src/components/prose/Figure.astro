@@ -1,0 +1,72 @@
+---
+/**
+ * Figure — self-hosted image with a caption that links to the original source.
+ *
+ * Convention for this site: NO third-party iframes/embeds. Figures are
+ * self-hosted images (drop files in /public/writing/figures/) and the caption
+ * credits/links the original source explicitly.
+ *
+ * Usage:
+ *   <Figure
+ *     src="/writing/figures/forking-path.svg"
+ *     alt="A decision tree: path A fails at X, path B succeeds."
+ *     caption="Forking path: the failure at X is the expertise."
+ *     sourceLabel="diagram by the author"
+ *   />
+ */
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** URL of the original source, if the figure is adapted/reproduced. */
+  sourceHref?: string;
+  /** Visible label for the source link or credit. */
+  sourceLabel?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, caption, sourceHref, sourceLabel, width, height } = Astro.props;
+---
+
+<figure class="figure">
+  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  {
+    (caption || sourceLabel) && (
+      <figcaption class="figure__caption">
+        {caption}
+        {sourceLabel &&
+          (sourceHref ? (
+            <>
+              {" "}
+              <a href={sourceHref} rel="noopener">
+                {sourceLabel}
+              </a>
+            </>
+          ) : (
+            <span class="figure__source"> {sourceLabel}</span>
+          ))}
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .figure {
+    margin: var(--space-xl) 0;
+  }
+  .figure img {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #fff;
+  }
+  .figure__caption {
+    margin-top: var(--space-s);
+    font-size: var(--step--1);
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .figure__source {
+    color: var(--muted);
+  }
+</style>

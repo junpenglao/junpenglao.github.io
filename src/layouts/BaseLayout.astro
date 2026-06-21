@@ -1,0 +1,201 @@
+---
+import "../styles/global.css";
+import { SITE, NAV, SOCIALS } from "../config";
+// Resolve the hashed, build-emitted URL of the primary font file so the
+// preload below always points at the real asset.
+import fontUrl from "@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Path of the current page for nav active state and canonical, e.g. "/work/". */
+  ogType?: string;
+}
+
+const { title, description = SITE.description, ogType = "website" } = Astro.props;
+
+const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.wordmark}`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.wordmark} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <!-- "summary" (not large_image) until a public-safe OG image exists. -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Preload the variable font (woff2 shipped by @fontsource-variable) -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={fontUrl}
+      crossorigin
+    />
+
+    <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href="/">{SITE.wordmark}</a>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            {
+              NAV.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <hr class="rule" />
+        <div class="site-footer__grid">
+          <div>
+            <p class="wordmark wordmark--footer">{SITE.wordmark}</p>
+            <p class="muted footer-note">
+              Off-piste when the powder is good. Riding regular. 🏂
+            </p>
+          </div>
+          <nav aria-label="Social and contact">
+            <ul class="footer-socials">
+              {
+                SOCIALS.map((s) => (
+                  <li>
+                    <a href={s.href} rel="me noopener">
+                      {s.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+        <p class="muted footer-copyright">
+          © {new Date().getFullYear()} {SITE.name}
+        </p>
+      </div>
+    </footer>
+
+    <style>
+      .site-header {
+        border-bottom: 1px solid var(--rule);
+        position: sticky;
+        top: 0;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: saturate(180%) blur(6px);
+        z-index: 100;
+      }
+      .site-header__inner {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--space-m);
+        padding-block: var(--space-m);
+        flex-wrap: wrap;
+      }
+      .wordmark {
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: -0.01em;
+        font-size: var(--step-1);
+      }
+      .wordmark:hover {
+        text-decoration: none;
+      }
+      .site-nav ul {
+        display: flex;
+        gap: var(--space-l);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .site-nav a {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .site-nav a[aria-current="page"] {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.3em;
+      }
+
+      .site-footer {
+        margin-top: var(--space-2xl);
+        padding-bottom: var(--space-xl);
+      }
+      .site-footer__grid {
+        display: grid;
+        gap: var(--space-l);
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 40rem) {
+        .site-footer__grid {
+          grid-template-columns: 1fr auto;
+          align-items: start;
+        }
+      }
+      .wordmark--footer {
+        font-size: var(--step-0);
+        margin-bottom: var(--space-xs);
+      }
+      .footer-note {
+        font-size: var(--step--1);
+        margin: 0;
+      }
+      .footer-socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-m);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: var(--step--1);
+      }
+      .footer-copyright {
+        font-size: var(--step--1);
+        margin-top: var(--space-l);
+      }
+    </style>
+  </body>
+</html>

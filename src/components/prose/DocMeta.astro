@@ -1,0 +1,94 @@
+---
+/**
+ * DocMeta — a small "living document" header line for posts.
+ *
+ * Shows the document status (draft | working | stable) and the last-updated
+ * date, reinforcing the knowledge-as-process convention used across the site.
+ * Optionally shows the original publish date when it differs from `updated`.
+ */
+type Status = "draft" | "working" | "stable";
+
+interface Props {
+  status: Status;
+  date: Date;
+  updated?: Date;
+}
+
+const { status, date, updated } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric" });
+
+const lastUpdated = updated ?? date;
+const showPublished =
+  date.toISOString().slice(0, 10) !== lastUpdated.toISOString().slice(0, 10);
+
+const statusLabel: Record<Status, string> = {
+  draft: "Draft",
+  working: "Working",
+  stable: "Stable",
+};
+---
+
+<p class="docmeta" data-status={status}>
+  <span class={`docmeta__status docmeta__status--${status}`}>{statusLabel[status]}</span>
+  <span class="docmeta__sep" aria-hidden="true">·</span>
+  <span class="docmeta__updated">
+    Last updated
+    <time datetime={lastUpdated.toISOString().slice(0, 10)}>{fmt(lastUpdated)}</time>
+  </span>
+  {
+    showPublished && (
+      <>
+        <span class="docmeta__sep" aria-hidden="true">·</span>
+        <span class="docmeta__published">
+          Published
+          <time datetime={date.toISOString().slice(0, 10)}>{fmt(date)}</time>
+        </span>
+      </>
+    )
+  }
+</p>
+
+<style>
+  .docmeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--step--1);
+    color: var(--muted);
+    margin: 0 0 var(--space-l);
+  }
+  .docmeta__status {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    font-size: 0.78em;
+    padding: 0.15em 0.55em;
+    border-radius: 3px;
+    border: 1px solid var(--rule);
+  }
+  /* Stable: the settled state gets the restrained accent. */
+  .docmeta__status--stable {
+    color: var(--on-accent);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  /* Working: in-motion but published. */
+  .docmeta__status--working {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  /* Draft: muted; these are excluded from the public list. */
+  .docmeta__status--draft {
+    color: var(--muted);
+  }
+  .docmeta__sep {
+    color: var(--rule);
+  }
+  .docmeta time {
+    color: var(--ink);
+  }
+</style>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img"
+  aria-label="Before and after panels for a stochastic-volatility model. Before: a Beta(20, 1.5) prior, with tripled divergences. After: a Beta(4, 4) prior, with divergences resolved.">
+  <style>
+    .bg { fill: #faf8f4; }
+    .ink { fill: #241f1b; }
+    .muted { fill: #6b6259; }
+    .accent { fill: #9b524c; }
+    .rule { stroke: #e4ddd2; stroke-width: 1.5; }
+    .curve { fill: none; stroke-width: 2.5; }
+    .c-before { stroke: #6b6259; }
+    .c-after { stroke: #9b524c; }
+    text { font-family: Arial, sans-serif; }
+    .h { font-size: 14px; font-weight: bold; }
+    .s { font-size: 12px; }
+    .eyebrow { font-size: 11px; letter-spacing: 1.5px; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+  </style>
+  <rect class="bg" x="0" y="0" width="720" height="340"/>
+  <text class="muted eyebrow" x="24" y="34">stoch_vol prior</text>
+
+  <!-- BEFORE panel -->
+  <text class="ink h" x="60" y="70">Before</text>
+  <text class="muted mono" x="60" y="92">Beta(20, 1.5)</text>
+  <!-- axes -->
+  <line class="rule" x1="60" y1="240" x2="320" y2="240"/>
+  <line class="rule" x1="60" y1="110" x2="60" y2="240"/>
+  <!-- piled-at-1 curve -->
+  <path class="curve c-before" d="M60 238 C 180 236, 250 220, 300 120"/>
+  <text class="accent s" x="60" y="270">divergences tripled ✗</text>
+
+  <!-- AFTER panel -->
+  <text class="ink h" x="420" y="70">After</text>
+  <text class="muted mono" x="420" y="92">Beta(4, 4)</text>
+  <line class="rule" x1="420" y1="240" x2="680" y2="240"/>
+  <line class="rule" x1="420" y1="110" x2="420" y2="240"/>
+  <!-- bell-ish curve centered -->
+  <path class="curve c-after" d="M420 238 C 480 238, 520 120, 550 120 C 580 120, 620 238, 680 238"/>
+  <text class="accent s" x="420" y="270">divergences resolved ✓</text>
+
+  <text class="muted s" x="24" y="312" font-style="italic">The fix is small. The reason the first prior failed is the lesson.</text>
+</svg>

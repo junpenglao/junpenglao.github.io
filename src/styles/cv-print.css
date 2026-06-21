@@ -1,0 +1,118 @@
+/* ===========================================================================
+   CV print stylesheet — Motif of the Mind / Junpeng Lao
+   Suited to offline PDF export (full CV and a slim 1-pager).
+
+   The Pipelines script generates two PDFs from /cv:
+     - junpenglao-cv-full.pdf      : everything
+     - junpenglao-cv-1pager.pdf    : add the URL hash #1page (or class .slim
+                                     on <html>) to collapse to a single page.
+
+   This file is imported only by /cv. Screen styles live in the page's scoped
+   <style>; everything here is gated to @media print plus a .slim helper.
+   =========================================================================== */
+
+/* --- 1-pager: hide non-essential blocks regardless of media ----------------
+   The exporter loads /cv with the `.slim` class set on <html> (or navigates to
+   /cv#1page and the page script adds it). Elements marked data-slim="hide"
+   drop out so the CV fits one page. */
+html.slim [data-slim="hide"] {
+  display: none !important;
+}
+
+@media print {
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 16mm 16mm 14mm;
+  }
+
+  :root {
+    /* Flatten the accent for cheap/B&W printing while keeping a touch of color. */
+    --bg: #ffffff;
+    --ink: #1a1714;
+    --muted: #4a443d;
+    --rule: #cfc7bb;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: var(--ink) !important;
+    font-size: 9.6pt;
+    line-height: 1.35;
+  }
+
+  /* Strip site chrome — only the CV body prints. */
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .cv-downloads,
+  [data-print="hide"] {
+    display: none !important;
+  }
+
+  main,
+  .container,
+  .section {
+    max-width: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section {
+    padding-block: 0 !important;
+  }
+
+  /* Tighten type for paper. */
+  h1 {
+    font-size: 18pt;
+    margin: 0 0 2pt;
+  }
+  h2 {
+    font-size: 11pt;
+    margin: 10pt 0 4pt;
+    border-bottom: 0.5pt solid var(--rule);
+    padding-bottom: 2pt;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: 10pt;
+    margin: 6pt 0 2pt;
+  }
+  p {
+    margin: 0 0 4pt;
+  }
+
+  a {
+    color: var(--ink) !important;
+    text-decoration: none !important;
+  }
+
+  /* Keep entries from splitting awkwardly across pages. */
+  .cv-entry,
+  .cv-pub,
+  .cv-section {
+    break-inside: avoid;
+  }
+  .cv-section {
+    break-inside: auto;
+  }
+
+  /* Publications: compact, hanging indent for readability. */
+  .cv-pub {
+    margin: 0 0 3pt;
+    padding-left: 1.2em;
+    text-indent: -1.2em;
+  }
+
+  /* Show DOI as resolvable text so a printed CV stays useful. */
+  .cv-pub__doi::after {
+    content: " " attr(data-doi);
+  }
+
+  /* Avoid orphan headings at the foot of a page. */
+  .cv-header {
+    break-after: avoid;
+  }
+}

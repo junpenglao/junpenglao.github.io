@@ -1,0 +1,114 @@
+---
+/**
+ * Sidenote — a Tufte-style margin note.
+ *
+ * Usage in MDX/Astro:
+ *   <Sidenote id="forking">The wrong path is also knowledge.</Sidenote>
+ *
+ * Behaviour:
+ *   - On wide viewports the note floats into the right margin, aligned to the
+ *     paragraph it follows.
+ *   - On narrow viewports it collapses inline as a small toggled aside, opened
+ *     by a numbered marker. This uses a hidden checkbox so it needs NO JS.
+ *
+ * Numbering is provided by the author via `n` (keeps it deterministic for a
+ * static build); falls back to a bullet if omitted.
+ */
+interface Props {
+  /** Stable id, used to pair the marker and the note (for a11y). */
+  id: string;
+  /** Optional visible marker number/label. */
+  n?: number | string;
+}
+
+const { id, n } = Astro.props;
+const marker = n ?? "•";
+const inputId = `sn-${id}`;
+---
+
+<input
+  type="checkbox"
+  id={inputId}
+  class="sidenote__toggle"
+  aria-label={n ? `Show note ${n}` : "Show note"}
+  aria-controls={`${id}-note`}
+/><label class="sidenote__marker" for={inputId}>{marker}</label><span
+  class="sidenote"
+  id={`${id}-note`}
+  role="note"
+>
+  {n && <span class="sidenote__num" aria-hidden="true">{n}.</span>}<slot />
+</span>
+
+<style>
+  /* The numbered marker sits inline in the text. */
+  .sidenote__marker {
+    color: var(--accent);
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 0;
+    cursor: pointer;
+    padding-inline: 0.1em;
+    font-weight: 600;
+  }
+  .sidenote__marker:hover {
+    text-decoration: underline;
+  }
+  /* The checkbox is visually hidden but focusable; surface focus on the marker. */
+  .sidenote__toggle:focus-visible + .sidenote__marker {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* The toggle checkbox is only used on narrow screens; hide it visually. */
+  .sidenote__toggle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    clip: rect(0 0 0 0);
+  }
+
+  .sidenote {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .sidenote__num {
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 0.25em;
+  }
+
+  /* --- Narrow / default: collapsed inline aside, toggled by the marker --- */
+  @media (max-width: 79.99rem) {
+    .sidenote {
+      display: none;
+      margin: var(--space-s) 0;
+      padding-left: var(--space-m);
+      border-left: 2px solid var(--rule);
+    }
+    .sidenote__toggle:checked ~ .sidenote {
+      display: block;
+    }
+  }
+
+  /* --- Wide: float into the right margin, no toggle needed --- */
+  @media (min-width: 80rem) {
+    .sidenote__marker {
+      /* Keep marker for visual anchoring, but the note is always shown. */
+      cursor: default;
+    }
+    .sidenote {
+      display: block;
+      float: right;
+      clear: right;
+      width: 14rem;
+      margin-right: -16rem;
+      margin-top: 0.2rem;
+      margin-bottom: var(--space-s);
+      text-align: left;
+    }
+  }
+</style>

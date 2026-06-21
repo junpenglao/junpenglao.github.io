@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Timeline from "../components/Timeline.astro";
+import { SITE } from "../config";
+---
+
+<BaseLayout>
+  <!-- ===== Hero ========================================================== -->
+  <section class="container hero" aria-label="Introduction">
+    <div class="hero__media">
+      <figure class="hero__square" aria-hidden="true">
+        <video
+          class="hero__video"
+          width="600"
+          height="600"
+          muted
+          autoplay
+          loop
+          playsinline
+          poster="/cover/cover-poster.svg"
+        >
+          <source src="/cover/cover.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </div>
+
+    <div class="hero__intro flow">
+      <p class="eyebrow">{SITE.wordmark}</p>
+      <h1>Junpeng Lao</h1>
+      <p class="hero__tagline">{SITE.tagline}</p>
+      <p class="hero__subline muted">{SITE.description}</p>
+      <p class="hero__links">
+        <a href="/writing/">Read &rarr;</a>
+        <a href="/work/">Work &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Journey timeline ============================================== -->
+  <section class="container section timeline-section">
+    <Timeline />
+  </section>
+
+  <!-- ===== Short bio + Start here ======================================== -->
+  <section class="container section bio-section">
+    <div class="bio-section__grid">
+      <div class="prose flow">
+        <h2>About</h2>
+        <p>
+          I work on Bayesian computation and probabilistic programming — a core
+          developer of <a href="https://www.pymc.io/" rel="noopener">PyMC</a>, a
+          contributor to TensorFlow Probability, and lead maintainer of
+          <a href="https://github.com/blackjax-devs/blackjax" rel="noopener"
+            >BlackJAX</a
+          >. I co-authored
+          <a href="https://bayesiancomputationbook.com" rel="noopener"
+            >Bayesian Modeling and Computation in Python</a
+          > (CRC Press, 2021).
+        </p>
+        <p>
+          I trained as a cognitive scientist — a PhD at the University of
+          Glasgow and a postdoc at the University of Fribourg, studying how
+          culture shapes visual perception — before moving into industry data
+          science. These days I am preoccupied with the epistemology of
+          human-AI collaboration: how knowledge gets made when people think
+          with machines, and what it means to treat knowledge as a process
+          rather than a product.
+        </p>
+      </div>
+
+      <aside class="start-here" aria-labelledby="start-here-heading">
+        <h2 id="start-here-heading" class="start-here__title">Start here</h2>
+        <ul class="start-here__list">
+          <li>
+            <a href="/writing/">Writing</a>
+            <span class="muted">Notes and essays as living documents.</span>
+          </li>
+          <li>
+            <a href="/work/">Work</a>
+            <span class="muted">Open-source libraries, the book, and tools.</span>
+          </li>
+          <li>
+            <a href="/cv/">CV</a>
+            <span class="muted">Education, publications, and software.</span>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Hero -------------------------------------------------------------- */
+  .hero {
+    padding-block: var(--space-xl);
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 52rem) {
+    .hero {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-2xl);
+      padding-block: var(--space-2xl);
+    }
+  }
+
+  .hero__square {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 30rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background:
+      center / cover no-repeat url("/cover/cover-poster.svg");
+  }
+
+  .hero__intro {
+    max-width: var(--measure);
+  }
+  .hero h1 {
+    margin-top: var(--space-xs);
+  }
+  .hero__tagline {
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.2;
+    max-width: 22ch;
+    margin-bottom: var(--space-s);
+  }
+  .hero__subline {
+    font-size: var(--step-1);
+    max-width: 46ch;
+  }
+  .hero__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-l);
+    font-weight: 600;
+    margin-top: var(--space-m);
+    margin-bottom: 0;
+  }
+
+  /* ---- Timeline section (tighten padding under hero) --------------------- */
+  .timeline-section {
+    padding-top: var(--space-xl);
+  }
+
+  /* ---- Bio + Start here -------------------------------------------------- */
+  .bio-section__grid {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 52rem) {
+    .bio-section__grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+
+  .start-here {
+    border-top: 2px solid var(--accent);
+    padding-top: var(--space-m);
+  }
+  .start-here__title {
+    font-size: var(--step-1);
+    margin-bottom: var(--space-m);
+  }
+  .start-here__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+  .start-here__list li {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .start-here__list a {
+    font-weight: 600;
+    font-size: var(--step-1);
+  }
+  .start-here__list .muted {
+    font-size: var(--step--1);
+  }
+</style>

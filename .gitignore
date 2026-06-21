@@ -5,3 +5,14 @@ _site
 .ipynb_checkpoints
 .DS_Store
 cv/papers/_temp/*
+
+# Astro build artifacts
+node_modules/
+dist/
+.astro/
+
+# Local-only agent guidance — CONFIDENTIAL, must never be committed (public repo).
+CLAUDE.md
+
+# CONFIDENTIAL site data — unannounced/flagged items (e.g. src/data/work.secret.ts).
+*.secret.ts
