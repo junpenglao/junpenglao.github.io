@@ -23,8 +23,7 @@ tags: ["meta"]
   <figcaption class="fig__overlay">New site, what do you think?</figcaption>
 </figure>
 
-New site. Yes, I chose the typeface; yes, there’s a tasteful off-white, and
-almost a watermark.
+... and the lettering is something called Hanken Grotesk.
 
 I’ll be writing here more often, too. Working with an LLM bumped my step size
 past the smooth curvature — expect more divergences to appear in the form of
