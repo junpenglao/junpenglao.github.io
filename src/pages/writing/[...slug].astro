@@ -138,7 +138,10 @@ const jsonLd = {
     .post__body :global(.fig) {
       margin: var(--space-xl) 0;
     }
-    .post__body :global(.fig img) {
+    .post__body :global(.fig img),
+    .post__body :global(.fig video) {
+      max-width: 100%;
+      height: auto;
       border: 1px solid var(--rule);
       border-radius: 4px;
       background: #fff;
