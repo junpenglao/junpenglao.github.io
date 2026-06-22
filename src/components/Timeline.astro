@@ -4,7 +4,7 @@
  *
  * Top lane ("career"): a segmented line of roles in sequence. Bottom lane ("oss"):
  * a parallel segmented line for the open-source Bayesian work, positioned under
- * its concurrent time span (2016–present). Desktop = a 2-row grid on a shared
+ * its concurrent time span (2013–present). Desktop = a 2-row grid on a shared
  * time axis; mobile = a vertical stack (the parallel lane is marked).
  *
  * Styles are `is:global` ON PURPOSE: the panel is re-rendered client-side via
@@ -21,7 +21,7 @@ const first = JOURNEY[0];
   <h2 id="journey-heading">Journey</h2>
   <p class="timeline__lede muted">
     Two tracks in parallel: a sequence of <strong>roles</strong>, and an
-    <strong>open-source</strong> thread that has run alongside since 2016. Select
+    <strong>open-source</strong> thread that has run alongside since 2013. Select
     a segment to see the work it left behind.
   </p>
 
@@ -67,9 +67,16 @@ const first = JOURNEY[0];
       </header>
       <ul class="timeline__cards">
         {
-          first.artifacts.map((a) => (
-            <li class="timeline__card">
-              <span class="tag">{a.type}</span>
+          [
+            ...first.artifacts.filter((a) => a.type === "Note"),
+            ...first.artifacts.filter(
+              (a) => a.type !== "Note" && a.type !== "Paper",
+            ),
+          ].map((a) => (
+            <li
+              class={`timeline__card${a.type === "Note" ? " timeline__card--note" : ""}`}
+            >
+              <span class="tag">{a.tag ?? a.type}</span>
               {a.link ? (
                 <a class="timeline__card-title" href={a.link} rel="noopener">
                   {a.title}
@@ -80,6 +87,27 @@ const first = JOURNEY[0];
               <p class="timeline__card-blurb muted">{a.blurb}</p>
             </li>
           ))
+        }
+        {
+          first.artifacts.some((a) => a.type === "Paper") && (
+            <li class="timeline__card timeline__card--papers">
+              <span class="tag">Papers</span>
+              <ul class="timeline__paperlist">
+                {first.artifacts
+                  .filter((a) => a.type === "Paper")
+                  .map((p) => (
+                    <li>
+                      {p.link ? (
+                        <a href={p.link} rel="noopener">{p.title}</a>
+                      ) : (
+                        <span>{p.title}</span>
+                      )}{" "}
+                      <span class="muted">— {p.blurb}</span>
+                    </li>
+                  ))}
+              </ul>
+            </li>
+          )
         }
       </ul>
     </div>
@@ -220,8 +248,8 @@ const first = JOURNEY[0];
     .timeline__track {
       display: grid;
       /* widths proportional to time:
-         –2009 · 2009–16 · 2016–18 · 2018–26 · 2026 · Sept-26 */
-      grid-template-columns: 3fr 6fr 2fr 7fr 2.5fr 1.5fr;
+         –2009 · 2009–13 · 2013–18 · 2018–26 · 2026 · Sept-26 */
+      grid-template-columns: 3fr 4fr 5fr 8fr 2.5fr 1.5fr;
       /* r1 career labels · r2 career line · r3 oss line · r4 oss label */
       grid-template-rows: auto auto auto auto;
       column-gap: var(--space-s);
@@ -319,6 +347,12 @@ const first = JOURNEY[0];
     align-content: start;
     background: color-mix(in srgb, var(--bg) 60%, #fff);
   }
+  /* narrative (Note) cards: a subtle burgundy tint sets them apart from the
+     neutral artifact cards. */
+  .timeline__card--note {
+    background: color-mix(in srgb, var(--accent) 7%, var(--bg));
+    border-color: color-mix(in srgb, var(--accent) 22%, var(--rule));
+  }
   /* tag → title breathing room (owner feedback) */
   .timeline__card .tag {
     margin-bottom: var(--space-xs);
@@ -334,6 +368,45 @@ const first = JOURNEY[0];
   .timeline__card-blurb {
     font-size: var(--step--1);
     margin: 0;
+  }
+  /* a library box's associated paper, shown beneath the blurb */
+  .timeline__card-paper {
+    font-size: var(--step--1);
+    margin: var(--space-xs) 0 0;
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .timeline__card-paper a {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  /* grouped "Papers" card — one full-width card listing the era's papers */
+  .timeline__card--papers {
+    grid-column: 1 / -1;
+  }
+  .timeline__paperlist {
+    list-style: none;
+    margin: var(--space-s) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-s);
+  }
+  @media (min-width: 48rem) {
+    .timeline__paperlist {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--space-l);
+    }
+  }
+  .timeline__paperlist li {
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+  .timeline__paperlist a {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   /* ---- Entrance animation ------------------------------------------------ */
@@ -407,11 +480,32 @@ const first = JOURNEY[0];
       const title = a.link
         ? `<a class="timeline__card-title" href="${esc(a.link)}" rel="noopener">${esc(a.title)}</a>`
         : `<span class="timeline__card-title">${esc(a.title)}</span>`;
-      return `<li class="timeline__card"><span class="tag">${esc(
-        a.type,
+      const cls =
+        "timeline__card" + (a.type === "Note" ? " timeline__card--note" : "");
+      const paper = a.paper
+        ? `<p class="timeline__card-paper">Paper: ${
+            a.paper.link
+              ? `<a href="${esc(a.paper.link)}" rel="noopener">${esc(a.paper.title)}</a>`
+              : esc(a.paper.title)
+          } <span class="muted">&mdash; ${esc(a.paper.venue)}</span></p>`
+        : "";
+      return `<li class="${cls}"><span class="tag">${esc(
+        a.tag ?? a.type,
       )}</span>${title}<p class="timeline__card-blurb muted">${esc(
         a.blurb,
-      )}</p></li>`;
+      )}</p>${paper}</li>`;
+    }
+
+    function groupCardHtml(group: Artifact[], label: string): string {
+      const items = group
+        .map((p) => {
+          const t = p.link
+            ? `<a href="${esc(p.link)}" rel="noopener">${esc(p.title)}</a>`
+            : `<span>${esc(p.title)}</span>`;
+          return `<li>${t} <span class="muted">&mdash; ${esc(p.blurb)}</span></li>`;
+        })
+        .join("");
+      return `<li class="timeline__card timeline__card--papers"><span class="tag">${esc(label)}</span><ul class="timeline__paperlist">${items}</ul></li>`;
     }
 
     function panelHtml(index: number): string {
@@ -424,9 +518,29 @@ const first = JOURNEY[0];
       )}</h3><p class="timeline__panel-summary muted">${esc(
         era.summary,
       )}</p></header>`;
-      const cards = `<ul class="timeline__cards">${era.artifacts
-        .map(cardHtml)
-        .join("")}</ul>`;
+      const notes = era.artifacts.filter((a) => a.type === "Note");
+      const nonNote = era.artifacts.filter((a) => a.type !== "Note");
+      // A "Paper" defaults to the "Papers" group; anything with an explicit
+      // `group` joins that named box; everything else is its own card.
+      const groupKey = (a: Artifact): string | null =>
+        a.group ?? (a.type === "Paper" ? "Papers" : null);
+      const individual = nonNote.filter((a) => groupKey(a) === null);
+      const groupOrder: string[] = [];
+      const groups: Record<string, Artifact[]> = {};
+      for (const a of nonNote) {
+        const k = groupKey(a);
+        if (k === null) continue;
+        if (!groups[k]) {
+          groups[k] = [];
+          groupOrder.push(k);
+        }
+        groups[k].push(a);
+      }
+      const cardsInner =
+        notes.map(cardHtml).join("") +
+        individual.map(cardHtml).join("") +
+        groupOrder.map((k) => groupCardHtml(groups[k], k)).join("");
+      const cards = `<ul class="timeline__cards">${cardsInner}</ul>`;
       return head + cards;
     }
 
