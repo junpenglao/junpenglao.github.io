@@ -91,7 +91,7 @@ export const CV: CV = {
   name: "Junpeng Lao",
   postnominal: "PhD",
   headline:
-    "Bayesian computation & probabilistic programming — core developer of PyMC, contributor to TensorFlow Probability, lead maintainer of BlackJAX.",
+    "Bayesian computation & probabilistic programming — core developer of PyMC, contributor to TensorFlow Probability, sole developer and curator of the BlackJAX ecosystem.",
   location: "Zurich, Switzerland",
 
   contacts: [
@@ -102,23 +102,22 @@ export const CV: CV = {
       display: "J-KhWL8AAAAJ",
     },
     { label: "GitHub", href: "https://github.com/junpenglao", display: "junpenglao" },
-    { label: "Mastodon", href: "https://bayes.club/@junpenglao", display: "@junpenglao@bayes.club" },
     { label: "Web", href: "https://junpenglao.xyz", display: "junpenglao.xyz" },
   ],
 
   bio: [
-    "Junpeng Lao works on Bayesian computation and probabilistic programming. He is a core developer of PyMC, a contributor to TensorFlow Probability (tfp.mcmc), and the lead maintainer of BlackJAX, a library for composable Bayesian inference in JAX.",
+    "Junpeng Lao works on Bayesian computation and probabilistic programming. He is a core developer of PyMC, a contributor to TensorFlow Probability (tfp.mcmc), and the sole developer and curator of the BlackJAX ecosystem for composable Bayesian inference in JAX.",
     "He co-authored Bayesian Modeling and Computation in Python (Martin, Kumar & Lao; CRC Press, 2021), a hands-on guide to modern Bayesian workflow.",
-    "He trained as a cognitive scientist — a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception — before moving into industry data science. He is currently exploring the epistemology of human–AI collaboration: knowledge as process.",
+    "He trained as a cognitive scientist — a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception — before moving into industry data science at Google, where he is now a Staff Data Scientist. He is increasingly preoccupied with how knowledge gets made when working with AI agents — knowledge as process.",
   ],
 
   positions: [
     {
-      role: "Data Scientist",
+      role: "Staff Data Scientist",
       organization: "Google",
       location: "Zurich, Switzerland",
       period: "2018–present",
-      note: "Large-scale forecasting and applied machine learning.",
+      note: "Forecasting for Trust & Safety (Bayesian structural time series, linear-Gaussian state-space models); leading a small data-science team.",
     },
     {
       role: "Postdoctoral Researcher",
@@ -160,8 +159,8 @@ export const CV: CV = {
   software: [
     {
       name: "BlackJAX",
-      role: "Lead maintainer",
-      blurb: "Composable, fast Bayesian inference in JAX — samplers as building blocks.",
+      role: "Sole developer & curator",
+      blurb: "The BlackJAX ecosystem — composable, fast Bayesian inference in JAX, samplers as building blocks.",
       href: "https://github.com/blackjax-devs/blackjax",
     },
     {
@@ -183,14 +182,22 @@ export const CV: CV = {
       href: "https://github.com/iBMLab/iMap4",
     },
     {
-      name: "sagent",
-      role: "Open-source contributor",
-      blurb: "Multi-provider agent CLI and Python library.",
-      href: "https://github.com/sagent",
+      name: "tuningfork",
+      role: "Creator",
+      blurb: "A sampler-benchmark suite in the BlackJAX ecosystem — captures the failure path, not just the result.",
+      href: "https://github.com/blackjax-devs/tuningfork",
     },
   ],
 
   preprints: [
+    {
+      authors:
+        "Cabezas, A., Corenflos, A., Lao, J., Louf, R., Carnec, A., Chaudhari, K., et al.",
+      year: "2024",
+      title: "BlackJAX: composable Bayesian inference in JAX",
+      venue: "arXiv preprint arXiv:2402.10797",
+      link: { label: "arXiv", href: "https://arxiv.org/abs/2402.10797" },
+    },
     {
       authors:
         "Biswas, B., Lao, J., Aubourg, E., Boucaud, A., Guinot, A., Ishida, E. E., & Roucelle, C.",
@@ -243,6 +250,16 @@ export const CV: CV = {
   ],
 
   publications: [
+    {
+      authors:
+        "Biswas, B., Aubourg, E., Boucaud, A., Guinot, A., Lao, J., & Roucelle, C.",
+      year: "2025",
+      title:
+        "MADNESS deblender: Maximum A posteriori with Deep NEural networks for Source Separation",
+      venue: "Astronomy & Astrophysics, 700, A129",
+      doi: "10.1051/0004-6361/202451887",
+      pdf: "/cv/papers/Biswas_et_al_2025.pdf",
+    },
     {
       authors:
         "Richoz, A-R., Stacchi, L., Schaller, P., Lao, J., Papinutto, M., Ticcinelli, V., & Caldara, R.",

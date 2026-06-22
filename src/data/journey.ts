@@ -242,7 +242,7 @@ export const JOURNEY: Era[] = [
       {
         type: "Library",
         title: "BlackJAX",
-        blurb: "Sole developer — composable Bayesian inference in JAX.",
+        blurb: "Sole developer and curator — composable Bayesian inference in JAX.",
         link: "https://github.com/blackjax-devs/blackjax",
         paper: {
           title: "BlackJAX: composable Bayesian inference in JAX",
@@ -261,6 +261,7 @@ export const JOURNEY: Era[] = [
         type: "Paper",
         title: "MADNESS deblender: MAP with deep neural networks for source separation",
         blurb: "Astronomy & Astrophysics, 2025",
+        link: "https://doi.org/10.1051/0004-6361/202451887",
         group: "Publication",
       },
       {

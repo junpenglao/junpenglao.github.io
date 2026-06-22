@@ -30,7 +30,7 @@ export interface WorkItem {
 export const WORK: WorkItem[] = [
   {
     title: "BlackJAX",
-    role: "Lead maintainer",
+    role: "Sole developer & curator",
     blurb:
       "Composable, fast Bayesian inference in JAX — samplers as building blocks. Plus tuningfork and sampling-book.",
     links: [

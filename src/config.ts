@@ -38,11 +38,6 @@ export const SOCIALS: SocialLink[] = [
   },
   { label: "GitHub", href: "https://github.com/junpenglao", handle: "junpenglao" },
   {
-    label: "Mastodon",
-    href: "https://bayes.club/@junpenglao",
-    handle: "@junpenglao@bayes.club",
-  },
-  {
     label: "Instagram",
     href: "https://instagram.com/relatableriding",
     handle: "relatableriding",
