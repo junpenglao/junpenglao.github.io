@@ -23,9 +23,9 @@ export type NavItem = { label: string; href: string };
 
 export const NAV: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Writing", href: "/writing/" },
-  { label: "Work", href: "/work/" },
   { label: "CV", href: "/cv/" },
+  { label: "Work", href: "/work/" },
+  { label: "Writing", href: "/writing/" },
 ];
 
 export type SocialLink = { label: string; href: string; handle?: string };

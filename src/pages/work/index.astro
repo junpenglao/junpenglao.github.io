@@ -1,50 +1,89 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WorkCard from "../../components/WorkCard.astro";
-import { WORK, type WorkItem } from "../../data/work";
+import { WORK, AREAS, ROOTS, type WorkItem } from "../../data/work";
 import { REVEAL_FLAGGED } from "../../config";
 
 // Flagged/unannounced items live ONLY in a gitignored sibling (work.secret.ts),
 // so they never enter the public repo. import.meta.glob resolves to {} when the
 // file is absent (e.g. a public CI checkout), so the build always succeeds.
-const secretMods = import.meta.glob<{ SECRET_WORK?: WorkItem[] }>(
-  "../../data/work.secret.ts",
-  { eager: true },
-);
+const secretMods = import.meta.glob<{
+  SECRET_WORK?: WorkItem[];
+  SECRET_LINKS?: Record<string, string>;
+}>("../../data/work.secret.ts", { eager: true });
 const secretWork = Object.values(secretMods).flatMap((m) => m.SECRET_WORK ?? []);
+const secretLinks: Record<string, string> = Object.assign(
+  {},
+  ...Object.values(secretMods).map((m) => m.SECRET_LINKS ?? {}),
+);
 
 // Public filter: shown publicly AND (not flagged OR the reveal flag is on).
 // REVEAL_FLAGGED defaults to false, so flagged items never render publicly.
 const items = [...WORK, ...secretWork].filter(
   (w) => w.public && (!w.flagged || REVEAL_FLAGGED),
 );
+const itemsFor = (area: string) => items.filter((w) => w.area === area);
+
+// Reveal-gated inline link: pre-reveal the agents-area "Yes" is plain text;
+// when REVEAL_FLAGGED flips, it links to the proof post (URL lives only in the
+// gitignored work.secret.ts, so it never enters the public repo or build).
+const framingHtml = (area: { id: string; framing: string }) =>
+  area.id === "agents" && REVEAL_FLAGGED && secretLinks.agentsYes
+    ? area.framing.replace(
+        "knowledge? Yes —",
+        `knowledge? <a href="${secretLinks.agentsYes}">Yes</a> —`,
+      )
+    : area.framing;
 ---
 
 <BaseLayout
   title="Work"
-  description="Open-source software, books, and tools — Bayesian computation and probabilistic programming."
+  description="Open-source work in Bayesian computation and probabilistic programming, plus thinking-in-public on working with AI agents."
 >
   <section class="container section">
     <header class="work-intro flow">
       <p class="eyebrow">Work</p>
-      <h1>Software, books &amp; tools</h1>
+      <h1>What I'm working on</h1>
       <p class="muted work-intro__lede">
-        Open-source projects and writing in Bayesian computation and
-        probabilistic programming — most of it built in the open.
+        Less a portfolio than a map of what I'm pulling on right now — and the
+        questions underneath it. Most of it is built in the open; if a thread
+        interests you, come build.
       </p>
     </header>
 
     <hr class="rule" />
 
-    <ul class="work-grid" role="list">
-      {
-        items.map((item) => (
-          <li>
-            <WorkCard item={item} />
-          </li>
-        ))
-      }
-    </ul>
+    {
+      AREAS.map((area) => (
+        <section class="work-area flow" aria-labelledby={`area-${area.id}`}>
+          <h2 id={`area-${area.id}`} class="work-area__title">
+            {area.title}
+          </h2>
+          <p class="work-area__framing" set:html={framingHtml(area)} />
+          <ul class="work-grid" role="list">
+            {itemsFor(area.id).map((item) => (
+              <li>
+                <WorkCard item={item} />
+              </li>
+            ))}
+          </ul>
+          {area.id === "agents" && (
+            <p class="muted work-area__more">
+              Essays on this, as they land — see <a href="/writing/">Writing</a>.
+            </p>
+          )}
+        </section>
+      ))
+    }
+
+    <section class="work-roots flow" aria-labelledby="area-roots">
+      <h2 id="area-roots" class="work-area__title work-roots__title">{ROOTS.title}</h2>
+      <p>{ROOTS.body}</p>
+      <p class="work-roots__tool">
+        From that era: <a href={ROOTS.tool.href}>{ROOTS.tool.label}</a>, {ROOTS.tool.note}.
+      </p>
+      <p class="work-roots__caveat">{ROOTS.caveat}</p>
+    </section>
   </section>
 </BaseLayout>
 
@@ -53,9 +92,24 @@ const items = [...WORK, ...secretWork].filter(
     max-width: var(--measure);
     font-size: var(--step-1);
   }
+
+  .work-area {
+    margin-top: var(--space-xl);
+  }
+  .work-area__title {
+    font-size: var(--step-1);
+  }
+  .work-area__framing {
+    max-width: var(--measure);
+    font-size: var(--step-0);
+  }
+  .work-area__more {
+    font-size: var(--step--1);
+  }
+
   .work-grid {
     list-style: none;
-    margin: 0;
+    margin: var(--space-s) 0 0;
     padding: 0;
     display: grid;
     gap: var(--space-l);
@@ -76,5 +130,31 @@ const items = [...WORK, ...secretWork].filter(
     .work-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  /* Grayed "roots": lower-contrast text signals older / lower-confidence,
+     mirroring the honest-epistemic-status house style. */
+  .work-roots {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-l);
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    max-width: var(--measure);
+  }
+  .work-roots__title {
+    color: var(--muted);
+  }
+  .work-roots__tool {
+    font-size: var(--step--1);
+  }
+  .work-roots__caveat {
+    margin-top: var(--space-s);
+    font-size: var(--step--2, 0.75rem);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .work-roots a {
+    color: inherit;
+    text-decoration: underline;
   }
 </style>
