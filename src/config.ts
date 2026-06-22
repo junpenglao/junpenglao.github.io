@@ -14,8 +14,8 @@ export const SITE = {
   domain: "junpenglao.xyz",
   email: "junpenglao@gmail.com",
   description:
-    "Bayesian computation, open-source probabilistic programming, and the epistemology of working with AI agents.",
-  tagline: "I study how knowledge is made when people think with machines.",
+    "Bayesian computation, probabilistic programming, and thinking with AI agents — observe, update, repeat, until it lands. Built in the open, with a community I care about.",
+  tagline: "Well-calibrated, occasionally airborne.",
   locale: "en",
 } as const;
 
