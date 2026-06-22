@@ -33,6 +33,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        # Skip Playwright's Chromium download: it is only needed locally to
+        # regenerate the CV PDFs (npm run cv:pdf); those are committed, and the
+        # static build does not use a browser.
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm ci
 
       - name: Build (Astro static)

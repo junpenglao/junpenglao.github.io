@@ -19,6 +19,15 @@ html.slim [data-slim="hide"] {
   display: none !important;
 }
 
+/* Slim-only blocks: present only on the 1-pager (html.slim), e.g. the
+   publications summary line that replaces the full list. */
+[data-slim-show] {
+  display: none;
+}
+html.slim [data-slim-show] {
+  display: block;
+}
+
 @media print {
   /* Page setup */
   @page {
@@ -97,6 +106,12 @@ html.slim [data-slim="hide"] {
   }
   .cv-section {
     break-inside: auto;
+  }
+
+  /* 1-pager: collapse the generous inter-section spacing (var(--space-xl)
+     leaks in from the screen styles) so everything fits a single page. */
+  html.slim .cv-section {
+    margin-bottom: 7pt;
   }
 
   /* Publications: compact, hanging indent for readability. */

@@ -7,11 +7,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "cv:pdf": "node scripts/generate-cv-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/hanken-grotesk": "^5.1.0",
     "astro": "^5.1.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.0"
   }
 }

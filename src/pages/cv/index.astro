@@ -65,7 +65,7 @@ const jsonLd = {
     <section class="cv-section" aria-labelledby="cv-bio">
       <h2 id="cv-bio">Bio</h2>
       <div class="prose cv-bio">
-        {CV.bio.map((para) => <p>{para}</p>)}
+        {CV.bio.map((para, i) => <p data-slim={i > 0 ? "hide" : undefined}>{para}</p>)}
       </div>
     </section>
 
@@ -142,7 +142,7 @@ const jsonLd = {
                 {s.href ? <a href={s.href}>{s.name}</a> : s.name}
               </span>
               <span class="cv-software__role muted"> — {s.role}.</span>{" "}
-              <span class="cv-software__blurb">{s.blurb}</span>
+              <span class="cv-software__blurb" data-slim="hide">{s.blurb}</span>
             </li>
           ))
         }
@@ -179,7 +179,11 @@ const jsonLd = {
       <p class="muted cv-pub-count" data-slim="hide">
         {CV.publications.length} peer-reviewed journal articles.
       </p>
-      <ol class="cv-pub-list">
+      <p class="muted cv-pub-summary" data-slim-show>
+        {CV.publications.length} peer-reviewed journal articles and a co-authored book.
+        Full list at <a href="https://junpenglao.xyz/cv/">junpenglao.xyz/cv</a>.
+      </p>
+      <ol class="cv-pub-list" data-slim="hide">
         {
           CV.publications.map((p) => (
             <li class="cv-pub">
