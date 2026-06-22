@@ -25,7 +25,6 @@ const OUT_DIR = path.resolve(process.cwd(), "public/cv");
 
 const targets = [
   { file: "junpenglao-cv-full.pdf", slim: false },
-  { file: "junpenglao-cv-1pager.pdf", slim: true },
 ];
 
 await mkdir(OUT_DIR, { recursive: true });

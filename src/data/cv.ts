@@ -579,6 +579,5 @@ export const CV: CV = {
 
   downloads: [
     { label: "Download CV (PDF)", href: "/cv/junpenglao-cv-full.pdf" },
-    { label: "1-page", href: "/cv/junpenglao-cv-1pager.pdf" },
   ],
 };
