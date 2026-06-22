@@ -45,12 +45,12 @@ export const SOCIALS: SocialLink[] = [
   { label: "Email", href: "mailto:junpenglao@gmail.com", handle: "junpenglao@gmail.com" },
 ];
 
-/** Giscus comments — configured but DISABLED by default. Build agents: fill TODOs. */
+/** Giscus comments (GitHub Discussions). Threads are filed under the
+ *  Announcements category; requires the giscus app installed on the repo. */
 export const COMMENTS = {
-  enabled: false,
-  // TODO(repo owner): set giscus repo / category ids before enabling.
-  repo: "", // e.g. "junpenglao/junpenglao.github.io"
-  repoId: "", // TODO
-  category: "", // TODO
-  categoryId: "", // TODO
+  enabled: true,
+  repo: "junpenglao/junpenglao.github.io",
+  repoId: "R_kgDOAugFcQ",
+  category: "Announcements",
+  categoryId: "DIC_kwDOAugFcc4C_rsr",
 } as const;
