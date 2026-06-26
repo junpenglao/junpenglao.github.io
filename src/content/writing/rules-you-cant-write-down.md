@@ -17,54 +17,59 @@ tags: ["ai", "workflow", "knowledge-as-process", "bayesian"]
 
 When I was finishing my PhD, psychology was in the middle of its replication
 crisis. I had a small part in the response — I'm one of the many names on
-[*Justify Your Alpha*](/cv/) — but the thing that stuck with me wasn't the
-statistics. It was the **file-drawer problem**: we publish what works and quietly
-file the failures away. A field can run a million careful experiments and still
-lose most of what they taught, because the negative results — the *reasons* a
-thing didn't work — never get written down.
+[*Justify Your Alpha*](https://www.nature.com/articles/s41562-018-0311-x) — but
+the thing that stuck with me wasn't the statistics. It was the
+[**file-drawer problem**](https://en.wikipedia.org/wiki/Publication_bias): we
+publish what works and quietly file the failures away. A field can run a million
+careful experiments and still lose most of what they taught, because the negative
+results — the *reasons* a thing didn't work — never get written down.
 
 I think you do the same thing every day you work with an AI agent — the thing you
 hand a task and it runs the steps, the grown-up cousin of the chatbot in your
 browser.
 
-## The deleted *because*
+## The part you throw away
 
 You ask it for something. It returns a confident draft. You write back: *no — not
 that, because…* Then you keep the fixed output and delete the exchange.
 
-That deleted *because* is the file drawer, one conversation at a time.
+That deleted *because* is the file drawer, one conversation at a time. The fix is
+almost embarrassingly literal: don't throw it away — go back and read it.
 
-Mining your conversations isn't a new idea — there are startups that scrape your
-chats and auto-generate "skills" from them. I want to point at something
-narrower: don't mine for the *action*, mine for the **why**. The reusable thing
-isn't "use `Beta(4, 4)`" — one specific setting anyone can copy. It's the reason
-the obvious choice was wrong. And that only exists in your *steering*: the
-corrections you made and the reasons you gave. An agent turns out to be very good
-at reading a transcript back and distilling those reasons into a rule you can
-keep.
+Mining your conversations isn't a new idea — there are whole startups built on
+exactly that: [mem0](https://mem0.ai) and friends auto-distill your chat history
+into reusable memory and "skills." I want to point at something narrower: don't
+mine for the *action*, mine for the **why**. The reusable thing isn't
+"use `Beta(4, 4)` as the prior for this model" — one specific setting anyone can
+copy. It's the reason the obvious choice was wrong. And that only exists in your
+*steering*: the corrections you made and the reasons you gave. An agent turns out
+to be very good at reading a transcript back and distilling those reasons into a
+rule you can keep.
 
-One from my own notes. I'd been building tuningfork, a benchmark for Bayesian
-samplers — but the bug that bit wasn't statistics, it was the dumbest kind of
-plumbing. The diagnostic code grabbed each parameter by its *position* in a flat
-array — slot 0, slot 1 — assuming the slots came in the order I wrote the model
-in. They didn't; the array was sorted alphabetically. Every number downstream was
-real but wearing the wrong name — *confidently wrong*, the worst kind, because
-nothing crashes. It survived a probe script and my own follow-up analysis until I
-stopped and asked the obvious thing — *shouldn't there be a helper for this?* — and
-the whole mislabeling fell out. The one-line fix is forgettable; the keepable part
-is the *why* — never address one of these arrays by raw position, the order isn't
-what you'd guess — and it transfers to every script since. I'd have fixed the bug
-regardless. The value was in writing down the reason.
+One from my own notes. I'd been building
+[tuningfork](https://github.com/blackjax-devs/tuningfork), a benchmark for
+Bayesian samplers — but the bug that bit wasn't statistics, it was the dumbest
+kind of plumbing. The diagnostic code grabbed each parameter by its *position* in
+a flat array — slot 0, slot 1 — assuming the slots came in the order I wrote the
+model in. They didn't; the array was sorted alphabetically. Every number
+downstream was real but wearing the wrong name — *confidently wrong*, the worst
+kind, because nothing crashes. It survived a probe script and my own follow-up
+analysis until I stopped and asked the obvious thing — *shouldn't there be a
+helper for this?* — and the whole mislabeling fell out. The one-line fix is
+forgettable; the keepable part is the *why* — never address one of these arrays by
+raw position, the order isn't what you'd guess — and it transfers to every script
+since. I'd have fixed the bug regardless. The value was in writing down the reason.
 
 The same trick scales from plumbing up to judgment — it's how you teach an agent
-to think like a Bayesian without retraining it. You can't retrain the model you're calling through an API — you
-don't have its weights, and fine-tuning a couple of principles in would be the
-wrong tool anyway. But you can write the rules down — the ones you'd never think
-to state up front, like *check the pushforward, not just the marginals* —
-distilled from the moments you caught yourself enforcing them, and have the agent
-re-read them at the start of every session. The expertise lives in the cheat-sheet
-you hand it, not in the model. (The same trick teaches "Pythonic," or whatever
-design taste you hold by feel and can't quite spec out front.)
+to think like a Bayesian without retraining it. You can't retrain the model you're
+calling through an API — you don't have its weights, and fine-tuning a couple of
+principles in would be the wrong tool anyway. But you can write the rules down —
+the ones you'd never think to state up front, like *check the pushforward, not
+just the marginals* — distilled from the moments you caught yourself enforcing
+them, and have the agent re-read them at the start of every session. The expertise
+lives in the cheat-sheet you hand it, not in the model. (The same trick teaches
+"Pythonic," or whatever design taste you hold by feel and can't quite spec out
+front.)
 
 ## My actual workflow
 
@@ -75,6 +80,13 @@ independent samples — same tools, same corner of the internet, and I read his
 after — so take the overlap as a sanity check, not proof. It's the boring kind of
 reassuring.
 
+Where I'd push past him, though: Eugene mostly mines his transcripts for what
+*worked* — the moves worth promoting to a reusable skill. I'm greedier for the
+opposite. A recorded success hands you one good path; a recorded *failure*, with
+its reason attached, prunes a whole region of bad ones. Negative information is
+denser, and it's exactly what a tidy archive of successes never keeps — which is
+the file-drawer problem again, scaled down to one desk.
+
 The routine has two halves: capture during the day, distill at the end of it.
 
 **During the day, keep the trial-and-error — not just the working state.** My loop
@@ -84,7 +96,7 @@ attempt was wrong, not only that the second one worked. The failures are
 load-bearing; I keep them on purpose.
 
 The lessons don't live in my head. They live in a few boring, version-tracked
-folders that every agent reads at the start of a session:
+folders:
 
 ```
 worklog/
@@ -117,9 +129,11 @@ merely-notable ones — that isn't already on file gets written up as a new less
 in a fixed shape: *Pattern → Evidence → Mitigation → Cross-references*. The
 cross-references are the point: they're what turn a pile of notes into something
 you can walk. An index over every lesson is rebuilt by a script each time (and a
-commit hook fails if it's gone stale), so the *next* session can find the relevant
-one instead of me remembering it exists. That last part is the whole game —
-writing it down is worthless if nothing reads it back.
+commit hook fails if it's gone stale); the agent doesn't read the whole pile —
+its `CLAUDE.md` points it at that index, and it greps for the relevant lesson, an
+agent searching its own notes, the same retrieval Eugene describes. So the *next*
+session finds the lesson instead of me remembering it exists — which is the whole
+game, because writing it down is worthless if nothing reads it back.
 
 A real one: my agents kept getting killed running the test suite — fanning it out
 one worker per core on a small box, each worker loading a couple of gigs, until the
@@ -130,10 +144,12 @@ walking into it. Nobody had to remember; the system noticed its own bruise and
 wrote itself the note. Which is all to say: it's 三省吾身 with a build step. 曾子
 reviewed himself on three points each day; I have an agent review mine.
 
-None of this is a claim to having invented anything — `/fewer-permission-prompts`
-and auto mode weren't features when I started doing it by hand; the tooling caught
-up to the habit, which is exactly what should happen. Automate the friction, keep
-the judgment.
+None of this is a claim to having invented anything —
+[`/fewer-permission-prompts`](https://github.com/anthropics/claude-code/releases/tag/v2.1.111)
+and [auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode)
+weren't features when I started doing it by hand; the tooling caught up to the
+habit, which is exactly what should happen. Automate the friction, keep the
+judgment.
 
 ## Keep the why
 
@@ -141,3 +157,8 @@ The destination — the merged PR, the working model — is the cheap part; anyo
 with the same tools can reach a plausible version of it. The journey is the
 steering: the corrections, and the reasons behind them. Most of us delete it. Keep
 the *why*, and your file drawer turns into a library.
+
+Building the shelves is the easy part, though. The hard half is upstream —
+steering well enough that there's a *why* worth keeping, and being patient enough
+to catch it as it goes by — and that's a discipline, not a script. But how to do
+*that* well is the next post.
