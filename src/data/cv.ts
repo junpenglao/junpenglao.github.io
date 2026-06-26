@@ -91,7 +91,7 @@ export const CV: CV = {
   name: "Junpeng Lao",
   postnominal: "PhD",
   headline:
-    "Bayesian computation & probabilistic programming — core developer of PyMC, contributor to TensorFlow Probability, sole developer and curator of the BlackJAX ecosystem.",
+    "Bayesian computation & probabilistic programming: core developer of PyMC, contributor to TensorFlow Probability, sole developer and curator of the BlackJAX ecosystem.",
   location: "Zurich, Switzerland",
 
   contacts: [
@@ -108,7 +108,7 @@ export const CV: CV = {
   bio: [
     "Junpeng Lao works on Bayesian computation and probabilistic programming. He is a core developer of PyMC, a contributor to TensorFlow Probability (tfp.mcmc), and the sole developer and curator of the BlackJAX ecosystem for composable Bayesian inference in JAX.",
     "He co-authored Bayesian Modeling and Computation in Python (Martin, Kumar & Lao; CRC Press, 2021), a hands-on guide to modern Bayesian workflow.",
-    "He trained as a cognitive scientist — a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception — before moving into industry data science at Google, where he is now a Staff Data Scientist. He is increasingly preoccupied with how knowledge gets made when working with AI agents — knowledge as process.",
+    "He trained as a cognitive scientist (a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception) before moving into industry data science at Google, where he is now a Staff Data Scientist. He is increasingly preoccupied with how knowledge gets made when working with AI agents: knowledge as process.",
   ],
 
   positions: [
@@ -160,7 +160,7 @@ export const CV: CV = {
     {
       name: "BlackJAX",
       role: "Sole developer & curator",
-      blurb: "The BlackJAX ecosystem — composable, fast Bayesian inference in JAX, samplers as building blocks.",
+      blurb: "The BlackJAX ecosystem: composable, fast Bayesian inference in JAX, samplers as building blocks.",
       href: "https://github.com/blackjax-devs/blackjax",
     },
     {
@@ -172,7 +172,7 @@ export const CV: CV = {
     {
       name: "TensorFlow Probability",
       role: "Contributor",
-      blurb: "Probabilistic reasoning and statistical analysis — contributions to tfp.mcmc.",
+      blurb: "Probabilistic reasoning and statistical analysis: contributions to tfp.mcmc.",
       href: "https://www.tensorflow.org/probability",
     },
     {
@@ -184,7 +184,7 @@ export const CV: CV = {
     {
       name: "tuningfork",
       role: "Creator",
-      blurb: "A sampler-benchmark suite in the BlackJAX ecosystem — captures the failure path, not just the result.",
+      blurb: "A sampler-benchmark suite in the BlackJAX ecosystem: captures the failure path, not just the result.",
       href: "https://github.com/blackjax-devs/tuningfork",
     },
   ],

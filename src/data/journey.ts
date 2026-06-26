@@ -75,14 +75,14 @@ export const JOURNEY: Era[] = [
     colStart: 1,
     colEnd: 2,
     summary:
-      "Where it started: psychology — and a quick turn from Freud toward the scientific method.",
+      "Where it started: psychology, and a quick turn from Freud toward the scientific method.",
     artifacts: [
       {
         type: "Note",
         tag: "Origin",
         title: "Testing a black box",
         blurb:
-          "It began with Freud and the meaning of dreams — a cliché — but the scientific side of psychology drew me in fast: how do you observe, test, and theorize about a black box without being fooled by your own blind spots? I was a beginner in statistics, but already taken with how a well-designed experiment can surface a reliable signal from mostly noise.",
+          "It began with Freud and the meaning of dreams (a cliché) but the scientific side of psychology drew me in fast: how do you observe, test, and theorize about a black box without being fooled by your own blind spots? I was a beginner in statistics, but already taken with how a well-designed experiment can surface a reliable signal from mostly noise.",
       },
       {
         type: "Paper",
@@ -101,21 +101,21 @@ export const JOURNEY: Era[] = [
     colStart: 2,
     colEnd: 4,
     summary:
-      "PhD at Glasgow and a postdoc at Fribourg: how culture shapes visual perception — through eye-tracking, EEG and fMRI. The work continued to appear in print through 2024.",
+      "PhD at Glasgow and a postdoc at Fribourg: how culture shapes visual perception, through eye-tracking, EEG and fMRI. The work continued to appear in print through 2024.",
     artifacts: [
       {
         type: "Note",
         tag: "Method",
         title: "Simulate, reason, revise",
         blurb:
-          "At Glasgow I learned MATLAB and leaned on bootstrap and permutation methods for mixed-effect models (iMap4 grew out of that). Never a write-the-proof type — my instinct was to simulate, reason, revise, a hands-on primer for MCMC. With an fMRI scanner in the basement, collecting large datasets was the easy part; making sense of them was the work — cumbersome, manual GLM pipelines, and run after run of inspecting data by hand, which is where I built an intuition for the geometry of parameter space.",
+          "At Glasgow I learned MATLAB and leaned on bootstrap and permutation methods for mixed-effect models (iMap4 grew out of that). Never a write-the-proof type: my instinct was to simulate, reason, revise, a hands-on primer for MCMC. With an fMRI scanner in the basement, collecting large datasets was the easy part; making sense of them was the work: cumbersome, manual GLM pipelines, and run after run of inspecting data by hand, which is where I built an intuition for the geometry of parameter space.",
       },
       {
         type: "Note",
         tag: "Fribourg",
         title: "Eye-tracking & the replication crisis",
         blurb:
-          "At Fribourg I ran the lab's analytics and worked mostly in eye-tracking — and was drawn into psychology's reproducibility reckoning, the context behind 'Justify Your Alpha'.",
+          "At Fribourg I ran the lab's analytics and worked mostly in eye-tracking, and was drawn into psychology's reproducibility reckoning, the context behind 'Justify Your Alpha'.",
       },
       {
         type: "Thesis",
@@ -215,7 +215,7 @@ export const JOURNEY: Era[] = [
         tag: "Community",
         title: "Built the PyMC community",
         blurb:
-          "Around 2013, running a lab's analytics, I taught myself Python and Bayesian statistics by building PyMC models, then started contributing — and the core devs recognized me as one of their own. I set up the PyMC Discourse and spent years answering modeling questions, which built a reputation and a wide-angle view of how people get stuck across very different fields. Workshops and talks followed; later, co-supervising a PhD that carried these methods into cosmology.",
+          "Around 2013, running a lab's analytics, I taught myself Python and Bayesian statistics by building PyMC models, then started contributing, and the core devs recognized me as one of their own. I set up the PyMC Discourse and spent years answering modeling questions, which built a reputation and a wide-angle view of how people get stuck across very different fields. Workshops and talks followed; later, co-supervising a PhD that carried these methods into cosmology.",
       },
       {
         type: "Library",
@@ -231,7 +231,7 @@ export const JOURNEY: Era[] = [
       {
         type: "Library",
         title: "TensorFlow Probability",
-        blurb: "Contributor — tfp.mcmc.",
+        blurb: "Contributor: tfp.mcmc.",
         link: "https://www.tensorflow.org/probability",
         paper: {
           title: "tfp.mcmc: modern MCMC tools built for modern hardware",
@@ -242,7 +242,7 @@ export const JOURNEY: Era[] = [
       {
         type: "Library",
         title: "BlackJAX",
-        blurb: "Sole developer and curator — composable Bayesian inference in JAX.",
+        blurb: "Sole developer and curator: composable Bayesian inference in JAX.",
         link: "https://github.com/blackjax-devs/blackjax",
         paper: {
           title: "BlackJAX: composable Bayesian inference in JAX",
@@ -253,7 +253,7 @@ export const JOURNEY: Era[] = [
       {
         type: "Book",
         title: "Bayesian Modeling and Computation in Python",
-        blurb: "Co-author — Chapman & Hall/CRC, 2021.",
+        blurb: "Co-author, Chapman & Hall/CRC, 2021.",
         link: "https://bayesiancomputationbook.com",
         group: "Publication",
       },
@@ -290,14 +290,14 @@ export const JOURNEY: Era[] = [
     colStart: 4,
     colEnd: 5,
     summary:
-      "Joined Google in 2018 — now a Staff Data Scientist leading a team of four, working mainly on forecasting at scale.",
+      "Joined Google in 2018, now a Staff Data Scientist leading a team of four, working mainly on forecasting at scale.",
     artifacts: [
       {
         type: "Note",
         tag: "TensorFlow Probability",
         title: "NUTS in a static graph",
         blurb:
-          "By the end of my second postdoc I was tired of running the same experiment with the setup nudged, so I joined Google in 2018 — and quickly fell in with the TensorFlow Probability team on the side (a generous '20%'). My main contribution was getting a dynamic-termination NUTS sampler to behave inside a static graph — the basis of the tfp.mcmc paper.",
+          "By the end of my second postdoc I was tired of running the same experiment with the setup nudged, so I joined Google in 2018, and quickly fell in with the TensorFlow Probability team on the side (a generous '20%'). My main contribution was getting a dynamic-termination NUTS sampler to behave inside a static graph, the basis of the tfp.mcmc paper.",
       },
       {
         type: "Note",
@@ -311,7 +311,7 @@ export const JOURNEY: Era[] = [
         tag: "Leading",
         title: "Manager, and the 'Bayesian guy'",
         blurb:
-          "After the pandemic I moved into management. Three of the four data scientists on my team have since been promoted into senior roles — and I'm still the unofficial 'Bayesian guy' teams call when a model misbehaves.",
+          "After the pandemic I moved into management. Three of the four data scientists on my team have since been promoted into senior roles, and I'm still the unofficial 'Bayesian guy' teams call when a model misbehaves.",
       },
       {
         type: "Paper",
@@ -336,14 +336,14 @@ export const JOURNEY: Era[] = [
     colStart: 5,
     colEnd: 6,
     summary:
-      "Knowledge as process — how knowledge gets generated when you work with AI agents. Where most of my attention is now.",
+      "Knowledge as process: how knowledge gets generated when you work with AI agents. Where most of my attention is now.",
     artifacts: [
       {
         type: "Note",
         tag: "The turn",
         title: "From skeptic to convinced",
         blurb:
-          "I was a skeptic about the LLM wave — until I started building with agents in early 2026 and quickly found I had more ideas than time. The question I keep pulling at: how knowledge gets generated when you work in this new paradigm.",
+          "I was a skeptic about the LLM wave, until I started building with agents in early 2026 and quickly found I had more ideas than time. The question I keep pulling at: how knowledge gets generated when you work in this new paradigm.",
       },
       {
         type: "Tool",
@@ -376,7 +376,7 @@ export const JOURNEY: Era[] = [
       {
         type: "Next",
         title: "Something new is taking shape",
-        blurb: "Watch this space — September 2026.",
+        blurb: "Watch this space, September 2026.",
       },
     ],
   },
