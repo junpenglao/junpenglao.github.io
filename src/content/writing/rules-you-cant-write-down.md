@@ -95,8 +95,7 @@ The routine has two halves: capture during the day, distill at the end of it.
 **During the day, keep the trial-and-error, not just the working state.** My loop is
 `implement → commit → test → fix → commit`, and every save to the history carries a
 `Finding:` and a `Fix:` line, so the record shows *why* the first attempt was wrong,
-not only that the second one worked. The failed attempts are the point; I keep them
-on purpose.
+not only that the second one worked. I keep the failed attempts on purpose.
 
 The lessons don't live in my head. They live in a few boring, version-tracked
 folders:

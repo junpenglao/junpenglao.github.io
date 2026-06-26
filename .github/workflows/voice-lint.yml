@@ -1,6 +1,6 @@
 name: Voice lint
 
-# Enforce the no-em-dash rule (from STYLE.md) on any blog post touched by a push
+# Enforce the no-em-dash voice rule on any blog post touched by a push
 # or PR. The rule is POST-only; the rest of the site may use em-dashes freely.
 # Pre-existing posts that predate the rule are not
 # retro-linted here; they get linted the moment they are next edited. Run the

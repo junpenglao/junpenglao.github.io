@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Voice lint — a deterministic backstop for STYLE.md's hard rules.
+// Voice lint: a deterministic backstop for the no-em-dash voice rule.
 //
 // ERROR (fails the build): the em-dash. The owner's voice has a 0.0% em-dash rate
 // across 4,448 tweets, so a — in a post is by definition not him.

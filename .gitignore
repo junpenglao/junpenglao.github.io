@@ -19,3 +19,11 @@ CLAUDE.md
 
 # Private writing notes / idea parking lot — local only, never published or committed.
 ideas/
+
+# Private personal-data imports (e.g. the Twitter/X archive for the voice-mining
+# pipeline) and all derived corpora/outputs — contains PII/DMs, never commit.
+private/
+
+# Voice system is local-only: the /voice review skill never ships (the voice
+# profiles it reads already live under gitignored private/).
+.claude/skills/
