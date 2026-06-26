@@ -67,7 +67,9 @@ principles in would be the wrong tool anyway. But you can write the rules down �
 the ones you'd never think to state up front, like *check the pushforward, not
 just the marginals* — distilled from the moments you caught yourself enforcing
 them, and have the agent re-read them at the start of every session. The expertise
-lives in the cheat-sheet you hand it, not in the model. (The same trick teaches
+lives in the cheat-sheet you hand it, not in the model — [continual learning at
+the *context* layer](https://www.langchain.com/blog/continual-learning-for-ai-agents),
+in LangChain's framing, not the weights. (The same trick teaches
 "Pythonic," or whatever design taste you hold by feel and can't quite spec out
 front.)
 
@@ -148,8 +150,10 @@ None of this is a claim to having invented anything —
 [`/fewer-permission-prompts`](https://github.com/anthropics/claude-code/releases/tag/v2.1.111)
 and [auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode)
 weren't features when I started doing it by hand; the tooling caught up to the
-habit, which is exactly what should happen. Automate the friction, keep the
-judgment.
+habit, which is exactly what should happen. The loud version of this —
+[Karpathy's autoresearch](https://github.com/karpathy/autoresearch), an agent
+running experiments overnight and keeping whatever beats the metric — automates the
+judgment too. I'd rather not: automate the friction, keep the judgment.
 
 ## Keep the why
 
