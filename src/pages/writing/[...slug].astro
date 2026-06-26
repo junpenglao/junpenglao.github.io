@@ -79,19 +79,61 @@ const jsonLd = {
       )}
     </header>
 
-    <Toc headings={headings} />
+    <div class="post__toc">
+      <Toc headings={headings} />
+    </div>
 
     <div class="post__body prose">
       <Content components={{ Figure, Sidenote }} />
     </div>
 
-    <Comments />
+    <div class="post__comments">
+      <Comments />
+    </div>
   </article>
 
   <style>
     .post {
       max-width: 52rem;
     }
+
+    /* Wide screens: the table of contents becomes a sticky left rail that rides
+       along as you scroll; header + body + comments sit in the right column.
+       Below 64rem it falls back to the inline "On this page" band up top. */
+    @media (min-width: 64rem) {
+      .post {
+        max-width: 58rem;
+        display: grid;
+        grid-template-columns: 11rem minmax(0, 1fr);
+        column-gap: var(--space-l);
+        grid-template-areas:
+          "toc header"
+          "toc body"
+          "toc comments";
+      }
+      .post__header {
+        grid-area: header;
+      }
+      .post__toc {
+        grid-area: toc;
+      }
+      .post__body {
+        grid-area: body;
+      }
+      .post__comments {
+        grid-area: comments;
+      }
+      /* :global reaches the Toc component's scoped <nav class="toc">. In the rail
+         we drop the top/bottom band and let it stick. */
+      .post__toc :global(.toc) {
+        position: sticky;
+        top: var(--space-xl);
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+    }
+
     .post__header {
       margin-bottom: var(--space-xl);
     }
