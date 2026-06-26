@@ -16,7 +16,7 @@ tags: ["meta"]
     preload="metadata"
     width="640"
     height="360"
-    aria-label="American Psycho — the business-card comparison scene, looping."
+    aria-label="American Psycho, the business-card comparison scene, looping."
   >
     <source src="/writing/figures/paul-allens-card.mp4" type="video/mp4" />
   </video>
@@ -26,5 +26,5 @@ tags: ["meta"]
 ... and the lettering is something called Hanken Grotesk.
 
 I’ll be writing here more often, too. Working with an LLM bumped my step size
-past the smooth curvature — expect more divergences to appear in the form of
+past the smooth curvature: expect more divergences to appear in the form of
 posts.

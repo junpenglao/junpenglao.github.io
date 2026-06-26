@@ -1,0 +1,48 @@
+name: Voice lint
+
+# Enforce the no-em-dash rule (from STYLE.md) on any blog post touched by a push
+# or PR. The rule is POST-only; the rest of the site may use em-dashes freely.
+# Pre-existing posts that predate the rule are not
+# retro-linted here; they get linted the moment they are next edited. Run the
+# full sweep locally any time with `npm run lint:voice`.
+on:
+  push:
+    paths:
+      - "src/content/writing/**"
+      - "scripts/voice-lint.mjs"
+  pull_request:
+    paths:
+      - "src/content/writing/**"
+      - "scripts/voice-lint.mjs"
+
+jobs:
+  voice-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Lint changed posts (em-dash = hard fail; AI-tells advisory)
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+          if [ -z "$BASE" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+            BASE="$(git rev-parse HEAD~1 2>/dev/null || git rev-parse HEAD)"
+          fi
+          FILES="$(git diff --name-only "$BASE" HEAD -- \
+            'src/content/writing/*.md' 'src/content/writing/*.mdx' || true)"
+          if [ -z "$FILES" ]; then
+            echo "No writing files changed; nothing to lint."
+            exit 0
+          fi
+          echo "Linting changed files:"; echo "$FILES"
+          node scripts/voice-lint.mjs $FILES
