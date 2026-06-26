@@ -16,3 +16,6 @@ CLAUDE.md
 
 # CONFIDENTIAL site data — unannounced/flagged items (e.g. src/data/work.secret.ts).
 *.secret.ts
+
+# Private writing notes / idea parking lot — local only, never published or committed.
+ideas/

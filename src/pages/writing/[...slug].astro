@@ -8,15 +8,14 @@ import Figure from "../../components/prose/Figure.astro";
 import Sidenote from "../../components/prose/Sidenote.astro";
 import { SITE } from "../../config";
 
-// Drafts render ONLY in dev (so the author can preview by direct URL); they are
-// excluded from production builds entirely, so no unfinished page ever ships to
-// the public site. (They're also kept off the list page and out of the sitemap.)
+// Drafts ARE built in production but UNLISTED: reachable by direct URL (for
+// sharing/preview), kept off the writing list, marked noindex, and excluded from
+// the sitemap (see astro.config.mjs). Unfinished is not the same as secret —
+// confidential content uses *.secret.ts / REVEAL_FLAGGED, never a draft, and the
+// deploy confidentiality gate scans the whole build regardless.
 export async function getStaticPaths() {
   const posts = await getCollection("writing");
-  const visible = import.meta.env.PROD
-    ? posts.filter((p) => p.data.status !== "draft")
-    : posts;
-  return visible.map((post) => ({
+  return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
