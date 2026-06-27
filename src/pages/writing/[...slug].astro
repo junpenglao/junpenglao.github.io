@@ -174,6 +174,14 @@ const jsonLd = {
       max-width: var(--measure);
     }
 
+    /* Anchor landing: clicking a ToC link should land the heading in the upper-middle
+       of the viewport, clear of the sticky site header, not jammed against the very top
+       where the sticky nav clips it. clamp keeps a floor (clears the header on short
+       screens) and a cap (no huge gap on tall ones). */
+    .post__body :global(:is(h1, h2, h3, h4, h5, h6)) {
+      scroll-margin-top: clamp(5rem, 25vh, 15rem);
+    }
+
     /* Figures authored in markdown (raw <figure class="fig">). Self-hosted
        images + a caption that credits/links the original source — the site's
        no-embed convention. Uses :global because markdown HTML is not scoped. */
