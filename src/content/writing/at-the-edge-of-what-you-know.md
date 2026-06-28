@@ -17,7 +17,7 @@ ease I felt working with Claude. At some point I caught myself thinking, half jo
 wonder if I can teach it to be Bayesian.
 
 <figure class="fig">
-  <!-- FIGURE: lofi / slow-life mood image (CC-BY, owner to source + attribute). -->
+  <img src="/writing/figures/lofi-cover.webp" alt="A lofi illustration of someone working on a laptop on a balcony at dusk, string lights and potted plants around them, a cat asleep nearby, and a city skyline under a sunset sky." width="1408" height="768" decoding="async" fetchpriority="high" />
   <figcaption>is it even possible to work slower at this time of age?</figcaption>
 </figure>
 
@@ -88,14 +88,15 @@ direction, how both should scale as the problem grows, and how all of that lines
 way you tune NUTS. A few of the constants baked into the default warmup turned out to matter more
 than anyone had really justified. Sorting that out became a new warmup scheme
 ([blackjax #937](https://github.com/blackjax-devs/blackjax/pull/937)), and from there the obvious
-next step was to turn to the dynamic variant, the cousin of dynamic HMC. It already existed,
-nobody had really tuned it, and it varies its trajectory length instead of fixing it, which copes
-a bit better across awkward geometry. I almost let that first "this isn't working" end it.
+next step was to turn to the dynamic variant, the cousin of dynamic HMC. At first it did worse than the static version. After a few rounds of back and forth we worked out
+why: it was being run almost a step at a time, which throws away the point of a dynamic trajectory.
+Once we let it actually run a stretch, the way dynamic HMC does, it came out ahead of the static
+one. I almost let that first "this isn't working" end it.
 
 ## The slow part
 
-The name and the warmup scheme both needed the slow version of the work: staying in the chat and
-arguing past the point where taking the first plausible answer would have been faster. Nobody
+The name and the warmup scheme both needed the slow version of the work: staying in the chat,
+kicking it around long after the first plausible answer would have been the quick way out. Nobody
 sells working with an agent that way. The whole pitch is speed.
 
 Sometimes the journey *is* more important than the destination. I know how that sounds. Here it
