@@ -88,8 +88,9 @@ direction, how both should scale as the problem grows, and how all of that lines
 way you tune NUTS. A few of the constants baked into the default warmup turned out to matter more
 than anyone had really justified. Sorting that out became a new warmup scheme
 ([blackjax #937](https://github.com/blackjax-devs/blackjax/pull/937)), and from there the obvious
-next step was the dynamic variant, the cousin of dynamic HMC, which varies its trajectory length
-instead of fixing it and copes a bit better across awkward geometry. I almost let that first "this isn't working" end it.
+next step was to turn to the dynamic variant, the cousin of dynamic HMC. It already existed,
+nobody had really tuned it, and it varies its trajectory length instead of fixing it, which copes
+a bit better across awkward geometry. I almost let that first "this isn't working" end it.
 
 ## The slow part
 
