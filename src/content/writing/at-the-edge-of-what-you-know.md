@@ -2,8 +2,8 @@
 title: "At the Edge of What You Know"
 description: "Turns out I do enjoy lecturing people, or, in this case, AI agents."
 date: 2026-06-27
-updated: 2026-06-28
-status: draft
+updated: 2026-06-29
+status: stable
 tags: ["ai", "workflow", "knowledge-as-process", "bayesian"]
 ---
 
@@ -26,7 +26,7 @@ part I like.
 
 ## What works for me
 
-I have spent most of my career explaining things: teaching and giving workshop during my postdoc, years answering
+I have spent most of my career explaining things: teaching and giving workshops during my postdoc, years answering
 modeling questions on the PyMC forum, being tech lead and manager in Google the last few years,
 the occasional student to supervise. Those reflexes are what make an agent session pay off,
 and what leave a conversation worth keeping afterward.
@@ -38,13 +38,11 @@ So, a short list.
 
 - **Drop the one-shot mindset.** It might be fine for a small,
  well-scoped task; for anything real the one-shot just hands you a confident draft
-  that is wrong in ways you won't catch yet. (It grinds my gear that Gemini keep handing me a
-  one-shot implementation that's half-done or even wrong. Dude, let's review the plan first, don't
-  jump the gun.)
+  that is wrong in ways you won't catch yet. (It grinds my gears that Gemini keep jumping the gun and handing me implementation that's half-done or even wrong. Dude, let's review the plan first.)
 
 - **Think out loud, treat it as a whiteboard.** You usually don't know the exact spec going in,
   so let the agent catch your vibe. When it lays out a menu of options, don't just pick one;
-  say "let's chat about it" more (I argue with it most of the time).
+  say "let's chat about it" more.
 
 - **Explain, don't dictate.** When you ask for something, say why you want it. Even when its
   next step is already the right one, say "yes, but" and explain your intent anyway. The reasons
@@ -52,7 +50,7 @@ So, a short list.
 
 - **Be persistent.** An agent will sometimes give up on a direction too early, off one bad
   result. If you think it's still worth a look, lay out why, don't just overrule it. Explaining
-  the reason you'd keep going actually makes the output better.
+  the reason why you'd keep going actually makes the output better.
 
 A couple of bonus ones, for when they come up:
 
@@ -78,20 +76,24 @@ far enough in to find a path that did. I said that back into the chat, and
 [tuningfork](https://github.com/blackjax-devs/tuningfork) quietly changed under me, from a
 catalog of winners into a map of the garden. A passing recipe stopped being just the winning
 settings; it now carries the effort and the dead ends that found them, with no pretense the
-winning path is the best one. I didn't spec that. It came out of talking through a name.
+winning path is the best one. Not only did we get a name, we expanded the scope of the project and made it more interesting.
+To me that is a step up from your usual benchmark library, and it shaped the "keep the failure
+path" mindset I've held ever since.
 
 The bigger one was a sampler family I had no background in: MCLMC, a faster but more temperamental
 cousin of NUTS. I came in with little intuition, and the early runs looked rough, so the agent's read
 was reasonable: not worth the effort, move on. I wasn't convinced. So instead of dropping it, we spent a while pulling on *why* it was
-failing: how MCLMC sets its two knobs, the step size and how far it runs before it forgets its
-direction, how both should scale as the problem grows, and how all of that lines up against the
-way you tune NUTS. A few of the constants baked into the default warmup turned out to matter more
+failing. We started by implementing the models from the paper, then dug into how MCLMC sets its
+two knobs, the step size and how far it runs before it forgets its direction. We talked through
+how both should scale as the problem grows, and how all of that lines up against the way we tune
+NUTS. A few of the constants baked into the default warmup turned out to matter more
 than anyone had really justified. Sorting that out became a new warmup scheme
 ([blackjax #937](https://github.com/blackjax-devs/blackjax/pull/937)), and from there the obvious
 next step was to turn to the dynamic variant, the cousin of dynamic HMC. At first it did worse than the static version. After a few rounds of back and forth we worked out
-why: it was being run almost a step at a time, which throws away the point of a dynamic trajectory.
+why: it was being run almost a step at a time due to a bug, which throws away the point of a dynamic trajectory.
 Once we let it actually run a stretch, the way dynamic HMC does, it came out ahead of the static
-one. I almost let that first "this isn't working" end it.
+one. It all started with "explain to me why this isn't working".
+
 
 ## The slow part
 
