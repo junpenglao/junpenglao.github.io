@@ -83,6 +83,21 @@ const TAILS = new RegExp(
   ].join("|"),
   "gi"
 );
+// Telegraphing transitions: "Now the honest part." and family. Announcing a beat instead
+// of just landing it is a recognizable LLM tell. Cut the signpost, say the thing.
+const TELEGRAPHS = new RegExp(
+  [
+    "now (?:for )?the (?:honest|hard|fun|good|real|best|worst|interesting|tricky|important|surprising) part",
+    "here'?s the (?:honest|hard|fun|good|real|interesting|tricky|important|surprising) part",
+    "(?:and )?(?:now|here'?s) the honest part",
+    "the honest part",
+    "let'?s be honest",
+    "(?:but )?here'?s the (?:thing|kicker|rub|catch)",
+  ].join("|"),
+  "gi"
+);
+// Claude-isms: stock phrases the owner would never write. Flat ban list (case-insensitive).
+const CLAUDEISMS = /\b(load-bearing|the honest take|changes the picture significantly|the smoking gun)\b/gi;
 
 let errors = 0, warns = 0;
 for (const file of targets) {
@@ -103,6 +118,10 @@ for (const file of targets) {
     hits.push(["warn", m.index, m[0].length, `"X, not Y" antithesis — flag if it is a paragraph landing`]);
   for (const m of proseText.matchAll(TAILS))
     hits.push(["warn", m.index, m[0].length, `restating tail "${m[0]}" — land flat instead`]);
+  for (const m of proseText.matchAll(TELEGRAPHS))
+    hits.push(["warn", m.index, m[0].length, `telegraphing transition "${m[0]}" - cut the signpost, just say the thing`]);
+  for (const m of proseText.matchAll(CLAUDEISMS))
+    hits.push(["warn", m.index, m[0].length, `Claude-ism "${m[0]}" - the owner would not write this; cut or replace`]);
 
   if (!hits.length) continue;
   hits.sort((a, b) => a[1] - b[1]);
