@@ -2,7 +2,7 @@
 title: "At the Edge of What You Know"
 description: "Turns out I do enjoy lecturing people, or, in this case, AI agents."
 date: 2026-06-27
-updated: 2026-06-29
+updated: 2026-06-27
 status: stable
 tags: ["ai", "workflow", "knowledge-as-process", "bayesian"]
 ---
