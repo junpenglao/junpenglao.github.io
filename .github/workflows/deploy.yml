@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # Full history so the post layout can derive "Last updated" from each
+          # file's last commit date (git log). A shallow clone would break it.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6

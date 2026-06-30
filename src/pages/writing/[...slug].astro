@@ -7,6 +7,7 @@ import Comments from "../../components/prose/Comments.astro";
 import Figure from "../../components/prose/Figure.astro";
 import Sidenote from "../../components/prose/Sidenote.astro";
 import { SITE } from "../../config";
+import { execSync } from "node:child_process";
 
 // Drafts ARE built in production but UNLISTED: reachable by direct URL (for
 // sharing/preview), kept off the writing list, marked noindex, and excluded from
@@ -26,7 +27,24 @@ const { post } = Astro.props;
 const { Content, headings } = await post.render();
 
 const isDraft = post.data.status === "draft";
-const updated = post.data.updated ?? post.data.date;
+
+// Last-updated is git-driven: the file's last commit date, so editing and
+// committing a post IS the update (no frontmatter to babysit). A frontmatter
+// `updated` still wins when present, to pin a date and ignore mechanical
+// commits. Needs full git history at build time (deploy.yml: fetch-depth: 0);
+// falls back to the publish date if git is unavailable.
+function gitLastUpdated(id: string): Date | null {
+  try {
+    const d = execSync(`git log -1 --format=%cs -- "src/content/writing/${id}"`, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return d ? new Date(`${d}T00:00:00Z`) : null;
+  } catch {
+    return null;
+  }
+}
+const updated = post.data.updated ?? gitLastUpdated(post.id) ?? post.data.date;
 
 // Article JSON-LD (public-safe: title/description/dates/author only).
 const jsonLd = {
@@ -68,7 +86,7 @@ const jsonLd = {
       <DocMeta
         status={post.data.status}
         date={post.data.date}
-        updated={post.data.updated}
+        updated={updated}
       />
       {post.data.tags.length > 0 && (
         <ul class="post__tags" aria-label="Tags">
