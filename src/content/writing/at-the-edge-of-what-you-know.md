@@ -45,8 +45,8 @@ So, a short list.
   say "let's chat about it" more.
 
 - **Explain, don't dictate.** When you ask for something, say why you want it. Even when its
-  next step is already the right one, say "yes, but" and explain your intent anyway. The reasons
-  land in the chat as a bonus.
+  next step is already the right one, give it a "yes, and" and explain your intent anyway. The
+  reasons land in the chat as a bonus.
 
 - **Be persistent.** An agent will sometimes give up on a direction too early, off one bad
   result. If you think it's still worth a look, lay out why, don't just overrule it. Explaining
