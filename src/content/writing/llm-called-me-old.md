@@ -7,11 +7,11 @@ status: draft
 tags: ["ai", "knowledge-as-process", "personal", "writing"]
 ---
 
-I still have my Twitter archive (the account was already long gone) running from 2009, when I was a
-PhD student in Glasgow with nothing to say and said it anyway, to late 2022. I threw out
-the retweets and pointed a small fleet of language models at what was left: 4,448 tweets
-that were actually me. Haiku read all of them, Sonnet the longer ones more carefully. I
-was looking for one thing.
+I still have my Twitter archive (the account was already long gone). It ran from 2009,
+when I was a PhD student in Glasgow with nothing to say and said it anyway, to late 2022.
+I threw out the retweets and pointed a small fleet of language models at what was left:
+4,448 tweets that were actually me. Haiku read all of them, Sonnet the longer ones more
+carefully, and Opus to summarize everything. I was looking for one thing:
 
 I wanted them to tell me I am funny.
 
@@ -48,7 +48,7 @@ divergence will go away instead of going to therapy."
 
 So I am funny. I am funniest, it turns out, when I am deadpan: those are my most
 reliable hits, and pretty much the only things I have ever written that went properly
-viral. The instant I add the 😂 to tell you it was a joke, I lose about a
+viral. The instant I add the 😂 to signal you should laugh, I lose about a
 third of the room. 357 times.
 
 ## About that 357
@@ -59,79 +59,40 @@ third of the room. 357 times.
 </figure>
 
 😂 is my most-used emoji by a distance, more than the next four put together. I reach
-for it to laugh at my own jokes.
+for it almost always.
 
 There is a second problem, this one I learned from the internet rather than my own
 archive. Gen Z has apparently decided that 😂, the crying-laughing face, is a tell-tale
 sign of a millennial. The young people use 💀 or 😭 now. 😂 is for the olds.
 
-So: I fed thirteen years of my own writing to a language
-model to find out whether I am funny, and the single most efficient finding, the one
-it could have handed me in one line without reading anything else, is that I am old.
+So: I fed thirteen years of my writing to a language model to find out if I am funny, and
+the most efficient finding, the one it could have handed me without reading a word, is
+that I am old.
 
-## The part I did not expect
+## So I am leaning in
 
-I had not only asked about jokes. I asked the models to reconstruct my voice, closely
-enough to rewrite arbitrary text as me, and that worked better than I expected. They
-found the hedges I did not know I leaned on (*pretty sure*, *I dont think*, *I guess*),
-and that they vanish the instant a claim turns from technical to ethical: I will hedge
-all day about a prior, but I wrote "thinning is just lying to yourself" with a completely
-straight face. They found that where most writers reach for an em-dash, I reach for a
-parenthesis (like this) or a footnote*. Across 4,448 tweets I used the em-dash exactly
-zero times. They found the missing apostrophes, the lowercase i, the dropped articles,
-the residue of learning English somewhere around my third language, and the profile's
-instruction, in bold, is to keep all of it, because the clean version reads as not-me.
+Honestly, I am amazed, and a little amused. A machine read thirteen years of my random
+thoughts and handed back a shadow I recognise, so I decided to turn it into a tool. I
+asked the models to reconstruct my voice, and distill it into some kind of style
+transformer. I am pretty sure I see an ad on LinkedIn that some start up is doing that,
+but a poor man's version works just fine. The LLMs showed me some nice nuggets like:
+hedges I did not know I leaned on (*pretty sure*, *I dont think*, *I guess*), and that
+they vanish the instant a claim turns from technical to ethical. I will hedge all day
+about a prior, but I wrote "thinning is just lying to yourself" with a completely straight
+face. They found that I reach for dash (0 em-dash, it was pre-LLM era), parenthesis (you
+just saw it) or a footnote* instead. They found the missing apostrophes, the lowercase i,
+the dropped articles, the residue of learning English somewhere around my third language,
+and the profile's instruction, in bold, is to keep all of it, because the clean version
+reads as not-me.
 
 *like this one.
-
-Then the part I did not expect. The profile ends with a list of things to avoid if you
-want to sound like me: no manufactured slogans, no "X, not Y" for the rhythm of it, no
-little summarising tail that tells you what the moral was. I have seen that list before.
-It is, almost line for line, a list I wrote for myself a while back to stop my own essays
-reading like a language model. The model rederived it from my tweets, without being told
-it existed.
 
 In [an earlier post](/writing/rules-you-cant-write-down/) I argued the tacit knowledge is
 hiding in the corrections. Apparently it is also hiding in thirteen years of jokes, if
 something reads all of them. Not just the jokes: I ran the same mining on my old PyMC
 Discourse posts, years of answering other people's modelling questions, and that me is a
 different me, patient, almost no jokes, diagnosing a broken sampler instead of performing
-for a timeline. Different register, same tells, across roughly 7,700 posts.
+for a timeline. Different register, same tells, across roughly 7,700 posts. Now I can run
+2 skills, which perfectly balance humor and seriousness.
 
-## So I am leaning in
-
-Honestly, I am amazed, and a little amused. A machine read thirteen years of me and
-handed back a description I recognise. So I did the obvious thing and turned the
-description into a tool. It still does not get to write my posts. What it does now is
-review them, the moment a post is about 90% done and I am too close
-to it to see where I have gone soft.
-
-The artifact is the voice profile the models built out of my tweets. The reviewer is
-one prompt. I am not asking it to make the post better. A model told to improve my prose
-will sand off the things that make it mine, the dropped articles and the missing
-apostrophes and the sentence that should have just ended.
-
-```
-Here is a draft of my next post, and my voice profile (built from my own writing).
-Do not rewrite anything, and do not fix my grammar. Read the draft against the profile
-and find every place the writing drifts away from me: sentences that got smoother and
-more generic, a manufactured slogan or an "X, not Y" used as a landing, a tail that
-restates the point I just made, repetition, anything that reads like an LLM wrote it,
-and any em-dash. Quote each one, name the rule it breaks, and suggest a flatter,
-more-me version. Leave my second-language quirks alone (the dropped articles, the
-missing apostrophes, the lowercase i). Those stay. I am the editor. You are the reviewer.
-```
-
-Pretty sure it works, because I ran it on this post. It flagged a sentence I was quietly
-proud of, some reversal about machines sounding like machines, and said it was probably
-the most LLM-shaped line in the draft. Hard to argue. I cut it.
-
-## Verdict
-
-I have read the report. My best jokes are the ones I deliver straight, and I have
-spent thirteen years muffling them with a millennial emoji that also, separately,
-files me under old.
-
-I have weighed the evidence carefully, the way a well-calibrated person should.
-
-I am keeping the 😂.
+Pretty sure it works, because you see no em-dash in this post. Also, I am keeping the 😂
