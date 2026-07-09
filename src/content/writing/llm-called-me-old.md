@@ -1,8 +1,8 @@
 ---
 title: "I asked an LLM to analyse my old tweets and it just called me old"
 description: "I fed thirteen years of tweets to a fleet of language models to find out whether I am funny."
-date: 2026-06-26
-updated: 2026-06-26
+date: 2026-07-05
+updated: 2026-07-05
 status: draft
 tags: ["ai", "knowledge-as-process", "personal", "writing"]
 ---
@@ -49,8 +49,7 @@ divergence will go away instead of going to therapy."
 So I am funny. I am funniest, it turns out, when I am deadpan: those are my most
 reliable hits, and pretty much the only things I have ever written that went properly
 viral. The instant I add the 😂 to tell you it was a joke, I lose about a
-third of the room. For thirteen years I have been doing the comedy equivalent of
-explaining the punchline. 357 times.
+third of the room. 357 times.
 
 ## About that 357
 
@@ -97,8 +96,7 @@ hiding in the corrections. Apparently it is also hiding in thirteen years of jok
 something reads all of them. Not just the jokes: I ran the same mining on my old PyMC
 Discourse posts, years of answering other people's modelling questions, and that me is a
 different me, patient, almost no jokes, diagnosing a broken sampler instead of performing
-for a timeline. Different register, same tells, across roughly 7,700 posts. Not rules I
-invented, just how I write.
+for a timeline. Different register, same tells, across roughly 7,700 posts.
 
 ## So I am leaning in
 
@@ -126,8 +124,7 @@ missing apostrophes, the lowercase i). Those stay. I am the editor. You are the 
 
 Pretty sure it works, because I ran it on this post. It flagged a sentence I was quietly
 proud of, some reversal about machines sounding like machines, and said it was probably
-the most LLM-shaped line in the draft. Hard to argue. I cut it. You are reading the
-version that survived.
+the most LLM-shaped line in the draft. Hard to argue. I cut it.
 
 ## Verdict
 
