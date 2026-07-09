@@ -3,7 +3,7 @@ title: "I asked an LLM to analyse my old tweets and it just called me old"
 description: "I fed thirteen years of tweets to a fleet of language models to find out whether I am funny."
 date: 2026-07-05
 updated: 2026-07-05
-status: draft
+status: stable
 tags: ["ai", "knowledge-as-process", "personal", "writing"]
 ---
 
@@ -89,10 +89,13 @@ reads as not-me.
 
 In [an earlier post](/writing/rules-you-cant-write-down/) I argued the tacit knowledge is
 hiding in the corrections. Apparently it is also hiding in thirteen years of jokes, if
-something reads all of them. Not just the jokes: I ran the same mining on my old PyMC
-Discourse posts, years of answering other people's modelling questions, and that me is a
-different me, patient, almost no jokes, diagnosing a broken sampler instead of performing
-for a timeline. Different register, same tells, across roughly 7,700 posts. Now I can run
-2 skills, which perfectly balance humor and seriousness.
+something reads all of them. Not just the jokes: I ran the same style mining on my old PyMC
+Discourse replies, years of answering other people's modelling questions. That me is a
+different me: patient, almost no jokes, diagnosing a broken sampler instead of performing
+for a timeline. Different register, same tells, across roughly 7,700 posts, now also
+a style guide LLM agents can follow.
 
-Pretty sure it works, because you see no em-dash in this post. Also, I am keeping the 😂
+I can run 2 skills, which perfectly balance humor and seriousness. Pretty sure it works,
+because you see no em-dash in this post.
+
+Also, I am keeping the 😂
