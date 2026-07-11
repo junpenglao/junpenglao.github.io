@@ -112,6 +112,16 @@ export const WORK: WorkItem[] = [
     public: true,
   },
   {
+    title: "tuningfork",
+    role: "Creator",
+    blurb:
+      "A sampler benchmark built on the garden of forking paths: the branches that fail aren't waste, they're knowledge. Failure path as knowledge.",
+    links: [{ label: "GitHub", href: "https://github.com/blackjax-devs/tuningfork" }],
+    tags: ["Bayesian", "benchmark", "open-source"],
+    area: "agents",
+    public: true,
+  },
+  {
     title: "agent-team",
     role: "Creator",
     blurb:
@@ -122,21 +132,21 @@ export const WORK: WorkItem[] = [
     public: true,
   },
   {
+    title: "memoires",
+    role: "Creator",
+    blurb:
+      "An expert-curated, evidence-graded, contradiction-aware catalog of Bayesian craft, distilled from the community's forums so an agent can consult it instead of re-deriving the hard-won answers.",
+    links: [{ label: "GitHub", href: "https://github.com/arcueil/memoires" }],
+    tags: ["Bayesian", "agents", "open-source"],
+    area: "agents",
+    public: true,
+  },
+  {
     title: "sagent",
     role: "Open-source contributor",
     blurb: "Multi-provider agent CLI and Python library.",
     links: [{ label: "GitHub", href: "https://github.com/rekursiv-ai/sagent" }],
     tags: ["agents", "open-source"],
-    area: "agents",
-    public: true,
-  },
-  {
-    title: "tuningfork",
-    role: "Creator",
-    blurb:
-      "A sampler benchmark built on the garden of forking paths: the branches that fail aren't waste, they're knowledge. Failure path as knowledge.",
-    links: [{ label: "GitHub", href: "https://github.com/blackjax-devs/tuningfork" }],
-    tags: ["Bayesian", "benchmark", "open-source"],
     area: "agents",
     public: true,
   },
