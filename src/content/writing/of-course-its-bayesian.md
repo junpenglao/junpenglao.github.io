@@ -42,9 +42,13 @@ solo developer or a small team, is most of the time.
 ## The part that horrifies a frequentist
 
 I do not build a benchmark. I run a small experiment on the real work and read it closely.
-No clean control, no metric fixed in advance, N of a handful, and I decide by reading the
-traces. Nobody runs an experiment like this. It is faster than a benchmark,
-and it beats the people who did.
+No clean control, no metric fixed in advance, N of a handful. Just vibes, and I decide by
+reading the traces. Nobody runs an experiment like this. It is faster than a benchmark, and
+it beats the people who did.
+
+Here is what that looks like in practice. Right now I am building a skill that lets an agent
+proofread my drafts. Every change I make to the skill, I run against a baseline version I
+picked, on a few real drafts, and read which pass I trust more. That is the whole experiment.
 
 **Almost no change to my workflow.** I already work with a lead agent that spawns subagents,
 so the A/B is one more thing it knows how to do. I wrote it a skill: fork the task into two
