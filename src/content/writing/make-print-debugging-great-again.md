@@ -1,8 +1,8 @@
 ---
 title: "Make print-debugging great again"
 description: "This is a product announcement."
-date: 2026-07-10
-status: draft
+date: 2026-07-11
+status: stable
 tags: ["jax", "open-source", "ai", "workflow"]
 ---
 
