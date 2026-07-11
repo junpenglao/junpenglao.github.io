@@ -102,6 +102,11 @@ export const CV: CV = {
       display: "J-KhWL8AAAAJ",
     },
     { label: "GitHub", href: "https://github.com/junpenglao", display: "junpenglao" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/junpeng-lao/",
+      display: "junpeng-lao",
+    },
     { label: "Web", href: "https://junpenglao.xyz", display: "junpenglao.xyz" },
   ],
 
