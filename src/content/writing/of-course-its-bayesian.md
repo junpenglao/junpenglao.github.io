@@ -1,15 +1,10 @@
 ---
 title: "Of course it works, it's Bayesian"
-description: "How I stopped worrying and learned to love Bayes."
+description: "How I stopped worrying and keep being Bayesian."
 date: 2026-07-11
-status: draft
+status: stable
 tags: ["ai", "workflow", "bayesian", "agents"]
 ---
-
-<figure class="fig">
-  <img src="/writing/figures/bayesian-bus.webp" alt="Two-guys-on-a-bus meme: the gloomy passenger facing a rock wall is labeled 'Overwhelmed by all the agentic best practices'; the serene passenger facing a sunset is labeled 'Being Bayesian'." width="564" height="500" decoding="async" fetchpriority="high" />
-  <figcaption>Step 1: be Bayesian. Step 2: profit.</figcaption>
-</figure>
 
 > **TL;DR:** for your Agentic maxxing, run bunch of two-arm A/B on your real task,
 > orchestrated by a coordinator agent: a lead agent plans the experiment, both arms do the
@@ -17,16 +12,19 @@ tags: ["ai", "workflow", "bayesian", "agents"]
 > what does not. Bonus: lead agent combine conclusion from both arm and make solution to
 > your task better.
 
+<figure class="fig">
+  <img src="/writing/figures/bayesian-bus.webp" alt="Two-guys-on-a-bus meme: the gloomy passenger facing a rock wall is labeled 'Overwhelmed by all the agentic best practices'; the serene passenger facing a sunset is labeled 'Being Bayesian'." width="564" height="500" decoding="async" fetchpriority="high" />
+  <figcaption>Step 1: be Bayesian. Step 2: profit.</figcaption>
+</figure>
+
 There is a running joke in the Bayesian community: we will find a Bayesian interpretation
 for anything. A new method works? Of course it does, it is fundamentally Bayesian, and give
 us an afternoon and we will show you the prior it was assuming all along.
 
-I have been building tools with coding agents for a while, and I keep landing in the same
-place: the work goes well exactly when I am being Bayesian about it. So, at the risk of
-proving the joke, let me find the interpretation.
-
-The occasion is a good post from the folks at [PyMC Labs](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents)
-on self-improving agents. They took a skill-optimization approach and ran it honestly,
+I have been building tools with coding agents for a while, and I am convinced you need to be
+Bayesian for it to work well. Let me explain: the occasion is a good post from the folks at
+[PyMC Labs](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents) on self-improving
+agents. They took a skill-optimization approach and ran it honestly,
 across four experiments with [multiple seeds](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents#is-a-single-optimization-run-enough-to-trust-the-result)
 and the noise floor measured. The finding, roughly: it works when the [validation gate](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents#when-does-self-improving-skill-optimization-work)
 that scores the agent's work is fast, stable, and graded (a real score, not just pass/fail),
@@ -35,20 +33,23 @@ on the slow, ungraded, real-practitioner tasks. Their fix is to [reshape the rea
 a fast synthetic benchmark](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents#experiment-4-keep-the-shape-synthesize-the-data)
 you can grade against truth.
 
-They are friends and fellow Bayesians, and for the tasks they describe I think they are
-right. Here is the other half: what I do when I cannot build that benchmark, which, for a
-solo developer or a small team, is most of the time.
+That is a fine approach, but I want to be more Bayesian about it. The benchmark is the
+large-N move; real work is often small N (and I am impatient). But that's fine. Small N is
+home turf: when the data is thin, you lean on the rest of the model. An informative prior, a
+richer specification, a careful read of the posterior. The same three carry the method below.
 
 ## The part that horrifies a frequentist
 
-I do not build a benchmark. I run a small experiment on the real work and read it closely.
+Instead of building a benchmark, I run a lot of small experiments on the real work and do an anthropology study on it.
 No clean control, no metric fixed in advance, N of a handful. Just vibes, and I decide by
-reading the traces. Nobody runs an experiment like this. It is faster than a benchmark, and
-it beats the people who did.
+reading the traces. Nobody runs an experiment like this, but I get much faster progress. 
 
-Here is what that looks like in practice. Right now I am building a skill that lets an agent
-proofread my drafts. Every change I make to the skill, I run against a baseline version I
-picked, on a few real drafts, and read which pass I trust more. That is the whole experiment.
+Here is what that looks like. Right now I am building loops for tuningfork, for example an agent
+works out how to tune a sampler for a hard model. Loop engineering is what everyone is
+talking about lately, and a loop is even harder to benchmark than a skill: there are multiple
+outputs you can grade. So instead of trying to evaluate the trajectory through the problem, 
+I run small experiments: every change I make to the loop, I run against a baseline I picked,
+on the same few models, and read which arm performs better.
 
 **Almost no change to my workflow.** I already work with a lead agent that spawns subagents,
 so the A/B is one more thing it knows how to do. I wrote it a skill: fork the task into two
@@ -74,15 +75,14 @@ as the evidence arrives. Co-evolution, which is sequential updating with extra s
 
 ## Why not just build the benchmark
 
-Because at the frontier it is the expensive tool, and usually the wrong one. Wrong because
-of a trap in the setup: you reach for an agent precisely because the task is ambiguous, and
-ambiguous is exactly what resists a clean eval. Synthesize the benchmark and you can define
-away the thing you needed help with.
+Partly because tokens are expensive, partly because I am lazy. But mostly this: we reach for
+an agent precisely because the task is ambiguous, and ambiguous is exactly what resists a
+clean eval. Synthesize the benchmark and you can define away the thing you needed help with.
 
 The benchmark is the engineer's move: define "good" precisely enough to optimize, build the
-harness, grade the runs. That costs tokens and wall-clock, and much more than that, the
-effort of specifying "good" for a task whose scope is fuzzy. A big lab can pay it. A small
-team tuning its own workflow usually cannot, and often should not.
+harness, grade the runs. The expensive part is not the compute, it is specifying "good" for
+a task whose scope is fuzzy. A big lab can pay it. A small team usually cannot, and often
+should not.
 
 The dividing line is scope. If the skill is a checklist the agent runs, tighten it and grade
 it, PyMC Labs' approach is exactly right. The trouble is pretending an ambiguous task is a
@@ -100,13 +100,12 @@ agent will enforce it, rejecting good work with a straight face.
 
 ## The honest boundary
 
-This is small-N advice, for a person or a small team refining their own tools. It scales to
-a team. For a product with thousands of users you cannot deep-read every trace, though I
-suspect the answer there is not a giant benchmark either, it is to ship something
-deliberately vague and let a per-user loop refine it. The same move, one level up.
+This is small-N advice, for you or a handful of people refining your own tools. It scales up.
+For a product with thousands of users you cannot deep-read every trace, though I doubt the
+answer there is a giant benchmark either. You ship something deliberately vague and let a
+per-user loop refine it. The same move, one level up.
 
 So, yes. I have taken a perfectly good engineering debate and found the Bayesian
-interpretation, exactly as the joke predicts. But I have been at this long enough to know
-when a reframe pays rent, and this one does.
+interpretation, exactly as the joke predicts.
 
 Of course it works. It's Bayesian.
