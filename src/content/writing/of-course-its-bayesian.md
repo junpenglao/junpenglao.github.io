@@ -6,6 +6,11 @@ status: draft
 tags: ["ai", "workflow", "bayesian", "agents"]
 ---
 
+<figure class="fig">
+  <img src="/writing/figures/bayesian-bus.webp" alt="Two-guys-on-a-bus meme: the gloomy passenger facing a rock wall is labeled 'Overwhelmed by all the agentic best practices'; the serene passenger facing a sunset is labeled 'Being Bayesian'." width="564" height="500" decoding="async" fetchpriority="high" />
+  <figcaption>The methodology.</figcaption>
+</figure>
+
 > **TL;DR:** for your Agentic maxxing, run bunch of two-arm A/B on your real task,
 > orchestrated by a coordinator agent: a lead agent plans the experiment, both arms do the
 > actual work, then lead agent do deep-dive survey on each arms and tell you what works
