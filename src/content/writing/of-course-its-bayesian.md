@@ -8,7 +8,7 @@ tags: ["ai", "workflow", "bayesian", "agents"]
 
 <figure class="fig">
   <img src="/writing/figures/bayesian-bus.webp" alt="Two-guys-on-a-bus meme: the gloomy passenger facing a rock wall is labeled 'Overwhelmed by all the agentic best practices'; the serene passenger facing a sunset is labeled 'Being Bayesian'." width="564" height="500" decoding="async" fetchpriority="high" />
-  <figcaption>The methodology.</figcaption>
+  <figcaption>Step 1: be Bayesian. Step 2: profit.</figcaption>
 </figure>
 
 > **TL;DR:** for your Agentic maxxing, run bunch of two-arm A/B on your real task,
