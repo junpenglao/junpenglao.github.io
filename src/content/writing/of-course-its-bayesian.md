@@ -59,14 +59,14 @@ post for another day.)
 
 **The arms combine, they do not only compete.** The winner ships either way, so the
 evaluation is almost free. But the lead also takes the best of both and hands back something
-better than either arm alone, which, if you already run things in parallel, you already
-should. Nothing is wasted. That is also PyMC Labs'
+better than either arm alone, which, if you already run things in parallel, you should be
+doing anyway. Nothing is wasted. That is also PyMC Labs'
 [sharpest operating rule](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents#operating-rules-for-self-improving-agents),
 the byproducts outlast any single edit, and the [jax-tap post](/writing/make-print-debugging-great-again/)
 tells the same story from the other end.
 
 None of this tests the tool from the outside. It builds the tool *with* the system, updating
-as evidence arrives: co-evolution, sequential updating with extra steps.
+as the evidence arrives. Co-evolution, which is sequential updating with extra steps.
 
 ## Why not just build the benchmark
 
