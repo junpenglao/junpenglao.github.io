@@ -39,29 +39,34 @@ They are friends and fellow Bayesians, and for the tasks they describe I think t
 right. Here is the other half: what I do when I cannot build that benchmark, which, for a
 solo developer or a small team, is most of the time.
 
-## The Bayesian half
+## The part that horrifies a frequentist
 
 I do not build a benchmark. I run a small experiment on the real work and read it closely.
+No clean control, no metric fixed in advance, N of a handful, and I decide by reading the
+traces. Nobody runs an experiment like this. It is faster than a benchmark,
+and it beats the people who did.
 
-**Make each observation count.** A run costs real money, so I do not brute-force a grid, I
-design the next comparison to tell me the most. Value of information.
+**Almost no change to my workflow.** I already work with a lead agent that spawns subagents,
+so the A/B is one more thing it knows how to do. I wrote it a skill: fork the task into two
+arms, run both, survey what each one did.
 
-**Two arms, on the real task.** A baseline and the change, both doing my actual work, not a
-synthetic proxy. The winner ships either way, so the evaluation costs almost nothing on top
-of the work I was already doing. Nothing is wasted. That is also PyMC Labs'
+**No experiment to design.** Designing a good one is where the time goes: the metrics, the
+harness, the argument about "good." I skip it. The lead plans the comparison, both
+arms do the real task, and I read what comes back and ask why. Small N works when you bring
+priors and look at the whole posterior. (An earlier A/B experiment of mine started me
+rethinking the abstraction layer of how information reaches an agent, but that is a
+post for another day.)
+
+**The arms combine, they do not only compete.** The winner ships either way, so the
+evaluation is almost free. But the lead also takes the best of both and hands back something
+better than either arm alone, which, if you already run things in parallel, you already
+should. Nothing is wasted. That is also PyMC Labs'
 [sharpest operating rule](https://www.pymc-labs.com/blog-posts/self-improving-ai-agents#operating-rules-for-self-improving-agents),
 the byproducts outlast any single edit, and the [jax-tap post](/writing/make-print-debugging-great-again/)
 tells the same story from the other end.
 
-**Read the thinking, not the score.** Small N works when you bring priors and look at the
-whole posterior. With an agent that means opening the trace and asking why it did what it
-did, reconstructing what the change actually moved. A coordinator agent makes this nearly
-free: it interrogates both arms while they run. (An earlier A/B experiment of mine is what
-started me rethinking the whole abstraction layer of how information reaches an agent, but
-that is a post for another day.)
-
 None of this tests the tool from the outside. It builds the tool *with* the system, updating
-as the evidence arrives. Co-evolution, which is sequential updating with extra steps.
+as evidence arrives: co-evolution, sequential updating with extra steps.
 
 ## Why not just build the benchmark
 
