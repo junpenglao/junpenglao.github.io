@@ -1,15 +1,18 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostListItem from "../../components/PostListItem.astro";
 import { getCollection } from "astro:content";
 
 // Public list MUST exclude status === "draft". Working + stable are shown.
-const posts = (
+const published = (
   await getCollection("writing", ({ data }) => data.status !== "draft")
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const fmtYear = (d: Date) => d.getFullYear().toString();
-const fmtDate = (d: Date) =>
-  d.toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric" });
+const essays = published.filter((p) => p.data.type === "essay");
+const posts = published.filter((p) => p.data.type !== "essay");
+
+// Section headings only make sense once there is more than one group to tell apart.
+const showHeadings = essays.length > 0;
 ---
 
 <BaseLayout
@@ -26,41 +29,49 @@ const fmtDate = (d: Date) =>
     </header>
 
     {
-      posts.length === 0 ? (
+      published.length === 0 ? (
         <p class="muted">Nothing published yet.</p>
       ) : (
-        <ol class="post-list">
-          {posts.map((post) => (
-            <li class="post-list__item">
-              <a class="post-list__link" href={`/writing/${post.slug}/`}>
-                <span class="post-list__year">{fmtYear(post.data.date)}</span>
-                <span class="post-list__body">
-                  <span class="post-list__title">{post.data.title}</span>
-                  {post.data.description && (
-                    <span class="post-list__desc muted">{post.data.description}</span>
-                  )}
-                  <span class="post-list__meta">
-                    <span
-                      class={`post-list__status post-list__status--${post.data.status}`}
-                    >
-                      {post.data.status}
-                    </span>
-                    <span class="post-list__sep" aria-hidden="true">
-                      ·
-                    </span>
-                    <time
-                      datetime={(post.data.updated ?? post.data.date)
-                        .toISOString()
-                        .slice(0, 10)}
-                    >
-                      {fmtDate(post.data.updated ?? post.data.date)}
-                    </time>
-                  </span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ol>
+        <div class="writing-sections">
+          {essays.length > 0 && (
+            <section class="writing-group" aria-labelledby="essays-head">
+              <div class="writing-group__head">
+                <h2 id="essays-head" class="writing-group__title">
+                  Essays
+                </h2>
+                <p class="writing-group__note muted">
+                  Longer, evergreen pieces.
+                </p>
+              </div>
+              <ol class="post-list">
+                {essays.map((post) => (
+                  <PostListItem post={post} />
+                ))}
+              </ol>
+            </section>
+          )}
+
+          {posts.length > 0 && (
+            <section
+              class="writing-group"
+              aria-labelledby={showHeadings ? "posts-head" : undefined}
+            >
+              {showHeadings && (
+                <div class="writing-group__head">
+                  <h2 id="posts-head" class="writing-group__title">
+                    Posts
+                  </h2>
+                  <p class="writing-group__note muted">Shorter notes, newest first.</p>
+                </div>
+              )}
+              <ol class="post-list">
+                {posts.map((post) => (
+                  <PostListItem post={post} />
+                ))}
+              </ol>
+            </section>
+          )}
+        </div>
       )
     }
   </section>
@@ -75,74 +86,28 @@ const fmtDate = (d: Date) =>
       margin-top: var(--space-s);
     }
 
+    .writing-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xl);
+    }
+    .writing-group__head {
+      margin-bottom: var(--space-m);
+    }
+    .writing-group__title {
+      font-size: var(--step-1);
+      margin: 0;
+    }
+    .writing-group__note {
+      font-size: var(--step--1);
+      margin-top: var(--space-xs);
+    }
+
     .post-list {
       list-style: none;
       margin: 0;
       padding: 0;
       max-width: 60rem;
-    }
-    .post-list__item {
-      border-top: 1px solid var(--rule);
-    }
-    .post-list__item:last-child {
-      border-bottom: 1px solid var(--rule);
-    }
-    .post-list__link {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-xs);
-      padding-block: var(--space-l);
-      color: var(--ink);
-    }
-    .post-list__link:hover {
-      text-decoration: none;
-    }
-    @media (min-width: 40rem) {
-      .post-list__link {
-        grid-template-columns: 5rem 1fr;
-        gap: var(--space-l);
-        align-items: baseline;
-      }
-    }
-    .post-list__year {
-      font-size: var(--step--1);
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-    .post-list__body {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xs);
-    }
-    .post-list__title {
-      font-size: var(--step-1);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .post-list__link:hover .post-list__title {
-      color: var(--accent);
-    }
-    .post-list__desc {
-      font-size: var(--step-0);
-      max-width: var(--measure);
-    }
-    .post-list__meta {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xs);
-      font-size: var(--step--1);
-      color: var(--muted);
-      margin-top: var(--space-xs);
-    }
-    .post-list__status {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.85em;
-      color: var(--accent);
-    }
-    .post-list__sep {
-      color: var(--rule);
     }
   </style>
 </BaseLayout>
