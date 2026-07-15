@@ -79,6 +79,11 @@ Partly because tokens are expensive, partly because I am lazy. But mostly this: 
 an agent precisely because the task is ambiguous, and ambiguous is exactly what resists a
 clean eval. Synthesize the benchmark and you can define away the thing you needed help with.
 
+And the ambiguity usually lives in the outcome, not only the path. In my runs the common case
+is not a clean win: both arms come back partially right along different dimensions, with no
+single end state to check them against. That is where a winner-take-all score has nothing to
+grab, and why the method reads both traces and grafts instead of ranking them.
+
 The benchmark is the engineer's move: define "good" precisely enough to optimize, build the
 harness, grade the runs. The expensive part is not the compute, it is specifying "good" for
 a task whose scope is fuzzy. A big lab can pay it. A small team usually cannot, and often
