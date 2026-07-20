@@ -2,9 +2,9 @@
 /**
  * DocMeta — a small "living document" header line for posts.
  *
- * Shows the document status (draft | working | stable) and the last-updated
- * date, reinforcing the knowledge-as-process convention used across the site.
- * Optionally shows the original publish date when it differs from `updated`.
+ * Always shows the document status (draft | working | stable), the
+ * last-updated date, and the original publish date, reinforcing the
+ * knowledge-as-process convention used across the site.
  */
 type Status = "draft" | "working" | "stable";
 
@@ -20,8 +20,6 @@ const fmt = (d: Date) =>
   d.toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric" });
 
 const lastUpdated = updated ?? date;
-const showPublished =
-  date.toISOString().slice(0, 10) !== lastUpdated.toISOString().slice(0, 10);
 
 const statusLabel: Record<Status, string> = {
   draft: "Draft",
@@ -37,17 +35,11 @@ const statusLabel: Record<Status, string> = {
     Last updated
     <time datetime={lastUpdated.toISOString().slice(0, 10)}>{fmt(lastUpdated)}</time>
   </span>
-  {
-    showPublished && (
-      <>
-        <span class="docmeta__sep" aria-hidden="true">·</span>
-        <span class="docmeta__published">
-          Published
-          <time datetime={date.toISOString().slice(0, 10)}>{fmt(date)}</time>
-        </span>
-      </>
-    )
-  }
+  <span class="docmeta__sep" aria-hidden="true">·</span>
+  <span class="docmeta__published">
+    Published
+    <time datetime={date.toISOString().slice(0, 10)}>{fmt(date)}</time>
+  </span>
 </p>
 
 <style>

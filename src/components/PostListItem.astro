@@ -1,11 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { lastUpdated } from "../lib/postDates";
 
 interface Props {
   post: CollectionEntry<"writing">;
 }
 
 const { post } = Astro.props;
+const updated = lastUpdated(post);
 
 const fmtYear = (d: Date) => d.getFullYear().toString();
 const fmtDate = (d: Date) =>
@@ -27,11 +29,10 @@ const fmtDate = (d: Date) =>
           {post.data.status}
         </span>
         <span class="post-list__sep" aria-hidden="true">·</span>
-        <time
-          datetime={(post.data.updated ?? post.data.date).toISOString().slice(0, 10)}
-        >
-          {fmtDate(post.data.updated ?? post.data.date)}
-        </time>
+        <span class="post-list__updated">
+          Last updated
+          <time datetime={updated.toISOString().slice(0, 10)}>{fmtDate(updated)}</time>
+        </span>
       </span>
     </span>
   </a>
