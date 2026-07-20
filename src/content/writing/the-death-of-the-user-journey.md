@@ -14,7 +14,7 @@ I felt the familiar urge to go find a tool. I looked at [Herdr](https://herdr.de
 
 <figure class="fig">
   <img src="/writing/figures/agent-messages-blocked.webp" alt="Meme-style photo of someone frantically trying to read one message on a phone while a wall of new notifications keeps popping up." width="1280" height="720" loading="lazy" decoding="async" />
-  <figcaption>Me, trying to find that one message again while new ones keep popping up left and right, all urgently blocked on me.</figcaption>
+  <figcaption>Me, trying to find that one message again while new ones keep popping up left and right, all urgently blocked on me. (Image: <a href="https://www.youtube.com/channel/UCrUI5mqQeZTiWui5UF0DsxA" target="_blank" rel="noopener noreferrer">source</a>)</figcaption>
 </figure>
 
 ## A cockpit for one
