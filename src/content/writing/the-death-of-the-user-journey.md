@@ -2,7 +2,7 @@
 title: "The Death of the User Journey"
 description: "You build your own software now. Well at least the front end part."
 date: 2026-07-20
-status: draft
+status: stable
 tags: ["ai", "workflow", "customization"]
 ---
 
@@ -12,9 +12,14 @@ I was running 3+ agentic coding sessions in parallel across various tmux windows
 
 I felt the familiar urge to go find a tool. I looked at [Herdr](https://herdr.dev/) and various tmux managers like [cmux](https://cmux.com/), but I felt that specific, mild annoyance: I would have to learn a new CLI, a new vocabulary, and a new opinionated way of seeing my own work. I already have enough frontends in my life. I don't want to learn another one just to look at my own terminal.
 
+<figure class="fig">
+  <img src="/writing/figures/agent-messages-blocked.webp" alt="Meme-style photo of someone frantically trying to read one message on a phone while a wall of new notifications keeps popping up." width="1280" height="720" loading="lazy" decoding="async" />
+  <figcaption>Me, trying to find that one message again while new ones keep popping up left and right, all urgently blocked on me.</figcaption>
+</figure>
+
 ## A cockpit for one
 
-So, I did what a modern 10x developer would do: I ask an AI agent to build a tiny, useless helper.
+So, I did what a modern 10x developer would do: I asked an AI agent to build a tiny, useless helper.
 
 It started as a naive attempt to build a custom HTML dashboard, a little web page to visualize my chaos. I quickly abandoned it; a browser tab is just another context to switch to, another place to lose focus. Then I tried to bend existing VSCode extensions to my will, manually testing a few that promised "session management". One of them actually came pretty close (tmux-manager), but just missing a bit of je ne sais quoi. Instead of looking for more, I just asked the agent to build on top of that, using a small library to manage my running tmux sessions. Then we added a lightweight VSCode frontend to show the status files my agents drop when they start, block, or finish. The result was a simple, lightweight sidebar of colored dots: red for blocked, yellow for working, green for done.
 
