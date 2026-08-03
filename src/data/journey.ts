@@ -75,7 +75,7 @@ export const JOURNEY: Era[] = [
     colStart: 1,
     colEnd: 2,
     summary:
-      "Where it started: psychology, and a quick turn from Freud toward the scientific method.",
+      "I started in psychology with Freud, then turned pretty quickly toward the scientific method.",
     artifacts: [
       {
         type: "Note",
@@ -101,21 +101,21 @@ export const JOURNEY: Era[] = [
     colStart: 2,
     colEnd: 4,
     summary:
-      "PhD at Glasgow and a postdoc at Fribourg: how culture shapes visual perception, through eye-tracking, EEG and fMRI. The work continued to appear in print through 2024.",
+      "My PhD at Glasgow and postdoc at Fribourg focused on how culture shapes visual perception, using eye-tracking, EEG, and fMRI. The work kept appearing in print through 2024.",
     artifacts: [
       {
         type: "Note",
         tag: "Method",
         title: "Simulate, reason, revise",
         blurb:
-          "At Glasgow I learned MATLAB and leaned on bootstrap and permutation methods for mixed-effect models (iMap4 grew out of that). Never a write-the-proof type: my instinct was to simulate, reason, revise, a hands-on primer for MCMC. With an fMRI scanner in the basement, collecting large datasets was the easy part; making sense of them was the work: cumbersome, manual GLM pipelines, and run after run of inspecting data by hand, which is where I built an intuition for the geometry of parameter space.",
+          "At Glasgow I learned MATLAB and leaned on bootstrap and permutation methods for mixed-effect models (iMap4 grew out of that). I was never a write-the-proof type: my instinct was to simulate, reason, revise. That became my hands-on primer for MCMC. With an fMRI scanner in the basement, collecting large datasets was the easy part. Making sense of them meant cumbersome, manual GLM pipelines and inspecting run after run by hand. That is where I built an intuition for the geometry of parameter space.",
       },
       {
         type: "Note",
         tag: "Fribourg",
         title: "Eye-tracking & the replication crisis",
         blurb:
-          "At Fribourg I ran the lab's analytics and worked mostly in eye-tracking, and was drawn into psychology's reproducibility reckoning, the context behind 'Justify Your Alpha'.",
+          "At Fribourg I ran our lab's analytics, mostly for eye-tracking work, and got pulled into psychology's reproducibility reckoning. That was the context for 'Justify Your Alpha'.",
       },
       {
         type: "Thesis",
@@ -208,14 +208,14 @@ export const JOURNEY: Era[] = [
     colStart: 3,
     colEnd: 7,
     summary:
-      "Taught myself Python and Bayesian statistics around 2013, and it became a second vocation: PyMC, TensorFlow Probability, BlackJAX, and a book.",
+      "I taught myself Python and Bayesian statistics around 2013. That grew into a second vocation: PyMC, TensorFlow Probability, BlackJAX, and a book.",
     artifacts: [
       {
         type: "Note",
         tag: "Community",
         title: "Built the PyMC community",
         blurb:
-          "Around 2013, running a lab's analytics, I taught myself Python and Bayesian statistics by building PyMC models, then started contributing, and the core devs recognized me as one of their own. I set up the PyMC Discourse and spent years answering modeling questions, which built a reputation and a wide-angle view of how people get stuck across very different fields. Workshops and talks followed; later, co-supervising a PhD that carried these methods into cosmology.",
+          "Around 2013, I was the lead researcher in our lab, responsible for data analytics. I taught myself Python and Bayesian statistics by building models in PyMC. I started contributing, and the core devs recognized me as one of their own. I set up the PyMC Discourse and spent years answering modeling questions. That work built my reputation and gave me a wide-angle view of how people get stuck across very different fields. Workshops and talks followed; later I co-supervised a PhD that carried these methods into cosmology.",
       },
       {
         type: "Library",
@@ -290,7 +290,7 @@ export const JOURNEY: Era[] = [
     colStart: 4,
     colEnd: 5,
     summary:
-      "Joined Google in 2018, now a Staff Data Scientist leading a team of four, working mainly on forecasting at scale.",
+      "I joined Google in 2018. Now I lead a team of four as a Staff Data Scientist, working mainly on forecasting at scale.",
     artifacts: [
       {
         type: "Note",
@@ -309,9 +309,9 @@ export const JOURNEY: Era[] = [
       {
         type: "Note",
         tag: "Leading",
-        title: "Manager, and the 'Bayesian guy'",
+        title: "Manager and the 'Bayesian guy'",
         blurb:
-          "After the pandemic I moved into management. Three of the four data scientists on my team have since been promoted into senior roles, and I'm still the unofficial 'Bayesian guy' teams call when a model misbehaves.",
+          "After the pandemic I moved into management. Three of the four data scientists on my team have since been promoted to senior roles, and I'm still the unofficial 'Bayesian guy' teams call when a model misbehaves.",
       },
       {
         type: "Paper",
@@ -336,14 +336,14 @@ export const JOURNEY: Era[] = [
     colStart: 5,
     colEnd: 6,
     summary:
-      "Knowledge as process: how knowledge gets generated when you work with AI agents. Where most of my attention is now.",
+      "Most of my attention now is on knowledge as process: how it gets generated when you work with AI agents.",
     artifacts: [
       {
         type: "Note",
         tag: "The turn",
         title: "From skeptic to convinced",
         blurb:
-          "I was a skeptic about the LLM wave, until I started building with agents in early 2026 and quickly found I had more ideas than time. The question I keep pulling at: how knowledge gets generated when you work in this new paradigm.",
+          "I was skeptical of the LLM wave until I started building with agents in early 2026 and quickly found I had more ideas than time. The thread I keep pulling on is how knowledge gets generated when you work this way.",
       },
       {
         type: "Tool",
@@ -371,12 +371,12 @@ export const JOURNEY: Era[] = [
     lane: "career",
     colStart: 6,
     colEnd: 7,
-    summary: "A new chapter begins. More soon.",
+    summary: "Something new starts in September. I cannot say more yet.",
     artifacts: [
       {
         type: "Next",
-        title: "Something new is taking shape",
-        blurb: "Watch this space, September 2026.",
+        title: "Ask me in September",
+        blurb: "More in September 2026.",
       },
     ],
   },
