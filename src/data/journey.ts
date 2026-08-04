@@ -3,7 +3,7 @@
  *
  * TWO PARALLEL LANES (a Gantt-style swimlane, not a fork):
  *   - "career": a segmented line of roles in sequence (Psychologist →
- *     Neuroscientist → Industry data scientist → Researcher of knowledge → ?).
+ *     Neuroscientist → Industry data scientist → Researcher of knowledge).
  *   - "oss": a parallel segmented line for the open-source Bayesian work
  *     (2013–present), stacked below and overlapping its time span.
  * `colStart`/`colEnd` are 1-based CSS grid-column lines on a shared time axis.
@@ -14,9 +14,9 @@
  * grouped "Papers" card. Papers map by WHEN THE WORK HAPPENED (the face-perception
  * work, in print 2012→2024, all sits in the Neuroscientist era). Full list on /cv.
  *
- * The Google era closed in 2026 and the final segment names rekursiv.ai
- * (revealed 2026-08-04); the "Researcher of knowledge" segment stays a
- * direction/thesis, which is what the rekursiv role makes into a job.
+ * The Google era closed in 2026. The final "Researcher of knowledge" segment
+ * merges the thesis with where it now points: the rekursiv.ai role sits inside
+ * it as a card rather than as a separate era (revealed 2026-08-04).
  */
 
 export type ArtifactType =
@@ -330,13 +330,13 @@ export const JOURNEY: Era[] = [
   {
     id: "researcher-of-knowledge",
     title: "Researcher of knowledge",
-    place: "",
+    place: "rekursiv.ai · Zurich / remote",
     period: "2026 →",
     lane: "career",
     colStart: 5,
-    colEnd: 6,
+    colEnd: 7,
     summary:
-      "Most of my attention now is on knowledge as process: how it gets generated when you work with AI agents.",
+      "Most of my attention now is on knowledge as process: how it gets generated when you work with AI agents. From September I do it as Founding Scientist / Chief Epistemologist at rekursiv.ai.",
     artifacts: [
       {
         type: "Note",
@@ -344,6 +344,14 @@ export const JOURNEY: Era[] = [
         title: "From skeptic to convinced",
         blurb:
           "I was skeptical of the LLM wave until I started building with agents in early 2026 and quickly found I had more ideas than time. The thread I keep pulling on is how knowledge gets generated when you work this way.",
+      },
+      {
+        type: "Next",
+        tag: "Now",
+        title: "Founding Scientist / Chief Epistemologist, rekursiv.ai",
+        blurb:
+          "Not just agents, but scientists: rekursiv builds AI Scientists that hypothesize, design and run experiments, interpret results, and review each other's work. Starting September 2026.",
+        link: "https://rekursiv.ai",
       },
       {
         type: "Tool",
@@ -360,26 +368,6 @@ export const JOURNEY: Era[] = [
         title:
           "Knowledge as Process: human-LLM dialogue as externalized expertise",
         blurb: "In progress.",
-      },
-    ],
-  },
-  {
-    id: "next",
-    title: "rekursiv.ai",
-    place: "Zurich / remote",
-    period: "Sept 2026 →",
-    lane: "career",
-    colStart: 6,
-    colEnd: 7,
-    summary:
-      "Founding Scientist / Chief Epistemologist at rekursiv.ai, building AI Scientists that autonomously create knowledge.",
-    artifacts: [
-      {
-        type: "Next",
-        title: "Founding Scientist / Chief Epistemologist",
-        blurb:
-          "Not just agents, but scientists: rekursiv builds AI Scientists that hypothesize, design and run experiments, interpret results, and review each other's work.",
-        link: "https://rekursiv.ai",
       },
     ],
   },

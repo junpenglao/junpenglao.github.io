@@ -231,19 +231,6 @@ const first = JOURNEY[0];
     color: var(--accent);
   }
 
-  /* upcoming segment — a dashed line for a chapter that has not started yet */
-  .timeline__seg[data-era="next"] .timeline__seg-bar {
-    background: transparent;
-    height: 0;
-    border-top: 2px dashed var(--accent);
-    border-radius: 0;
-  }
-  .timeline__seg[data-era="next"] .timeline__seg-bar::before {
-    border-style: dashed;
-    border-color: var(--accent);
-    background: var(--bg);
-  }
-
   /* ---- Desktop: two tight parallel lines; main labels above, OSS below --- */
   @media (min-width: 56rem) {
     .timeline__track {
