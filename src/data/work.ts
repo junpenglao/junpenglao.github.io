@@ -33,6 +33,21 @@ export interface WorkItem {
   flagged?: boolean;
 }
 
+export const FEATURED_WORK = {
+  title: "rekursiv.ai",
+  headline: "Autonomous science discovery with AI",
+  role: "Founding Scientist / Chief Epistemologist",
+  blurb:
+    "We're building a cockpit for autonomous research: teams of AI Scientists that form hypotheses, design evals, run experiments, and review each other's work. Every claim is traced back to evidence.",
+  links: [
+    { label: "Explore rekursiv.ai", href: "https://rekursiv.ai" },
+    {
+      label: "See what an AI team discovered",
+      href: "https://rekursiv.ai/blog/pushing-limits-arc-agi/",
+    },
+  ],
+} as const;
+
 /** The two prominent threads, in display order. */
 export interface WorkArea {
   id: AreaId;
@@ -45,13 +60,13 @@ export const AREAS: WorkArea[] = [
     id: "agents",
     title: "Thinking with AI agents: knowledge as process",
     framing:
-      "Could LLMs generate <strong><em>real</em></strong> knowledge? Yes, but there's an even lower-hanging fruit: explaining and correcting one surfaces your own tacit knowledge. Working with an agent is a form of teaching, and teaching is how you find out what you actually know. I'm building and writing to test that in public.",
+      "Can LLMs generate <strong><em>real</em></strong> knowledge? Yes. But explaining something to an agent, then correcting its answer, also surfaces your own tacit knowledge. Working with an agent is a form of teaching, and teaching is how you find out what you actually know. I'm building and writing in public to test that.",
   },
   {
     id: "bayesian",
     title: "Probabilistic programming & Bayesian computation",
     framing:
-      "Making rigorous Bayesian inference composable, fast, and genuinely usable, maintained in the open, with a community I care about.",
+      "I work on making rigorous Bayesian inference composable, fast, and genuinely usable. The tools are built in the open, with a community I care about.",
   },
 ];
 
@@ -60,7 +75,7 @@ export const AREAS: WorkArea[] = [
 export const ROOTS = {
   title: "Roots: cognitive science",
   body:
-    "Before Bayesian computation I trained as a cognitive scientist, a PhD and postdoc studying how culture shapes visual perception. Underneath the experiments were larger, less testable questions I never stopped turning over: how a mind models other minds, and how cognition and consciousness might arise from computation. They were closer to philosophy than experiment then, and still are. The LLM/agentic era has pulled them back into the light, so I'm slowly writing them down, clearly marked as speculation.",
+    "Before Bayesian computation, I trained as a cognitive scientist. My PhD and postdoc focused on how culture shapes visual perception. Underneath the experiments were larger, less testable questions I never stopped turning over: how a mind models other minds, and how cognition and consciousness might arise from computation. They were closer to philosophy than experiment then, and still are. Working with LLMs and agents has brought me back to those questions, so I'm slowly writing them down (clearly marked as speculation).",
   tool: {
     label: "iMap4",
     href: "https://github.com/iBMLab/iMap4",
@@ -71,20 +86,10 @@ export const ROOTS = {
 
 export const WORK: WorkItem[] = [
   {
-    title: "rekursiv.ai",
-    role: "Founding Scientist / Chief Epistemologist",
-    blurb:
-      "Autonomously create knowledge. A cockpit for autonomous research: fleets of AI Scientists that hypothesize, set evals, experiment, and review each other's work.",
-    links: [{ label: "Site", href: "https://rekursiv.ai" }],
-    tags: ["agents", "startup"],
-    area: "agents",
-    public: true,
-  },
-  {
     title: "BlackJAX",
     role: "Sole developer & curator",
     blurb:
-      "Composable, fast Bayesian inference in JAX: samplers as building blocks, with the sampling-book companion of tutorials and worked recipes.",
+      "Fast, composable Bayesian inference in JAX: samplers as building blocks, plus a companion sampling-book of tutorials and worked recipes.",
     links: [
       { label: "GitHub", href: "https://github.com/blackjax-devs/blackjax" },
       { label: "sampling-book", href: "https://blackjax-devs.github.io/sampling-book/" },
@@ -126,7 +131,7 @@ export const WORK: WorkItem[] = [
     title: "tuningfork",
     role: "Creator",
     blurb:
-      "A sampler benchmark built on the garden of forking paths: the branches that fail aren't waste, they're knowledge. Failure path as knowledge.",
+      "A sampler benchmark built around the garden of forking paths. It records the branches that fail, because the failure path is knowledge too.",
     links: [{ label: "GitHub", href: "https://github.com/blackjax-devs/tuningfork" }],
     tags: ["Bayesian", "benchmark", "open-source"],
     area: "agents",
@@ -136,7 +141,7 @@ export const WORK: WorkItem[] = [
     title: "agent-team",
     role: "Creator",
     blurb:
-      "A disciplined multi-agent workflow for developing the BlackJAX ecosystem: roles plus a worklog of threads, decisions, and lessons as a knowledge substrate.",
+      "A disciplined multi-agent workflow for developing the BlackJAX ecosystem: explicit roles, plus a worklog that keeps the threads, decisions, and lessons agents would otherwise lose.",
     links: [{ label: "GitHub", href: "https://github.com/blackjax-devs/agent-team" }],
     tags: ["agents", "open-source"],
     area: "agents",
@@ -146,7 +151,7 @@ export const WORK: WorkItem[] = [
     title: "memoires",
     role: "Creator",
     blurb:
-      "An expert-curated, evidence-graded, contradiction-aware catalog of Bayesian craft, distilled from the community's forums so an agent can consult it instead of re-deriving the hard-won answers.",
+      "An expert-curated catalog of Bayesian modeling knowledge, distilled from years of community forums. Evidence is graded and contradictions stay visible, so an agent can consult the hard-won answers instead of deriving them again.",
     links: [{ label: "GitHub", href: "https://github.com/arcueil/memoires" }],
     tags: ["Bayesian", "agents", "open-source"],
     area: "agents",
