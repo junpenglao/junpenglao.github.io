@@ -2,13 +2,14 @@
  * Work — the /work page: two prominent threads (areas) plus a grayed,
  * text-only "roots" note for the cognitive-science past.
  *
- * CONFIDENTIALITY: items with `flagged: true` are UNANNOUNCED and MUST NOT
- * render unless REVEAL_FLAGGED is true (it defaults to false). The public
- * filter is: items where `public === true` AND (`!flagged || REVEAL_FLAGGED`).
+ * Items render in array order within their area, so the first entry of an area
+ * is that area's lead card.
  *
- * Flagged items are NOT stored in this tracked, public file — they live only in
- * the gitignored sibling work.secret.ts. "sagent" is understated open-source
- * only — never tied to any company/role.
+ * Any item with `flagged: true` is UNANNOUNCED and renders only when
+ * REVEAL_FLAGGED is true. The public filter is: `public === true` AND
+ * (`!flagged || REVEAL_FLAGGED`). Flagged items are never stored in this
+ * tracked, public file; they live only in the gitignored work.secret.ts.
+ * There are none at present (the rekursiv move was revealed 2026-08-04).
  */
 
 export type AreaId = "bayesian" | "agents";
@@ -69,6 +70,16 @@ export const ROOTS = {
 } as const;
 
 export const WORK: WorkItem[] = [
+  {
+    title: "rekursiv.ai",
+    role: "Founding Scientist / Chief Epistemologist",
+    blurb:
+      "Autonomously create knowledge. A cockpit for autonomous research: fleets of AI Scientists that hypothesize, set evals, experiment, and review each other's work.",
+    links: [{ label: "Site", href: "https://rekursiv.ai" }],
+    tags: ["agents", "startup"],
+    area: "agents",
+    public: true,
+  },
   {
     title: "BlackJAX",
     role: "Sole developer & curator",
@@ -147,17 +158,6 @@ export const WORK: WorkItem[] = [
     blurb: "Multi-provider agent CLI and Python library.",
     links: [{ label: "GitHub", href: "https://github.com/rekursiv-ai/sagent" }],
     tags: ["agents", "open-source"],
-    area: "agents",
-    public: true,
-  },
-
-  {
-    title: "rekursiv.ai",
-    role: "Founding Scientist / Chief Epistemologist",
-    blurb:
-      "Autonomously create knowledge. A cockpit for autonomous research: fleets of AI Scientists that hypothesize, set evals, experiment, and review each other's work.",
-    links: [{ label: "Site", href: "https://rekursiv.ai" }],
-    tags: ["agents", "startup"],
     area: "agents",
     public: true,
   },
