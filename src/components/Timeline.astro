@@ -75,7 +75,7 @@ const first = JOURNEY[0];
             ),
           ].map((a) => (
             <li
-              class={`timeline__card${a.type === "Note" ? " timeline__card--note" : ""}`}
+              class={`timeline__card${a.type === "Note" ? " timeline__card--note" : ""}${a.type === "Next" ? " timeline__card--now" : ""}`}
             >
               <span class="tag">{a.tag ?? a.type}</span>
               {a.link ? (
@@ -341,6 +341,20 @@ const first = JOURNEY[0];
     background: color-mix(in srgb, var(--accent) 7%, var(--bg));
     border-color: color-mix(in srgb, var(--accent) 22%, var(--rule));
   }
+  /* the current role: the one card that should read as "this is where I am
+     now", so it carries the accent rather than a tint of it. */
+  .timeline__card--now {
+    background: color-mix(in srgb, var(--accent) 13%, var(--bg));
+    border-color: var(--accent);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  .timeline__card--now .tag {
+    justify-self: start;
+    color: var(--on-accent);
+    background: var(--accent);
+    padding: 0.15em 0.55em;
+    border-radius: 3px;
+  }
   /* tag → title breathing room (owner feedback) */
   .timeline__card .tag {
     margin-bottom: var(--space-xs);
@@ -469,7 +483,9 @@ const first = JOURNEY[0];
         ? `<a class="timeline__card-title" href="${esc(a.link)}" rel="noopener">${esc(a.title)}</a>`
         : `<span class="timeline__card-title">${esc(a.title)}</span>`;
       const cls =
-        "timeline__card" + (a.type === "Note" ? " timeline__card--note" : "");
+        "timeline__card" +
+        (a.type === "Note" ? " timeline__card--note" : "") +
+        (a.type === "Next" ? " timeline__card--now" : "");
       const paper = a.paper
         ? `<p class="timeline__card-paper">Paper: ${
             a.paper.link
