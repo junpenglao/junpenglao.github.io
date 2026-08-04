@@ -372,13 +372,13 @@ export const JOURNEY: Era[] = [
     colStart: 6,
     colEnd: 7,
     summary:
-      "Founding Scientist / Chief Epistemologist at rekursiv.ai, building AI agents that autonomously create knowledge.",
+      "Founding Scientist / Chief Epistemologist at rekursiv.ai, building AI Scientists that autonomously create knowledge.",
     artifacts: [
       {
         type: "Next",
         title: "Founding Scientist / Chief Epistemologist",
         blurb:
-          "rekursiv builds AI scientists that hypothesize, run experiments, and review each other.",
+          "Not just agents, but scientists: rekursiv builds AI Scientists that hypothesize, design and run experiments, interpret results, and review each other's work.",
         link: "https://rekursiv.ai",
       },
     ],

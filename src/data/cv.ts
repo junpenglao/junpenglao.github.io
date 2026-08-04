@@ -120,7 +120,7 @@ export const CV: CV = {
       organization: "rekursiv.ai",
       location: "Zurich / remote",
       period: "Sept 2026–present",
-      note: "How agent-generated knowledge gets produced, organized, and made to compound across tasks.",
+      note: "Fleets of AI Scientists that autonomously create knowledge: how what they produce gets organized, and made to compound across tasks.",
     },
     {
       role: "Staff Data Scientist",

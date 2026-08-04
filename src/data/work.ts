@@ -155,7 +155,7 @@ export const WORK: WorkItem[] = [
     title: "rekursiv.ai",
     role: "Founding Scientist / Chief Epistemologist",
     blurb:
-      "Autonomously create knowledge: AI agents that hypothesize, experiment, and discover.",
+      "Autonomously create knowledge. A cockpit for autonomous research: fleets of AI Scientists that hypothesize, set evals, experiment, and review each other's work.",
     links: [{ label: "Site", href: "https://rekursiv.ai" }],
     tags: ["agents", "startup"],
     area: "agents",
