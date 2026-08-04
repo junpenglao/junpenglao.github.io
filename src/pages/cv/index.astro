@@ -6,15 +6,19 @@ import "../../styles/cv-print.css";
 
 const description = `Curriculum vitae of ${CV.name}, ${CV.postnominal}. ${CV.headline}`;
 
-// JSON-LD (Person). Pre-reveal safe: public identity only, no career move.
+// JSON-LD (Person). Public identity, current role included.
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: CV.name,
   url: SITE.url,
   email: SITE.email,
-  jobTitle: "Staff Data Scientist",
-  worksFor: { "@type": "Organization", name: "Google" },
+  jobTitle: "Founding Scientist / Chief Epistemologist",
+  worksFor: {
+    "@type": "Organization",
+    name: "rekursiv.ai",
+    url: "https://rekursiv.ai",
+  },
   knowsAbout: [
     "Bayesian computation",
     "Probabilistic programming",
@@ -25,6 +29,7 @@ const jsonLd = {
     "https://scholar.google.com/citations?user=J-KhWL8AAAAJ",
     "https://github.com/junpenglao",
     "https://www.linkedin.com/in/junpeng-lao/",
+    "https://rekursiv.ai",
   ],
 };
 ---

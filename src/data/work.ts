@@ -151,9 +151,26 @@ export const WORK: WorkItem[] = [
     public: true,
   },
 
-  // ----- FLAGGED items are UNANNOUNCED and intentionally NOT in this tracked,
-  // public file. They live only in the gitignored sibling work.secret.ts
-  // (export const SECRET_WORK: WorkItem[]), which /work merges in via
-  // import.meta.glob and renders ONLY when REVEAL_FLAGGED === true. Never put
-  // unannounced names / titles / links in this committed file.
+  {
+    title: "rekursiv.ai",
+    role: "Founding Scientist / Chief Epistemologist",
+    blurb:
+      "Autonomously create knowledge: AI agents that hypothesize, experiment, and discover.",
+    links: [{ label: "Site", href: "https://rekursiv.ai" }],
+    tags: ["agents", "startup"],
+    area: "agents",
+    public: true,
+  },
+
+  // ----- Any FUTURE unannounced item stays out of this tracked, public file.
+  // It lives only in a gitignored sibling work.secret.ts (export const
+  // SECRET_WORK: WorkItem[]), which /work merges in via import.meta.glob and
+  // renders ONLY when REVEAL_FLAGGED === true.
 ];
+
+/** Public inline links used in area framing text. */
+export const AREA_LINKS = {
+  // "Yes" in the agents-area framing → proof that LLMs can generate real knowledge.
+  agentsYes:
+    "https://rekursiv.ai/blog/an-ai-team-invented-an-algorithm-i-wouldnt-have/",
+} as const;

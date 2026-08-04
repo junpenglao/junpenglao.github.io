@@ -1,11 +1,11 @@
 /**
  * Site configuration for "Motif of the Mind" — junpenglao.xyz
  *
- * REVEAL_FLAGGED gates UNANNOUNCED content. It MUST default to false.
- * No flagged content may render while this is false; flagged items live only in
- * gitignored *.secret.ts files. Check this flag before rendering any `flagged` item.
+ * REVEAL_FLAGGED gated the rekursiv.ai move while it was unannounced. Flipped
+ * true at the 2026-08-04 reveal; flagged items now render. Kept as a switch so
+ * any future unannounced item can reuse the same *.secret.ts mechanism.
  */
-export const REVEAL_FLAGGED = false as const;
+export const REVEAL_FLAGGED = true as const;
 
 export const SITE = {
   name: "Junpeng Lao",

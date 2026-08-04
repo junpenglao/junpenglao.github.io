@@ -14,9 +14,9 @@
  * grouped "Papers" card. Papers map by WHEN THE WORK HAPPENED (the face-perception
  * work, in print 2012→2024, all sits in the Neuroscientist era). Full list on /cv.
  *
- * CONFIDENTIALITY: the "Researcher of knowledge" and "?" segments are a
- * DIRECTION/THESIS only — never name a company or title; no collaborator names
- * tied to the agent pivot. No end date on the industry segment, no departure.
+ * The Google era closed in 2026 and the final segment names rekursiv.ai
+ * (revealed 2026-08-04); the "Researcher of knowledge" segment stays a
+ * direction/thesis, which is what the rekursiv role makes into a job.
  */
 
 export type ArtifactType =
@@ -285,12 +285,12 @@ export const JOURNEY: Era[] = [
     id: "industry",
     title: "Industry data scientist",
     place: "Zurich",
-    period: "2018–present",
+    period: "2018–2026",
     lane: "career",
     colStart: 4,
     colEnd: 5,
     summary:
-      "I joined Google in 2018. Now I lead a team of four as a Staff Data Scientist, working mainly on forecasting at scale.",
+      "Eight years at Google, ending as a Staff Data Scientist leading a team of four, working mainly on forecasting at scale.",
     artifacts: [
       {
         type: "Note",
@@ -311,7 +311,7 @@ export const JOURNEY: Era[] = [
         tag: "Leading",
         title: "Manager and the 'Bayesian guy'",
         blurb:
-          "After the pandemic I moved into management. Three of the four data scientists on my team have since been promoted to senior roles, and I'm still the unofficial 'Bayesian guy' teams call when a model misbehaves.",
+          "After the pandemic I moved into management. Three of the four data scientists on my team were promoted to senior roles, and I stayed the unofficial 'Bayesian guy' teams called when a model misbehaved.",
       },
       {
         type: "Paper",
@@ -365,18 +365,21 @@ export const JOURNEY: Era[] = [
   },
   {
     id: "next",
-    title: "?",
-    place: "",
-    period: "Sept 2026",
+    title: "rekursiv.ai",
+    place: "Zurich / remote",
+    period: "Sept 2026 →",
     lane: "career",
     colStart: 6,
     colEnd: 7,
-    summary: "Something new starts in September. I cannot say more yet.",
+    summary:
+      "Founding Scientist / Chief Epistemologist at rekursiv.ai, building AI agents that autonomously create knowledge.",
     artifacts: [
       {
         type: "Next",
-        title: "Ask me in September",
-        blurb: "More in September 2026.",
+        title: "Founding Scientist / Chief Epistemologist",
+        blurb:
+          "rekursiv builds AI scientists that hypothesize, run experiments, and review each other.",
+        link: "https://rekursiv.ai",
       },
     ],
   },

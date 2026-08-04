@@ -1,37 +1,29 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WorkCard from "../../components/WorkCard.astro";
-import { WORK, AREAS, ROOTS, type WorkItem } from "../../data/work";
+import { WORK, AREAS, ROOTS, AREA_LINKS, type WorkItem } from "../../data/work";
 import { REVEAL_FLAGGED } from "../../config";
 
-// Flagged/unannounced items live ONLY in a gitignored sibling (work.secret.ts),
-// so they never enter the public repo. import.meta.glob resolves to {} when the
-// file is absent (e.g. a public CI checkout), so the build always succeeds.
+// Any future unannounced item lives ONLY in a gitignored sibling
+// (work.secret.ts), so it never enters the public repo. import.meta.glob
+// resolves to {} when the file is absent, so the build always succeeds.
 const secretMods = import.meta.glob<{
   SECRET_WORK?: WorkItem[];
-  SECRET_LINKS?: Record<string, string>;
 }>("../../data/work.secret.ts", { eager: true });
 const secretWork = Object.values(secretMods).flatMap((m) => m.SECRET_WORK ?? []);
-const secretLinks: Record<string, string> = Object.assign(
-  {},
-  ...Object.values(secretMods).map((m) => m.SECRET_LINKS ?? {}),
-);
 
 // Public filter: shown publicly AND (not flagged OR the reveal flag is on).
-// REVEAL_FLAGGED defaults to false, so flagged items never render publicly.
 const items = [...WORK, ...secretWork].filter(
   (w) => w.public && (!w.flagged || REVEAL_FLAGGED),
 );
 const itemsFor = (area: string) => items.filter((w) => w.area === area);
 
-// Reveal-gated inline link: pre-reveal the agents-area "Yes" is plain text;
-// when REVEAL_FLAGGED flips, it links to the proof post (URL lives only in the
-// gitignored work.secret.ts, so it never enters the public repo or build).
+// The agents-area "Yes" links to the proof post.
 const framingHtml = (area: { id: string; framing: string }) =>
-  area.id === "agents" && REVEAL_FLAGGED && secretLinks.agentsYes
+  area.id === "agents"
     ? area.framing.replace(
-        "knowledge? Yes —",
-        `knowledge? <a href="${secretLinks.agentsYes}">Yes</a> —`,
+        "knowledge? Yes,",
+        `knowledge? <a href="${AREA_LINKS.agentsYes}">Yes</a>,`,
       )
     : area.framing;
 ---

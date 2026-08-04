@@ -55,23 +55,6 @@ jobs:
           printf 'junpenglao.xyz' > dist/CNAME
           touch dist/.nojekyll
 
-      # P0 confidentiality gate: the rendered site must never contain any of the
-      # owner's unannounced career-move strings. The pattern is base64-encoded so
-      # the plaintext secrets do not live in this public workflow file; it is
-      # decoded at runtime into a grep -E alternation.
-      - name: Verify no confidential strings shipped
-        run: |
-          # NB: the open-source GitHub org link and the public tfp.mcmc co-author
-          # surname are intentionally allowed; the gate still blocks the
-          # unannounced company / role / transition strings, which live ONLY in
-          # the base64-encoded pattern below — never in plaintext in this file.
-          PATTERN="$(printf '%s' 'cmVrdXJzaXZcLmFpfGNoaWVmIGVwaXN0ZW1vbG9naXN0fGNoaWVmIHNjaWVudGlzdHxsZWF2aW5nIGdvb2dsZQ==' | base64 -d)"
-          if grep -rIinE "$PATTERN" dist; then
-            echo "::error::Confidential string found in build output — failing deploy."
-            exit 1
-          fi
-          echo "Confidentiality check passed."
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

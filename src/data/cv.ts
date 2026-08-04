@@ -5,10 +5,8 @@
  * it does NOT depend on the OpenAlex pipeline. Extracted from the legacy
  * cv/index.html and cv/papers/index.html.
  *
- * CONFIDENTIALITY: This file is committed to a PUBLIC repo and rendered into
- * PUBLIC HTML. It MUST NOT contain any unannounced career move. The industry
- * era is "Data Scientist, Google (2018–present)" with NO end date and NO
- * departure, no unannounced title, no unannounced affiliation.
+ * The rekursiv.ai move was revealed 2026-08-04; the Google era is now closed
+ * (2018–2026) and the current role is public.
  *
  * Paper PDFs are migrated to /public/cv/papers/<file> by the Pipelines agent;
  * reference them at /cv/papers/<file>. External PDFs keep their absolute URLs.
@@ -34,7 +32,7 @@ export interface PositionEntry {
   role: string;
   organization: string;
   location?: string;
-  /** Use "2018–present" style; NEVER an end date on the current industry era. */
+  /** Use "2018–present" style. */
   period: string;
   note?: string;
 }
@@ -113,15 +111,22 @@ export const CV: CV = {
   bio: [
     "Junpeng Lao works on Bayesian computation and probabilistic programming. He is a core developer of PyMC, a contributor to TensorFlow Probability (tfp.mcmc), and the sole developer and curator of the BlackJAX ecosystem for composable Bayesian inference in JAX.",
     "He co-authored Bayesian Modeling and Computation in Python (Martin, Kumar & Lao; CRC Press, 2021), a hands-on guide to modern Bayesian workflow.",
-    "He trained as a cognitive scientist (a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception) before moving into industry data science at Google, where he is now a Staff Data Scientist. He is increasingly preoccupied with how knowledge gets made when working with AI agents: knowledge as process.",
+    "He trained as a cognitive scientist (a PhD at the University of Glasgow and a postdoc at the University of Fribourg studying how culture shapes visual perception), then spent eight years in industry data science at Google. He is now Founding Scientist / Chief Epistemologist at rekursiv.ai, working on how knowledge gets made when humans and AI agents think together: knowledge as process.",
   ],
 
   positions: [
     {
+      role: "Founding Scientist / Chief Epistemologist",
+      organization: "rekursiv.ai",
+      location: "Zurich / remote",
+      period: "Sept 2026–present",
+      note: "How agent-generated knowledge gets produced, organized, and made to compound across tasks.",
+    },
+    {
       role: "Staff Data Scientist",
       organization: "Google",
       location: "Zurich, Switzerland",
-      period: "2018–present",
+      period: "2018–2026",
       note: "Forecasting for Trust & Safety (Bayesian structural time series, linear-Gaussian state-space models); leading a small data-science team.",
     },
     {
