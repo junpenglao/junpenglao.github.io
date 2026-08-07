@@ -59,12 +59,12 @@ I hope you read that in
 
 ## Wait, why is Jeff Dean also following what I am doing?
 
-In *The Hitchhiker's Guide to the Galaxy*, Deep Thought runs for seven and a half million
-years and returns the Answer to Life, the Universe, and Everything. The answer is 42. The
-problem, which takes the rest of the book, is that nobody ever knew what the question was.
+In *The Hitchhiker's Guide to the Galaxy*, a computer called Deep Thought is built to work out
+the Answer to Life, the Universe, and Everything. It returns 42. The problem, which takes the
+rest of the book, is that nobody ever knew what the question was.
 
 That gag has aged strangely well, though the shape is inverted. Deep Thought spent seven and a
-half million years to produce two characters. Ask a model almost anything and two thousand
+half million years to produce two characters. Ask a LLM almost anything and two thousand
 words come back before you finish typing, fluent, fast and cheap. What has not gotten cheaper
 in either case is knowing which question was worth asking, and whether the answer you got is
 warranted.
@@ -74,16 +74,16 @@ best friend Dan at [rekursiv.ai](https://rekursiv.ai) as Founding Scientist and 
 Epistemologist. The mission is to **autonomously create knowledge**, using AI, LLMs, agents,
 whichever word you prefer (interchangeable today, probably not for much longer).
 
-My pet theory about where LLMs currently succeed and where they stop: they are excellent
-(meta) compression algorithms. The compression half is obvious, they are very good
-at summarizing. The decompression half is the one that interests me for science. You give it
-a research question and it unpacks that into analysis and argument, pulling in fresh
-information from web search, from experiments, from papers, and hands you end to end
-reasoning.
-
-What makes the decompression interesting is how much depends on the question. Connect two
-concepts that look unrelated, add the right hint or heuristic as a follow up, and the thing
-unfolds into a coherent picture with real sparks in it. A recent example is Terry Tao
+My pet theory about LLMs is that they are excellent (meta) compression algorithms. The
+compression half is obvious, they are very good at summarizing. The decompression half goes
+beyond the traditional sense, because it is active: you give it a research question and it
+does not only unpack what it already holds, it goes and gathers, pulling in fresh information
+from web search and papers, and running its own experiments. Then it hands you end to end
+reasoning. What makes the decompression almost magical is when your question connects two
+concepts that look unrelated. Sometimes you add the right hint or heuristic as a follow up,
+and it draws a path between two points sitting far apart in whatever manifold it learned. That
+is when the thing unfolds into a coherent picture with real sparks in it. A recent example is
+Terry Tao
 [digesting the Jacobian Conjecture counterexample](https://terrytao.wordpress.com/2026/07/21/a-digestion-of-the-jacobian-conjecture-counterexample/),
 with [a chatbot to talk it through and confirm the calculations](https://chatgpt.com/share/6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56).
 
