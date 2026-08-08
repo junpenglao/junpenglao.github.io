@@ -83,7 +83,7 @@ reasoning. What makes the decompression almost magical is when your question con
 concepts that look unrelated. Sometimes you add the right hint or heuristic as a follow up,
 and it draws a path between two points sitting far apart in whatever manifold it learned. That
 is when the thing unfolds into a coherent picture with real sparks in it. A recent example is
-Terry Tao
+Terence Tao
 [digesting the Jacobian Conjecture counterexample](https://terrytao.wordpress.com/2026/07/21/a-digestion-of-the-jacobian-conjecture-counterexample/),
 with [a chatbot to talk it through and confirm the calculations](https://chatgpt.com/share/6a5fdc7a-d6f8-83e8-bbea-8deb42cfed56).
 
